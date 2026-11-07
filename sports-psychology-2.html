@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sports Psychology: True or False?</title>
+<style>
+:root{--ink:#203044;--muted:#607084;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--line:#dce4eb}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:28px 18px 50px}.hero{background:linear-gradient(125deg,#1b4d2e,#4a9b5f);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.85}.hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08;margin:9px 0 12px}.hero p{max-width:660px;margin:0;color:#eef5f9}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 11px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
+.instructions{color:var(--muted);margin:0}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}.fill{height:100%;width:0;background:var(--blue);transition:width .25s}
+.number{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.statement{font-size:clamp(1.25rem,3vw,1.65rem);line-height:1.35;font-weight:700;margin:10px 0 22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}.choice:disabled{cursor:default;opacity:1}.choice.selected{border-color:var(--blue);background:var(--blue2)}.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{display:none;margin-top:18px;border-radius:12px;padding:15px 16px;background:#f0f4f7;border-left:4px solid var(--blue)}.feedback.show{display:block}.feedback strong{display:block;margin-bottom:4px}.feedback p{margin:0}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:750;font-size:.95rem;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#eaf0f4;color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none}.result.show{display:block}.score{font-size:2.7rem;font-weight:800;color:var(--blue);line-height:1.1}.scoreline{color:var(--muted)}.review{margin-top:18px}.review details{border-top:1px solid var(--line);padding:12px 0}.review summary{font-weight:700;cursor:pointer}.review p{margin:8px 0 0;color:var(--muted)}
+.sources h2{margin:0 0 8px;font-size:1.2rem}.sources p{color:var(--muted);font-size:.9rem}.sources ol{padding-left:22px}.sources li{margin:9px 0;font-size:.9rem}.sources a{color:var(--blue);overflow-wrap:anywhere}.note{font-size:.88rem;color:var(--muted);margin-top:16px}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
+@media(max-width:560px){.wrap{padding:16px 12px 34px}.hero{padding:24px 20px}.panel{padding:18px}.choices{grid-template-columns:1fr}.topline{align-items:flex-start}}
+@media print{body{background:white}.hero{background:#1b4d2e!important;print-color-adjust:exact}.panel{box-shadow:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">English • B1–B2</div>
+  <h1>Sports Psychology: True or False?</h1>
+  <p>Choking, hot hands, lucky charms and the mind of an athlete. How much do you know about what happens in the head of a sports player?</p>
+  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+</header>
+
+<section class="panel" id="intro">
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
+</section>
+
+<section class="panel" id="quiz" hidden aria-live="polite">
+  <div class="topline"><span id="counter">Question 1 of 20</span><span id="scoreNow">Score: 0</span></div>
+  <div class="track"><div class="fill" id="progress"></div></div>
+  <div class="number" id="qnumber">STATEMENT 01</div>
+  <div class="statement" id="statement"></div>
+  <div class="choices">
+    <button class="choice" id="trueBtn">✓ &nbsp; True</button>
+    <button class="choice" id="falseBtn">✕ &nbsp; False</button>
+  </div>
+  <div class="feedback" id="feedback" role="status" aria-live="polite"><strong id="verdict"></strong><p id="explanation"></p></div>
+  <div class="actions"><button class="btn primary" id="next" disabled>Next statement →</button></div>
+</section>
+
+<section class="panel result" id="result" aria-live="polite">
+  <div class="number">QUIZ COMPLETE</div>
+  <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="review" id="review" hidden></div>
+</section>
+
+<section class="panel sources">
+  <h2>Sources and useful context</h2>
+  <p>These pages are good starting points for background reading on the topics in the quiz. Research findings can be updated or challenged over time.</p>
+  <ol>
+    <li><a href="https://en.wikipedia.org/wiki/Choke_(sports)" target="_blank" rel="noopener">Choke (sports)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Home_advantage" target="_blank" rel="noopener">Home advantage</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Motor_imagery" target="_blank" rel="noopener">Motor imagery (mental practice)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Hot_hand" target="_blank" rel="noopener">Hot hand</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Yerkes%E2%80%93Dodson_law" target="_blank" rel="noopener">Yerkes–Dodson law</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/K._Anders_Ericsson" target="_blank" rel="noopener">K. Anders Ericsson and deliberate practice</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Penalty_shoot-out_(association_football)" target="_blank" rel="noopener">Penalty shoot-out (association football)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Flow_(psychology)" target="_blank" rel="noopener">Flow (psychology)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Roger_Bannister" target="_blank" rel="noopener">Roger Bannister and the four-minute mile</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Sports_Illustrated_cover_jinx" target="_blank" rel="noopener">Sports Illustrated cover jinx</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Regression_toward_the_mean" target="_blank" rel="noopener">Regression toward the mean</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Counterfactual_thinking" target="_blank" rel="noopener">Counterfactual thinking</a></li>
+  </ol>
+  <p class="note"><b>Language tip:</b> To “choke” in sport means to perform badly under pressure when you would normally do well. “Flow” is a state of complete focus on an activity. “Arousal” means how alert and energised you feel.</p>
+</section>
+<footer>Independent classroom activity • Sports Psychology: True or False?</footer>
+</main>
+<script>
+const items = [
+ {
+  "s": "Under pressure, athletes can ‘choke’ by thinking too much about a movement that they normally do automatically.",
+  "a": true,
+  "e": "True. Over-thinking can disturb skills that are usually automatic, such as a golf putt or a free throw."
+ },
+ {
+  "s": "Home advantage in sport is a myth: teams win equally often at home and away.",
+  "a": false,
+  "e": "False. In most team sports, home teams win more often than away teams. Crowds, travel and familiarity may all play a part."
+ },
+ {
+  "s": "Athletes can improve their performance by vividly imagining a movement, as a supplement to physical practice.",
+  "a": true,
+  "e": "True. Mental imagery activates some of the same brain areas as the real movement. Many elite athletes use it."
+ },
+ {
+  "s": "Later research suggests the ‘hot hand’ in basketball may be real, after a mathematical flaw was found in an early study.",
+  "a": true,
+  "e": "True. A famous 1985 study said the hot hand was an illusion. In 2018, researchers found a statistical bias in it and found evidence for a small real effect."
+ },
+ {
+  "s": "Athletes always perform best when they are as excited and ‘pumped up’ as possible.",
+  "a": false,
+  "e": "False. Too much arousal can hurt, especially for tasks that need fine control. Many tasks are best at a moderate level, as in the Yerkes–Dodson law."
+ },
+ {
+  "s": "Practising for exactly 10,000 hours guarantees that anyone will become a world-class expert.",
+  "a": false,
+  "e": "False. The ‘10,000 hours’ idea was simplified from research by Anders Ericsson. The quality of practice matters, and the number of hours needed varies by field and person."
+ },
+ {
+  "s": "Elite golfers and basketball shooters tend to keep their eyes fixed on the target for longer just before they start the movement.",
+  "a": true,
+  "e": "True. This is called the ‘quiet eye’. Experts tend to have a longer final fixation than less skilled players."
+ },
+ {
+  "s": "Pre-performance routines, such as bouncing the ball before a free throw, are linked to better performance under pressure.",
+  "a": true,
+  "e": "True. A routine can help an athlete to focus on the task and shut out distractions."
+ },
+ {
+  "s": "In football penalty kicks, goalkeepers would stop more shots by staying in the centre, but they usually dive to one side.",
+  "a": true,
+  "e": "True. Researchers found that the centre of the goal is often the best place to stand, but diving feels better because doing nothing looks worse if a goal is scored."
+ },
+ {
+  "s": "Research suggests that simple instructional self-talk, such as saying ‘smooth and steady’, can improve sports performance.",
+  "a": true,
+  "e": "True. Reviews of many studies found that self-talk can help, especially for tasks that need precision or focus."
+ },
+ {
+  "s": "‘Flow’ is a state in which an athlete is completely absorbed in a challenging activity that matches their skill level.",
+  "a": true,
+  "e": "True. The psychologist Mihaly Csikszentmihalyi described flow. Athletes often describe it as being ‘in the zone’."
+ },
+ {
+  "s": "Doing a mentally tiring task before exercise has no effect on how long you can keep going.",
+  "a": false,
+  "e": "False. In experiments, people who did a demanding mental task first gave up sooner in a cycling test, even though their muscles were not weaker."
+ },
+ {
+  "s": "After Roger Bannister ran the first sub-four-minute mile in 1954, other runners broke the barrier soon after.",
+  "a": true,
+  "e": "True. John Landy did it within about seven weeks, and many followed in the next few years. Some say the first success changed what runners believed was possible."
+ },
+ {
+  "s": "The best athletes never feel anxious before a big competition.",
+  "a": false,
+  "e": "False. Nerves are normal, even for Olympic champions. Top athletes often learn to see their anxiety as useful energy."
+ },
+ {
+  "s": "Research suggests that adding too many star players to a team can sometimes hurt team performance.",
+  "a": true,
+  "e": "True. This has been called the ‘too-much-talent effect’. Studies of football and basketball found that teams with huge talent can lose co-ordination."
+ },
+ {
+  "s": "In a 2010 experiment, golfers who were told they were using a ‘lucky’ ball putted better than golfers using a normal ball.",
+  "a": true,
+  "e": "True. The researchers suggested that the feeling of luck boosted confidence. Not every researcher agrees on how strong the effect is."
+ },
+ {
+  "s": "Athletes usually learn skills better when they focus on their body movements than on the effect of the movement.",
+  "a": false,
+  "e": "False. Many studies by Gabriele Wulf found that an ‘external focus’ (e.g. the target or the ball) works better than an ‘internal focus’ (e.g. your arm)."
+ },
+ {
+  "s": "Olympic silver medallists generally look happier on the podium than bronze medallists.",
+  "a": false,
+  "e": "False. A famous study found that bronze medallists often looked happier. Silver medallists compare themselves with the gold they just missed, while bronze medallists compare themselves with finishing fourth."
+ },
+ {
+  "s": "Listening to music can improve performance in endurance exercise, such as running or cycling.",
+  "a": true,
+  "e": "True. Music can reduce the feeling of effort and make exercise feel more enjoyable, especially at low to moderate intensity."
+ },
+ {
+  "s": "The ‘Sports Illustrated cover jinx’ is a real curse: athletes on the magazine cover often perform worse afterwards.",
+  "a": false,
+  "e": "False. Athletes are usually put on the cover after an exceptional run. Performance then naturally moves back towards normal, which is called regression to the mean."
+ }
+];
+let order=[], index=0, score=0, answers=[];
+const $=id=>document.getElementById(id);
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
+function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
+function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
+function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
+$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+</script>
+</body>
+</html>

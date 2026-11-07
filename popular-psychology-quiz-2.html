@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popular Psychology: True or False?</title>
+<style>
+:root{--ink:#203044;--muted:#607084;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--line:#dce4eb}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:28px 18px 50px}.hero{background:linear-gradient(125deg,#5b2a3c,#b0546f);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.85}.hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08;margin:9px 0 12px}.hero p{max-width:660px;margin:0;color:#eef5f9}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 11px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
+.instructions{color:var(--muted);margin:0}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}.fill{height:100%;width:0;background:var(--blue);transition:width .25s}
+.number{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.statement{font-size:clamp(1.25rem,3vw,1.65rem);line-height:1.35;font-weight:700;margin:10px 0 22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}.choice:disabled{cursor:default;opacity:1}.choice.selected{border-color:var(--blue);background:var(--blue2)}.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{display:none;margin-top:18px;border-radius:12px;padding:15px 16px;background:#f0f4f7;border-left:4px solid var(--blue)}.feedback.show{display:block}.feedback strong{display:block;margin-bottom:4px}.feedback p{margin:0}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:750;font-size:.95rem;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#eaf0f4;color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none}.result.show{display:block}.score{font-size:2.7rem;font-weight:800;color:var(--blue);line-height:1.1}.scoreline{color:var(--muted)}.review{margin-top:18px}.review details{border-top:1px solid var(--line);padding:12px 0}.review summary{font-weight:700;cursor:pointer}.review p{margin:8px 0 0;color:var(--muted)}
+.sources h2{margin:0 0 8px;font-size:1.2rem}.sources p{color:var(--muted);font-size:.9rem}.sources ol{padding-left:22px}.sources li{margin:9px 0;font-size:.9rem}.sources a{color:var(--blue);overflow-wrap:anywhere}.note{font-size:.88rem;color:var(--muted);margin-top:16px}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
+@media(max-width:560px){.wrap{padding:16px 12px 34px}.hero{padding:24px 20px}.panel{padding:18px}.choices{grid-template-columns:1fr}.topline{align-items:flex-start}}
+@media print{body{background:white}.hero{background:#5b2a3c!important;print-color-adjust:exact}.panel{box-shadow:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">English • B1–B2</div>
+  <h1>Popular Psychology: True or False?</h1>
+  <p>Left brain, right brain, power poses and five stages of grief: which famous ideas hold up and which ones are myths?</p>
+  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+</header>
+
+<section class="panel" id="intro">
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
+</section>
+
+<section class="panel" id="quiz" hidden aria-live="polite">
+  <div class="topline"><span id="counter">Question 1 of 20</span><span id="scoreNow">Score: 0</span></div>
+  <div class="track"><div class="fill" id="progress"></div></div>
+  <div class="number" id="qnumber">STATEMENT 01</div>
+  <div class="statement" id="statement"></div>
+  <div class="choices">
+    <button class="choice" id="trueBtn">✓ &nbsp; True</button>
+    <button class="choice" id="falseBtn">✕ &nbsp; False</button>
+  </div>
+  <div class="feedback" id="feedback" role="status" aria-live="polite"><strong id="verdict"></strong><p id="explanation"></p></div>
+  <div class="actions"><button class="btn primary" id="next" disabled>Next statement →</button></div>
+</section>
+
+<section class="panel result" id="result" aria-live="polite">
+  <div class="number">QUIZ COMPLETE</div>
+  <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="review" id="review" hidden></div>
+</section>
+
+<section class="panel sources">
+  <h2>Sources and useful context</h2>
+  <p>These pages are good starting points for background reading on the topics in the quiz. Research findings can be updated or challenged over time.</p>
+  <ol>
+    <li><a href="https://en.wikipedia.org/wiki/Lateralization_of_brain_function" target="_blank" rel="noopener">Lateralization of brain function (left/right-brain myth)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Stanford_prison_experiment" target="_blank" rel="noopener">Stanford prison experiment</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Mozart_effect" target="_blank" rel="noopener">Mozart effect</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Murder_of_Kitty_Genovese" target="_blank" rel="noopener">Kitty Genovese</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Catharsis" target="_blank" rel="noopener">Catharsis (anger and venting)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Stanford_marshmallow_experiment" target="_blank" rel="noopener">Stanford marshmallow experiment</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Ten_percent_of_the_brain_myth" target="_blank" rel="noopener">Ten percent of the brain myth</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Confirmation_bias" target="_blank" rel="noopener">Confirmation bias</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Learning_styles" target="_blank" rel="noopener">Learning styles</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Power_posing" target="_blank" rel="noopener">Power posing</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Milgram_experiment" target="_blank" rel="noopener">Milgram experiment</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Hedonic_treadmill" target="_blank" rel="noopener">Hedonic treadmill</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Extraversion_and_introversion" target="_blank" rel="noopener">Introversion and extraversion</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Placebo" target="_blank" rel="noopener">Placebo</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator" target="_blank" rel="noopener">Myers–Briggs Type Indicator</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Big_Five_personality_traits" target="_blank" rel="noopener">Big Five personality traits</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/K%C3%BCbler-Ross_model" target="_blank" rel="noopener">Kübler-Ross model (stages of grief)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Cognitive_dissonance" target="_blank" rel="noopener">Cognitive dissonance</a></li>
+  </ol>
+  <p class="note"><b>Language tip:</b> A “myth” is a popular belief that is not true. A “replication” is a new study that repeats an earlier one to check the result. “To debunk” means to show that something is false.</p>
+</section>
+<footer>Independent classroom activity • Popular Psychology: True or False?</footer>
+</main>
+<script>
+const items = [
+ {
+  "s": "Some people are ‘left-brained’ and logical, while others are ‘right-brained’ and creative.",
+  "a": false,
+  "e": "False. The two halves of the brain do have some specialisations, but brain scans show no sign that people are mostly ‘left-brained’ or ‘right-brained’. We use both sides together."
+ },
+ {
+  "s": "Many psychologists now question the Stanford prison experiment, because of problems with how it was run.",
+  "a": true,
+  "e": "True. Later evidence suggested that the guards were coached to be tough and that many participants were acting. It is no longer seen as a simple proof that situations turn people cruel."
+ },
+ {
+  "s": "Listening to Mozart makes babies permanently more intelligent.",
+  "a": false,
+  "e": "False. A 1993 study found a short-lived improvement in a spatial task in adults. There is no good evidence for a lasting boost in babies."
+ },
+ {
+  "s": "The famous story that 38 witnesses watched Kitty Genovese's murder and did nothing is now considered exaggerated.",
+  "a": true,
+  "e": "True. Later research showed that the number and what people saw were overstated, and some neighbours did try to help."
+ },
+ {
+  "s": "Letting your anger out, for example by hitting a pillow, is a good way to reduce anger.",
+  "a": false,
+  "e": "False. Research suggests that venting can keep people feeling angry. Calming activities, such as slow breathing or a walk, work better."
+ },
+ {
+  "s": "A later, larger study found that the link between the marshmallow test and later success was weaker after family background was taken into account.",
+  "a": true,
+  "e": "True. The original test suggested that children who waited did better in life. A 2018 study found the connection was much smaller once background was considered."
+ },
+ {
+  "s": "People generally use only 10% of their brain.",
+  "a": false,
+  "e": "False. Brain scans show activity across the whole brain, and damage to almost any area has consequences. The 10% idea is a very old myth."
+ },
+ {
+  "s": "We tend to notice and remember information that agrees with what we already believe. This is called confirmation bias.",
+  "a": true,
+  "e": "True. It is one of the best-known thinking biases. It is a reason why it is useful to look for evidence against your own opinion."
+ },
+ {
+  "s": "Opposites attract: people are usually happiest in relationships with partners who are very different from them.",
+  "a": false,
+  "e": "False. Research mostly finds that people are attracted to partners who are similar to them in values, background and attitudes."
+ },
+ {
+  "s": "There is little evidence that teaching someone in their preferred ‘learning style’ (visual, auditory, etc.) improves how much they learn.",
+  "a": true,
+  "e": "True. People do have preferences, but studies have not shown that matching teaching to those preferences improves results."
+ },
+ {
+  "s": "Standing in a ‘power pose’ for two minutes reliably changes your hormone levels.",
+  "a": false,
+  "e": "False. A famous 2010 study reported this, but later, larger studies did not find the hormone changes. Some people do say they feel a little more confident."
+ },
+ {
+  "s": "In Milgram's best-known obedience experiment, about two-thirds of participants gave the highest electric shock level.",
+  "a": true,
+  "e": "True. In the basic version, 26 of 40 people (65%) continued to the maximum. The shocks were not real, but the participants did not know that."
+ },
+ {
+  "s": "Most people can do two demanding mental tasks at the same time without any drop in performance.",
+  "a": false,
+  "e": "False. Most ‘multitasking’ is really quick switching between tasks, which makes people slower and more error-prone."
+ },
+ {
+  "s": "After a big life event, good or bad, many people return fairly close to their usual level of happiness over time.",
+  "a": true,
+  "e": "True. This is called hedonic adaptation. It is not perfect, because some events, such as the death of a partner, can have longer effects."
+ },
+ {
+  "s": "Introverts are always shy.",
+  "a": false,
+  "e": "False. Introversion means getting energy from quiet time, while shyness is fear of social judgement. An introvert can enjoy people but need time alone afterwards."
+ },
+ {
+  "s": "In some studies, patients got better with a placebo pill even when they were told it was only a placebo.",
+  "a": true,
+  "e": "True. These ‘open-label placebo’ studies, for example in people with irritable bowel syndrome, surprised researchers, although more research is needed."
+ },
+ {
+  "s": "The Myers–Briggs test is the personality measure that research psychologists trust most.",
+  "a": false,
+  "e": "False. It is very popular in business, but most researchers prefer other models. Many people get a different type when they retake it."
+ },
+ {
+  "s": "Many psychologists describe personality using five broad traits, including openness and conscientiousness.",
+  "a": true,
+  "e": "True. This is the ‘Big Five’ model: openness, conscientiousness, extraversion, agreeableness and neuroticism."
+ },
+ {
+  "s": "Everyone goes through five stages of grief in the same fixed order.",
+  "a": false,
+  "e": "False. The five stages were first described for people facing their own death and were never meant as a fixed rule. People grieve in many different ways."
+ },
+ {
+  "s": "People often change their attitudes to feel more consistent with how they have behaved. This is called cognitive dissonance.",
+  "a": true,
+  "e": "True. Leon Festinger's theory says that holding inconsistent ideas or actions feels uncomfortable, so we try to reduce the conflict."
+ }
+];
+let order=[], index=0, score=0, answers=[];
+const $=id=>document.getElementById(id);
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
+function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
+function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
+function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
+$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+</script>
+</body>
+</html>
