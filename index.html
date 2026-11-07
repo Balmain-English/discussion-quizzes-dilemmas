@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a36">
+  <meta name="description" content="A collection of discussion prompts, quizzes and dilemmas for English learners. Choose an exercise and get talking.">
+  <title>Discussion Quizzes &amp; Dilemmas | English Activities</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101a36;
+      --surface: rgba(255,255,255,.065);
+      --surface-hover: rgba(255,255,255,.105);
+      --border: rgba(255,255,255,.12);
+      --text: #f7f7fb;
+      --muted: #b7bfd3;
+      --accent: #f7c873;
+      --accent-2: #a9e3d2;
+      --ink: #17213a;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { min-height: 100%; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 82% 8%, rgba(120,103,198,.26), transparent 34rem),
+        radial-gradient(ellipse at 8% 30%, rgba(54,149,140,.18), transparent 30rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:24px 0; border-bottom:1px solid var(--border); }
+    .brand { display:flex; align-items:center; gap:11px; font-size:.9rem; font-weight:750; letter-spacing:.02em; }
+    .brand-mark { display:grid; place-items:center; width:38px; height:38px; border-radius:12px; color:var(--ink); background:var(--accent); font-size:1.2rem; }
+    .repo-link { color:var(--muted); font-size:.88rem; text-decoration:none; }
+    .repo-link:hover { color:var(--accent); }
+    .hero { display:grid; grid-template-columns:1fr auto; align-items:center; gap:32px; padding:68px 0 42px; }
+    .eyebrow { margin:0 0 14px; color:var(--accent-2); font-size:.76rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    h1 { max-width:760px; margin:0; font-size:clamp(2.5rem, 6vw, 4.7rem); line-height:1.02; letter-spacing:-.055em; }
+    .intro { max-width:630px; margin:20px 0 0; color:var(--muted); font-size:clamp(1rem, 2vw, 1.15rem); }
+    .hero-stamp { display:grid; place-items:center; width:132px; height:132px; border:1px solid rgba(247,200,115,.38); border-radius:50%; color:var(--accent); font-size:3.2rem; transform:rotate(8deg); }
+    .toolbar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin:8px 0 22px; }
+    .section-heading { display:flex; align-items:baseline; gap:12px; margin:0; font-size:1.15rem; }
+    .count { color:var(--muted); font-size:.85rem; font-weight:500; }
+    .search-wrap { position:relative; width:min(340px, 100%); }
+    .search-icon { position:absolute; top:50%; left:14px; transform:translateY(-50%); pointer-events:none; }
+    .search { width:100%; min-height:46px; padding:10px 14px 10px 42px; border:1px solid var(--border); border-radius:12px; outline:none; color:var(--text); background:rgba(255,255,255,.07); font:inherit; }
+    .search::placeholder { color:#9ca7bf; }
+    .search:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(247,200,115,.17); }
+    .filters { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 24px; }
+    .filter { border:1px solid var(--border); border-radius:999px; padding:7px 14px; color:var(--muted); background:transparent; font:inherit; font-size:.84rem; font-weight:650; cursor:pointer; transition:background .18s ease, color .18s ease, border-color .18s ease; }
+    .filter:hover { border-color:rgba(247,200,115,.55); color:var(--text); }
+    .filter[aria-pressed="true"] { border-color:var(--accent); color:var(--ink); background:var(--accent); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap:16px; padding:0 0 64px; margin:0; list-style:none; }
+    .card { position:relative; display:flex; min-height:190px; flex-direction:column; padding:22px; overflow:hidden; border:1px solid var(--border); border-radius:18px; color:var(--text); background:var(--surface); text-decoration:none; transition:transform .2s ease, border-color .2s ease, background .2s ease; }
+    .card::after { position:absolute; top:0; left:22px; width:42px; height:3px; border-radius:0 0 4px 4px; background:var(--accent-2); content:""; }
+    .card:hover { transform:translateY(-4px); border-color:rgba(169,227,210,.48); background:var(--surface-hover); }
+    .card:focus-visible, .repo-link:focus-visible, .filter:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+    .card-top { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 17px; }
+    .tag { color:var(--accent-2); font-size:.72rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+    .level { padding:4px 9px; border:1px solid rgba(247,200,115,.3); border-radius:999px; color:var(--accent); font-size:.72rem; font-weight:800; }
+    .card-title { margin:0; font-size:1.15rem; line-height:1.35; letter-spacing:-.02em; overflow-wrap:anywhere; }
+    .card-bottom { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:auto; padding-top:20px; color:var(--muted); font-size:.84rem; }
+    .open-label { color:var(--accent); font-weight:750; }
+    .message { grid-column:1/-1; padding:42px 24px; border:1px dashed var(--border); border-radius:18px; color:var(--muted); text-align:center; }
+    .message strong { display:block; margin-bottom:5px; color:var(--text); font-size:1.05rem; }
+    footer { padding:22px 0 30px; border-top:1px solid var(--border); color:var(--muted); font-size:.82rem; text-align:center; }
+    .skip { position:absolute; top:-100px; left:12px; z-index:2; padding:10px 14px; border-radius:8px; color:var(--ink); background:var(--accent); }
+    .skip:focus { top:12px; }
+    @media (max-width:640px) { .shell { width:min(100% - 28px, 1120px); } .hero { grid-template-columns:1fr; padding:48px 0 32px; } .hero-stamp { display:none; } .topbar { padding:18px 0; } .toolbar { align-items:flex-start; flex-direction:column; } .search-wrap { width:100%; } }
+    @media (prefers-reduced-motion:reduce) { *, *::before, *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#exercises">Skip to exercises</a>
+  <header class="shell topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">?</span><span>English conversation activities</span></div>
+    <a class="repo-link" href="https://github.com/Balmain-English/discussion-quizzes-dilemmas">View on GitHub ↗</a>
+  </header>
+  <main class="shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Think it through · Take a position · Talk it out</p>
+        <h1 id="page-title">Discussion, quizzes &amp; dilemmas</h1>
+        <p class="intro">Ready-to-use activities that get English learners sharing opinions, weighing choices and sparking better conversations. Pick a prompt and let the discussion begin.</p>
+      </div>
+      <div class="hero-stamp" aria-hidden="true">✳</div>
+    </section>
+    <section aria-label="Exercise library">
+      <div class="toolbar">
+        <h2 class="section-heading">Explore the activities <span class="count" id="count" aria-live="polite">Loading…</span></h2>
+        <label class="search-wrap"><span class="search-icon" aria-hidden="true">⌕</span><input id="search" class="search" type="search" placeholder="Search activities…" autocomplete="off" aria-label="Search activities"></label>
+      </div>
+      <div class="filters" role="group" aria-label="Filter by level">
+        <button class="filter" type="button" data-level="all" aria-pressed="true">All levels</button>
+        <button class="filter" type="button" data-level="a1" aria-pressed="false">A1</button>
+        <button class="filter" type="button" data-level="a2" aria-pressed="false">A2</button>
+        <button class="filter" type="button" data-level="b1" aria-pressed="false">B1</button>
+        <button class="filter" type="button" data-level="b2" aria-pressed="false">B2</button>
+        <button class="filter" type="button" data-level="c1" aria-pressed="false">C1</button>
+        <button class="filter" type="button" data-level="c2" aria-pressed="false">C2</button>
+      </div>
+      <ul class="grid" id="exercises" aria-live="polite" aria-busy="true">
+        <li class="message"><strong>Gathering the conversation starters…</strong>New activities will show up here.</li>
+      </ul>
+    </section>
+  </main>
+  <footer><div class="shell">Made for curious minds and better conversations.</div></footer>
+  <script>
+    (() => {
+      const owner = 'Balmain-English';
+      const repo = 'discussion-quizzes-dilemmas';
+      const branch = 'main';
+      const list = document.getElementById('exercises');
+      const count = document.getElementById('count');
+      const search = document.getElementById('search');
+      const filters = [...document.querySelectorAll('.filter')];
+      let exercises = [];
+      let activeLevel = 'all';
+
+      function titleFromPath(path) {
+        return path.split('/').pop().replace(/\.html?$/i, '').replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim()
+          .replace(/\b\w/g, (letter) => letter.toUpperCase());
+      }
+
+      function levelFromPath(path) {
+        const match = path.match(/(?:^|[-_])(a1|a2|b1|b2|c1|c2)(?=[-_.]|$)/i);
+        return match ? match[1].toUpperCase() : '';
+      }
+
+      function pageUrl(path) {
+        const encodedPath = path.split('/').map(encodeURIComponent).join('/');
+        return `https://${owner.toLowerCase()}.github.io/${repo}/${encodedPath}`;
+      }
+
+      function showMessage(title, detail) {
+        list.replaceChildren();
+        const item = document.createElement('li');
+        item.className = 'message';
+        const heading = document.createElement('strong');
+        heading.textContent = title;
+        item.append(heading, document.createTextNode(detail));
+        list.append(item);
+      }
+
+      function render() {
+        const query = search.value.trim().toLowerCase();
+        const visible = exercises.filter((exercise) => {
+          const matchesQuery = exercise.title.toLowerCase().includes(query) || exercise.path.toLowerCase().includes(query);
+          return matchesQuery && (activeLevel === 'all' || exercise.level.toLowerCase() === activeLevel);
+        });
+        count.textContent = `${visible.length} ${visible.length === 1 ? 'activity' : 'activities'}`;
+        list.replaceChildren();
+        if (!visible.length) {
+          showMessage(exercises.length ? 'No activities match your search.' : 'Your first activity is on its way.', exercises.length ? 'Try another title or level.' : 'Add an HTML exercise to this repository and it will appear here automatically.');
+          return;
+        }
+        const fragment = document.createDocumentFragment();
+        visible.forEach((exercise) => {
+          const item = document.createElement('li');
+          const link = document.createElement('a');
+          link.className = 'card';
+          link.href = pageUrl(exercise.path);
+          const top = document.createElement('div');
+          top.className = 'card-top';
+          const tag = document.createElement('span');
+          tag.className = 'tag';
+          tag.textContent = /quiz/i.test(exercise.title) ? 'Quick quiz' : /dilemma/i.test(exercise.title) ? 'Big question' : 'Discussion activity';
+          top.append(tag);
+          if (exercise.level) {
+            const badge = document.createElement('span');
+            badge.className = 'level';
+            badge.textContent = exercise.level;
+            top.append(badge);
+          }
+          const heading = document.createElement('h3');
+          heading.className = 'card-title';
+          heading.textContent = exercise.title;
+          const bottom = document.createElement('div');
+          bottom.className = 'card-bottom';
+          const pathLabel = document.createElement('span');
+          pathLabel.textContent = exercise.path.includes('/') ? exercise.path.split('/').slice(0, -1).join(' / ') : 'English practice';
+          const cta = document.createElement('span');
+          cta.className = 'open-label';
+          cta.textContent = 'Open activity →';
+          bottom.append(pathLabel, cta);
+          link.append(top, heading, bottom);
+          item.append(link);
+          fragment.append(item);
+        });
+        list.append(fragment);
+      }
+
+      async function loadExercises() {
+        try {
+          const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`);
+          if (!response.ok) throw new Error(`GitHub returned ${response.status}`);
+          const data = await response.json();
+          if (data.truncated) throw new Error('The repository has too many files to list at once.');
+          exercises = (data.tree || [])
+            .filter((item) => item.type === 'blob' && /\.html?$/i.test(item.path) && !/^index\.html$/i.test(item.path.split('/').pop()))
+            .map((item) => ({ path: item.path, title: titleFromPath(item.path), level: levelFromPath(item.path) }))
+            .sort((a, b) => a.title.localeCompare(b.title));
+          list.setAttribute('aria-busy', 'false');
+          render();
+        } catch (error) {
+          console.error('Unable to load exercises:', error);
+          count.textContent = 'Activities unavailable';
+          list.setAttribute('aria-busy', 'false');
+          showMessage('We could not load the activities just now.', 'Please try again in a moment. The repository must be public for the exercise list to load.');
+        }
+      }
+
+      search.addEventListener('input', render);
+      filters.forEach((button) => button.addEventListener('click', () => {
+        activeLevel = button.dataset.level;
+        filters.forEach((filter) => filter.setAttribute('aria-pressed', String(filter === button)));
+        render();
+      }));
+      loadExercises();
+    })();
+  </script>
+</body>
+</html>
