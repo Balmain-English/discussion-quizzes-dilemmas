@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marriage: True or False?</title>
+<style>
+:root{--ink:#203044;--muted:#607084;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--line:#dce4eb}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:28px 18px 50px}.hero{background:linear-gradient(125deg,#173c5b,#34769a);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.85}.hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08;margin:9px 0 12px}.hero p{max-width:660px;margin:0;color:#eaf3f8}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 11px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
+.instructions{color:var(--muted);margin:0}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}.fill{height:100%;width:0;background:#34769a;transition:width .25s}
+.number{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.statement{font-size:clamp(1.25rem,3vw,1.65rem);line-height:1.35;font-weight:700;margin:10px 0 22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}.choice:disabled{cursor:default;opacity:1}.choice.selected{border-color:var(--blue);background:var(--blue2)}.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{display:none;margin-top:18px;border-radius:12px;padding:15px 16px;background:#f0f4f7;border-left:4px solid var(--blue)}.feedback.show{display:block}.feedback strong{display:block;margin-bottom:4px}.feedback p{margin:0}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:750;font-size:.95rem;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#eaf0f4;color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none}.result.show{display:block}.score{font-size:2.7rem;font-weight:800;color:var(--blue);line-height:1.1}.scoreline{color:var(--muted)}.review{margin-top:18px}.review details{border-top:1px solid var(--line);padding:12px 0}.review summary{font-weight:700;cursor:pointer}.review p{margin:8px 0 0;color:var(--muted)}
+.sources h2{margin:0 0 8px;font-size:1.2rem}.sources p{color:var(--muted);font-size:.9rem}.sources ol{padding-left:22px}.sources li{margin:9px 0;font-size:.9rem}.sources a{color:var(--blue);overflow-wrap:anywhere}.note{font-size:.88rem;color:var(--muted);margin-top:16px}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
+@media(max-width:560px){.wrap{padding:16px 12px 34px}.hero{padding:24px 20px}.panel{padding:18px}.choices{grid-template-columns:1fr}.topline{align-items:flex-start}}
+@media print{body{background:white}.hero{background:#245b83!important;print-color-adjust:exact}.panel{box-shadow:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">English • B1–B2</div>
+  <h1>Marriage: True or False?</h1>
+  <p>How much do you know about marriage around the world? Some of the real statistics are more surprising than you might expect.</p>
+  <div class="meta"><span class="pill">12 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+</header>
+
+<section class="panel" id="intro">
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. The questions use data from different countries and years, so check the source notes rather than assuming every figure describes the whole world today.</p>
+  <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
+</section>
+
+<section class="panel" id="quiz" hidden aria-live="polite">
+  <div class="topline"><span id="counter">Question 1 of 12</span><span id="scoreNow">Score: 0</span></div>
+  <div class="track"><div class="fill" id="progress"></div></div>
+  <div class="number" id="qnumber">STATEMENT 01</div>
+  <div class="statement" id="statement"></div>
+  <div class="choices">
+    <button class="choice" id="trueBtn">✓ &nbsp; True</button>
+    <button class="choice" id="falseBtn">✕ &nbsp; False</button>
+  </div>
+  <div class="feedback" id="feedback" role="status" aria-live="polite"><strong id="verdict"></strong><p id="explanation"></p></div>
+  <div class="actions"><button class="btn primary" id="next" disabled>Next statement →</button></div>
+</section>
+
+<section class="panel result" id="result" aria-live="polite">
+  <div class="number">QUIZ COMPLETE</div>
+  <h2>Your result</h2><div class="score" id="finalScore">0 / 12</div><p class="scoreline" id="comment"></p>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="review" id="review" hidden></div>
+</section>
+
+<section class="panel sources">
+  <h2>Sources and useful context</h2>
+  <p>The figures below are taken from research organisations and official statistical sources. Dates and populations differ: a national survey should not be interpreted as a global statistic.</p>
+  <ol>
+    <li><a href="https://www.oecd.org/en/publications/society-at-a-glance-2024_918d8db3-en/full-report/marriage-and-divorce_63dd0a7d.html" target="_blank" rel="noopener">OECD, Society at a Glance 2024 – Marriage and divorce</a>. OECD averages and comparisons, including ages at first marriage and same-sex marriage statistics.</li>
+    <li><a href="https://www.pewresearch.org/social-trends/2019/11/06/the-landscape-of-marriage-and-cohabitation-in-the-u-s/" target="_blank" rel="noopener">Pew Research Center (2019) – The landscape of marriage and cohabitation in the U.S.</a></li>
+    <li><a href="https://www.pewresearch.org/social-trends/2019/11/06/why-people-get-married-or-move-in-with-a-partner/" target="_blank" rel="noopener">Pew Research Center (2019) – Why people get married or move in with a partner</a>.</li>
+    <li><a href="https://www.pewresearch.org/global/2025/03/19/what-is-the-best-age-to-get-married/" target="_blank" rel="noopener">Pew Research Center (2025) – What is the best age to get married?</a> Opinions from adults in 18 countries, not a measure of actual marriage age.</li>
+    <li><a href="https://ourworldindata.org/marriages-and-divorces" target="_blank" rel="noopener">Our World in Data – Marriages and divorces</a>. Global estimates based on United Nations data.</li>
+    <li><a href="https://www.pewresearch.org/global/2025/03/19/appendix-a-marriage-and-retirement-statistics/" target="_blank" rel="noopener">Pew Research Center (2025) – Appendix: Marriage and retirement statistics</a>. Country-level age-at-first-marriage data compiled from the UN; the latest years vary by country.</li>
+  </ol>
+  <p class="note"><b>Language tip:</b> “cohabitation” means living with a romantic partner without being married. “At first marriage” means the first time someone gets married, not a later marriage.</p>
+</section>
+<footer>Independent classroom activity • Statistics are presented with their original dates and populations.</footer>
+</main>
+<script>
+const items = [
+ {s:"Across OECD countries, the average age at first marriage was about 25 for women and 28 for men in the early 1990s.",a:true,e:"True. The OECD reports averages of about 25 for women and 28 for men at the start of the 1990s. By 2021, these had risen to close to 32 and 34. People are generally marrying later in these countries."},
+ {s:"In a 2019 US study, 59% of adults aged 18–44 had lived with a partner without being married, compared with 50% who had ever been married.",a:true,e:"True. Pew Research Center found that cohabitation was more common than marriage as a life experience in this age group: 59% had cohabited and 50% had married. These groups overlap; some people had done both."},
+ {s:"In the same US study, young adults aged 18–29 were more likely to have married than to have lived with a partner.",a:false,e:"False. The figures went in the opposite direction: 44% had lived with a partner, while 23% had ever married. The study measured experiences up to the time of the survey."},
+ {s:"In 2021/22, same-sex marriages made up an average of 2.2% of all marriages in 20 OECD countries with available data.",a:true,e:"True. The OECD reported an average of 2.2% across 20 countries with data for 2021 or 2022. The figure varied between countries, so it is not a worldwide percentage."},
+ {s:"In the OECD data for the early 2020s, male same-sex marriages were more common than female same-sex marriages in most countries.",a:false,e:"False. In all but four of the countries with available data, there were more female same-sex marriages than male same-sex marriages. Across the countries studied, 56% of same-sex marriages were between women."},
+ {s:"A 2025 survey in 18 mostly middle-income countries found that the average age people considered ideal for marriage was 25.9.",a:true,e:"True. This was the average opinion of people surveyed by Pew Research Center. It describes the age people think is ideal, not the actual average age at which people marry."},
+ {s:"In that 2025 survey, adults in Bangladesh gave a higher ideal age for marriage than adults in Argentina.",a:false,e:"False. The reported averages were 21.2 in Bangladesh and 28.9 in Argentina. These are opinions from the survey, not legal minimum ages or actual marriage ages."},
+ {s:"Among US adults aged 18–44 who had ever lived with a partner, 62% had lived with only one cohabiting partner.",a:true,e:"True. Pew found that a majority (62%) of people in this group had lived with one partner. About 24% had lived with two partners and 14% with three or more."},
+ {s:"Among married US adults who had lived with their spouse before marriage and were not engaged when they moved in, about two-thirds said they saw living together as a step towards marriage.",a:true,e:"True. Pew reported 66%. This describes people who later married the partner they had lived with, and who were not engaged at the time they moved in together."},
+ {s:"In the OECD, no country recognised same-sex marriage in 1999; by 2022, it was recognised in 25 OECD countries or in parts of their territories.",a:true,e:"True. The OECD reported this change between 1999 and 2022. It is a count of OECD countries, not all countries worldwide."},
+ {s:"Globally, the share of women who were married or in a union fell from about 63% in 1970 to 69% in 2024.",a:false,e:"False. The direction is reversed: Our World in Data reports a decline from about 69% in 1970 to 63% in 2024, using UN estimates. “In a union” includes partnerships outside legal marriage."},
+ {s:"Across OECD countries, the average age at first marriage for women was close to 32 in 2021, while for men it was close to 34.",a:true,e:"True. These are the OECD averages reported for 2021. They are averages across member countries, and individual countries can be quite different."}
+];
+let order=[], index=0, score=0, answers=[];
+const $=id=>document.getElementById(id);
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
+function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
+function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
+function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=10?"Excellent work. You understood almost all the statistics.":score>=7?"Good result. You have a solid understanding, with a few surprises along the way.":score>=4?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Some of these figures are unexpected. Review the explanations and try again."; $("progress").style.width="100%";}
+$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+</script>
+</body>
+</html>
