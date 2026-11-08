@@ -50,18 +50,21 @@
     .count { color:var(--muted); font-size:.7rem; font-weight:500; }
     .search-wrap { position:relative; width:min(290px, 100%); }
     .search-icon { position:absolute; top:50%; left:11px; transform:translateY(-50%); pointer-events:none; }
-    .search { width:100%; min-height:35px; padding:6px 10px 6px 32px; border:1px solid var(--border); border-radius:8px; outline:none; color:var(--text); background:rgba(255,255,255,.07); font:inherit; font-size:.78rem; }
+    .search { width:100%; min-height:35px; padding:6px 10px 6px 32px; border:1px solid var(--border); border-radius:8px; outline:none; color:var(--text); background:rgba(255,255,255,.07); font:inherit; }
     .search::placeholder { color:#9ca7bf; }
     .search:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(247,200,115,.17); }
     .filters { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 14px; }
-    .filter { border:1px solid var(--border); border-radius:999px; padding:4px 9px; color:var(--muted); background:transparent; font:inherit; font-size:.68rem; font-weight:650; cursor:pointer; transition:background .18s ease,color .18s ease,border-color .18s ease; }
+    .filter { border:1px solid var(--border); border-radius:999px; padding:4px 9px; color:var(--muted); background:transparent; font:inherit; font-size:.68rem; font-weight:650; cursor:pointer; transition:all .18s ease; }
     .filter:hover { border-color:rgba(247,200,115,.55); color:var(--text); }
     .filter[aria-pressed="true"] { border-color:var(--accent); color:var(--ink); background:var(--accent); }
     .grid { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:10px; padding:0 0 32px; margin:0; list-style:none; }
     .grid li { min-width:0; }
-    .card { position:relative; display:flex; min-height:112px; flex-direction:column; padding:12px; overflow:hidden; border:1px solid var(--border); border-radius:11px; color:var(--text); background:var(--surface); text-decoration:none; transition:transform .18s ease,border-color .18s ease,background .18s ease; }
+    .card { position:relative; display:flex; min-height:112px; flex-direction:column; padding:12px; overflow:hidden; border:1px solid var(--border); border-radius:11px; color:var(--text); background:var(--surface); text-decoration:none; transition:transform .18s ease, border-color .18s ease, background .18s ease; }
     .card::after { position:absolute; top:0; left:12px; width:30px; height:2px; border-radius:0 0 4px 4px; background:var(--accent-2); content:""; }
     .card:hover { transform:translateY(-2px); border-color:rgba(169,227,210,.48); background:var(--surface-hover); }
+    .card.is-new { border-color:rgba(247,200,115,.55); background:rgba(247,200,115,.16); }
+    .card.is-new::after { background:var(--accent); }
+    .card.is-new .tag, .card.is-new .open-label { color:var(--accent); }
     .card:focus-visible, .repo-link:focus-visible, .filter:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
     .card-top { display:flex; align-items:center; justify-content:space-between; gap:7px; margin:0 0 8px; }
     .tag { color:var(--accent-2); font-size:.57rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
@@ -75,7 +78,7 @@
     .skip { position:absolute; top:-100px; left:12px; z-index:2; padding:8px 10px; border-radius:7px; color:var(--ink); background:var(--accent); }
     .skip:focus { top:10px; }
     @media (max-width:980px) { .grid { grid-template-columns:repeat(3, minmax(0, 1fr)); } }
-    @media (max-width:700px) { .shell { width:min(100% - 28px, 1280px); } .hero { grid-template-columns:1fr; padding:24px 0 17px; } .hero-stamp { display:none; } .topbar { padding:12px 0; } .toolbar { align-items:stretch; flex-direction:column; } .search-wrap { width:100%; } .grid { grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px; } .card { min-height:100px; padding:10px; } }
+    @media (max-width:700px) { .shell { width:min(100% - 28px, 1280px); } .hero { grid-template-columns:1fr; padding:24px 0 17px; } .hero-stamp { display:none; } .topbar { padding:12px 0; } .toolbar { align-items:flex-start; } }
     @media (max-width:420px) { .grid { grid-template-columns:1fr; } }
     @media (prefers-reduced-motion:reduce) { *, *::before, *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; } }
   </style>
@@ -120,6 +123,8 @@
       const owner = 'Balmain-English';
       const repo = 'discussion-quizzes-dilemmas';
       const branch = 'main';
+      // Add newly introduced exercise paths here to give their cards the mustard style.
+      const newExercisePaths = new Set([]);
       const list = document.getElementById('exercises');
       const count = document.getElementById('count');
       const search = document.getElementById('search');
@@ -161,14 +166,14 @@
         count.textContent = `${visible.length} ${visible.length === 1 ? 'activity' : 'activities'}`;
         list.replaceChildren();
         if (!visible.length) {
-          showMessage(exercises.length ? 'No activities match your search.' : 'Your first activity is on its way.', exercises.length ? 'Try another title or level.' : 'Add an HTML exercise to this repository and it will appear here automatically.');
+          showMessage(exercises.length ? 'No activities match your search.' : 'Your first activity is on its way.', exercises.length ? 'Try another title or level.' : 'Add an HTML exercise to this repository to get started.');
           return;
         }
         const fragment = document.createDocumentFragment();
         visible.forEach((exercise) => {
           const item = document.createElement('li');
           const link = document.createElement('a');
-          link.className = 'card';
+          link.className = `card${newExercisePaths.has(exercise.path) ? ' is-new' : ''}`;
           link.href = pageUrl(exercise.path);
           const top = document.createElement('div');
           top.className = 'card-top';
