@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Track and Field: True or False?</title>
+<style>
+:root{--ink:#203044;--muted:#607084;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--line:#dce4eb}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:28px 18px 50px}.hero{background:linear-gradient(125deg,#7a1d2e,#d1584f);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.85}.hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08;margin:9px 0 12px}.hero p{max-width:660px;margin:0;color:#eef5f9}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 11px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
+.instructions{color:var(--muted);margin:0}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}.fill{height:100%;width:0;background:var(--blue);transition:width .25s}
+.number{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.statement{font-size:clamp(1.25rem,3vw,1.65rem);line-height:1.35;font-weight:700;margin:10px 0 22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}.choice:disabled{cursor:default;opacity:1}.choice.selected{border-color:var(--blue);background:var(--blue2)}.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{display:none;margin-top:18px;border-radius:12px;padding:15px 16px;background:#f0f4f7;border-left:4px solid var(--blue)}.feedback.show{display:block}.feedback strong{display:block;margin-bottom:4px}.feedback p{margin:0}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:750;font-size:.95rem;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#eaf0f4;color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none}.result.show{display:block}.score{font-size:2.7rem;font-weight:800;color:var(--blue);line-height:1.1}.scoreline{color:var(--muted)}.review{margin-top:18px}.review details{border-top:1px solid var(--line);padding:12px 0}.review summary{font-weight:700;cursor:pointer}.review p{margin:8px 0 0;color:var(--muted)}
+.sources h2{margin:0 0 8px;font-size:1.2rem}.sources p{color:var(--muted);font-size:.9rem}.sources ol{padding-left:22px}.sources li{margin:9px 0;font-size:.9rem}.sources a{color:var(--blue);overflow-wrap:anywhere}.note{font-size:.88rem;color:var(--muted);margin-top:16px}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
+@media(max-width:560px){.wrap{padding:16px 12px 34px}.hero{padding:24px 20px}.panel{padding:18px}.choices{grid-template-columns:1fr}.topline{align-items:flex-start}}
+@media print{body{background:white}.hero{background:#7a1d2e!important;print-color-adjust:exact}.panel{box-shadow:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">English • B1–B2</div>
+  <h1>Track and Field: True or False?</h1>
+  <p>Fastest sprints, the longest jumps and a marathon distance that began as an accident. Test your knowledge of athletics.</p>
+  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+</header>
+
+<section class="panel" id="intro">
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
+</section>
+
+<section class="panel" id="quiz" hidden aria-live="polite">
+  <div class="topline"><span id="counter">Question 1 of 20</span><span id="scoreNow">Score: 0</span></div>
+  <div class="track"><div class="fill" id="progress"></div></div>
+  <div class="number" id="qnumber">STATEMENT 01</div>
+  <div class="statement" id="statement"></div>
+  <div class="choices">
+    <button class="choice" id="trueBtn">✓ &nbsp; True</button>
+    <button class="choice" id="falseBtn">✕ &nbsp; False</button>
+  </div>
+  <div class="feedback" id="feedback" role="status" aria-live="polite"><strong id="verdict"></strong><p id="explanation"></p></div>
+  <div class="actions"><button class="btn primary" id="next" disabled>Next statement →</button></div>
+</section>
+
+<section class="panel result" id="result" aria-live="polite">
+  <div class="number">QUIZ COMPLETE</div>
+  <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="review" id="review" hidden></div>
+</section>
+
+<section class="panel sources">
+  <h2>Sources and useful context</h2>
+  <p>These pages are good starting points for background reading on the topics in the quiz. Research findings can be updated or challenged over time.</p>
+  <ol>
+    <li><a href="https://en.wikipedia.org/wiki/Athletics_(sport)" target="_blank" rel="noopener">Athletics (sport)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Usain_Bolt" target="_blank" rel="noopener">Usain Bolt</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Marathon" target="_blank" rel="noopener">Marathon</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Pheidippides" target="_blank" rel="noopener">Pheidippides</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Bob_Beamon" target="_blank" rel="noopener">Bob Beamon</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Fosbury_Flop" target="_blank" rel="noopener">Fosbury Flop</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Eliud_Kipchoge" target="_blank" rel="noopener">Eliud Kipchoge</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Jesse_Owens" target="_blank" rel="noopener">Jesse Owens</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Decathlon" target="_blank" rel="noopener">Decathlon</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Heptathlon" target="_blank" rel="noopener">Heptathlon</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Spyridon_Louis" target="_blank" rel="noopener">Spyridon Louis</a></li>
+  </ol>
+  <p class="note"><b>Language tip:</b> “Athletics” (UK) or “track and field” (US) includes running, jumping and throwing events. A “world record” is the best result ever officially recorded. “Pole vault” uses a long flexible pole to clear a bar.</p>
+</section>
+<footer>Independent classroom activity • Track and Field: True or False?</footer>
+</main>
+<script>
+const items = [
+ {
+  "s": "Usain Bolt's 100 metres world record is 9.58 seconds.",
+  "a": true,
+  "e": "True. He ran it at the World Championships in Berlin in 2009."
+ },
+ {
+  "s": "A marathon is 42.195 kilometres long, a distance set at the 1908 London Olympics.",
+  "a": true,
+  "e": "True. The route was extended so the race could start at Windsor Castle and finish in front of the royal box."
+ },
+ {
+  "s": "The marathon is named after a legendary Greek messenger who ran from Marathon to Athens.",
+  "a": true,
+  "e": "True. The story of Pheidippides is probably a mix of history and legend."
+ },
+ {
+  "s": "The decathlon has ten events.",
+  "a": true,
+  "e": "True. Athletes compete in five events a day, over two days."
+ },
+ {
+  "s": "Bob Beamon's long jump record of 1968 stood for 23 years.",
+  "a": true,
+  "e": "True. He jumped 8.90 m at altitude in Mexico City, almost 55 cm more than the previous record."
+ },
+ {
+  "s": "Dick Fosbury changed high jump in 1968 by going over the bar backwards.",
+  "a": true,
+  "e": "True. The ‘Fosbury Flop’ is now used by almost every high jumper."
+ },
+ {
+  "s": "Eliud Kipchoge ran a marathon in under two hours in 2019, but it was not counted as an official record.",
+  "a": true,
+  "e": "True. He ran 1:59:40 in Vienna, but with rotating pacemakers and other aids that are not allowed in official races."
+ },
+ {
+  "s": "The winner of the first modern Olympic marathon, in 1896, was a Greek runner, Spyridon Louis.",
+  "a": true,
+  "e": "True. The home crowd in Athens was delighted by the result."
+ },
+ {
+  "s": "Jesse Owens won four gold medals at the 1936 Berlin Olympics.",
+  "a": true,
+  "e": "True. He won the 100 m, 200 m, long jump and the 4×100 m relay."
+ },
+ {
+  "s": "An athlete is now disqualified immediately for a false start in a sprint.",
+  "a": true,
+  "e": "True. Since 2010, there are no ‘warnings’, so any false start means disqualification."
+ },
+ {
+  "s": "A men's world record in the pole vault is higher than six metres.",
+  "a": true,
+  "e": "True. Armand Duplantis has raised it many times and passed 6.20 m."
+ },
+ {
+  "s": "The marathon is 40 kilometres long.",
+  "a": false,
+  "e": "False. It is 42.195 km. Forty kilometres is an old rounded figure."
+ },
+ {
+  "s": "Women competed in athletics at the first modern Olympics in 1896.",
+  "a": false,
+  "e": "False. Women's athletics events began at the 1928 Olympics."
+ },
+ {
+  "s": "A standard outdoor running track is 500 metres around.",
+  "a": false,
+  "e": "False. It is 400 metres, which is why a 1,500 m race is nearly four laps."
+ },
+ {
+  "s": "A hurdler is disqualified for knocking over a hurdle.",
+  "a": false,
+  "e": "False. Hurdles can be knocked over, although it slows the runner down. Deliberately knocking them is not allowed."
+ },
+ {
+  "s": "Pole vaulters today use bamboo poles.",
+  "a": false,
+  "e": "False. Bamboo was replaced by metal, then by flexible fibreglass and carbon fibre."
+ },
+ {
+  "s": "In a relay, the baton can be passed anywhere on the track.",
+  "a": false,
+  "e": "False. It must be passed inside a 20-metre exchange zone, or the team is disqualified."
+ },
+ {
+  "s": "The heptathlon has eight events.",
+  "a": false,
+  "e": "False. It has seven, as the name suggests. It is mostly contested by women."
+ },
+ {
+  "s": "Usain Bolt set his 100 m world record at the Beijing Olympics.",
+  "a": false,
+  "e": "False. He ran 9.69 in Beijing in 2008. The 9.58 record came a year later in Berlin."
+ },
+ {
+  "s": "In the 800 metres, athletes run the whole race in their own lanes.",
+  "a": false,
+  "e": "False. They start in lanes, but may move to the inside after the first bend."
+ }
+];
+let order=[], index=0, score=0, answers=[];
+const $=id=>document.getElementById(id);
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
+function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
+function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
+function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
+$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rugby Union: True or False?</title>
+<style>
+:root{--ink:#203044;--muted:#607084;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--line:#dce4eb}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:28px 18px 50px}.hero{background:linear-gradient(125deg,#5a1b1b,#b5493f);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.85}.hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08;margin:9px 0 12px}.hero p{max-width:660px;margin:0;color:#eef5f9}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 11px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
+.instructions{color:var(--muted);margin:0}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}.fill{height:100%;width:0;background:var(--blue);transition:width .25s}
+.number{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.statement{font-size:clamp(1.25rem,3vw,1.65rem);line-height:1.35;font-weight:700;margin:10px 0 22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}.choice:disabled{cursor:default;opacity:1}.choice.selected{border-color:var(--blue);background:var(--blue2)}.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{display:none;margin-top:18px;border-radius:12px;padding:15px 16px;background:#f0f4f7;border-left:4px solid var(--blue)}.feedback.show{display:block}.feedback strong{display:block;margin-bottom:4px}.feedback p{margin:0}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:750;font-size:.95rem;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#eaf0f4;color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none}.result.show{display:block}.score{font-size:2.7rem;font-weight:800;color:var(--blue);line-height:1.1}.scoreline{color:var(--muted)}.review{margin-top:18px}.review details{border-top:1px solid var(--line);padding:12px 0}.review summary{font-weight:700;cursor:pointer}.review p{margin:8px 0 0;color:var(--muted)}
+.sources h2{margin:0 0 8px;font-size:1.2rem}.sources p{color:var(--muted);font-size:.9rem}.sources ol{padding-left:22px}.sources li{margin:9px 0;font-size:.9rem}.sources a{color:var(--blue);overflow-wrap:anywhere}.note{font-size:.88rem;color:var(--muted);margin-top:16px}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
+@media(max-width:560px){.wrap{padding:16px 12px 34px}.hero{padding:24px 20px}.panel{padding:18px}.choices{grid-template-columns:1fr}.topline{align-items:flex-start}}
+@media print{body{background:white}.hero{background:#5a1b1b!important;print-color-adjust:exact}.panel{box-shadow:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">English • B1–B2</div>
+  <h1>Rugby Union: True or False?</h1>
+  <p>Forward passes, haka and drop goals in the dying seconds. Test your knowledge of the 15-a-side game.</p>
+  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+</header>
+
+<section class="panel" id="intro">
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
+</section>
+
+<section class="panel" id="quiz" hidden aria-live="polite">
+  <div class="topline"><span id="counter">Question 1 of 20</span><span id="scoreNow">Score: 0</span></div>
+  <div class="track"><div class="fill" id="progress"></div></div>
+  <div class="number" id="qnumber">STATEMENT 01</div>
+  <div class="statement" id="statement"></div>
+  <div class="choices">
+    <button class="choice" id="trueBtn">✓ &nbsp; True</button>
+    <button class="choice" id="falseBtn">✕ &nbsp; False</button>
+  </div>
+  <div class="feedback" id="feedback" role="status" aria-live="polite"><strong id="verdict"></strong><p id="explanation"></p></div>
+  <div class="actions"><button class="btn primary" id="next" disabled>Next statement →</button></div>
+</section>
+
+<section class="panel result" id="result" aria-live="polite">
+  <div class="number">QUIZ COMPLETE</div>
+  <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="review" id="review" hidden></div>
+</section>
+
+<section class="panel sources">
+  <h2>Sources and useful context</h2>
+  <p>These pages are good starting points for background reading on the topics in the quiz. Research findings can be updated or challenged over time.</p>
+  <ol>
+    <li><a href="https://en.wikipedia.org/wiki/Rugby_union" target="_blank" rel="noopener">Rugby union</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Rugby_World_Cup" target="_blank" rel="noopener">Rugby World Cup</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Webb_Ellis_Cup" target="_blank" rel="noopener">Webb Ellis Cup</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Haka" target="_blank" rel="noopener">Haka</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Six_Nations_Championship" target="_blank" rel="noopener">Six Nations Championship</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Jonny_Wilkinson" target="_blank" rel="noopener">Jonny Wilkinson</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Rugby_sevens_at_the_Summer_Olympics" target="_blank" rel="noopener">Rugby sevens at the Summer Olympics</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Laws_of_rugby_union" target="_blank" rel="noopener">Laws of rugby union</a></li>
+  </ol>
+  <p class="note"><b>Language tip:</b> A “try” is scored by touching the ball down over the opponents' line. A “scrum” is a way of restarting play with the forwards pushing against each other. “Sevens” is a faster version with seven players per side.</p>
+</section>
+<footer>Independent classroom activity • Rugby Union: True or False?</footer>
+</main>
+<script>
+const items = [
+ {
+  "s": "A rugby union team has 15 players on the pitch.",
+  "a": true,
+  "e": "True. Eight forwards and seven backs. Sevens, the Olympic version, has seven players per side."
+ },
+ {
+  "s": "A try is worth five points in rugby union.",
+  "a": true,
+  "e": "True. A conversion kick afterwards can add two more points."
+ },
+ {
+  "s": "The Rugby World Cup trophy is named after William Webb Ellis.",
+  "a": true,
+  "e": "True. According to a legend, he picked up the ball and ran with it at Rugby School in 1823. Historians doubt the story."
+ },
+ {
+  "s": "The first Rugby World Cup was held in 1987.",
+  "a": true,
+  "e": "True. New Zealand and Australia hosted, and New Zealand won."
+ },
+ {
+  "s": "South Africa has won the Rugby World Cup four times.",
+  "a": true,
+  "e": "True. They won in 1995, 2007, 2019 and 2023, which is more than any other nation. New Zealand has won three."
+ },
+ {
+  "s": "In rugby union, you cannot pass the ball forward with your hands.",
+  "a": true,
+  "e": "True. The ball can only go sideways or backwards, so teams move forward by running and kicking."
+ },
+ {
+  "s": "The New Zealand national team performs a haka before matches.",
+  "a": true,
+  "e": "True. The All Blacks perform a Māori war dance. Other Pacific teams have their own traditional challenges."
+ },
+ {
+  "s": "Italy joined the Five Nations in 2000, turning it into the Six Nations.",
+  "a": true,
+  "e": "True. The older tournament was known as the Five Nations, with England, France, Ireland, Scotland and Wales."
+ },
+ {
+  "s": "Jonny Wilkinson's last-minute drop goal won England the 2003 World Cup final.",
+  "a": true,
+  "e": "True. He kicked it with his weaker foot in extra time against Australia in Sydney."
+ },
+ {
+  "s": "Rugby sevens has been an Olympic sport since 2016.",
+  "a": true,
+  "e": "True. It was added in Rio de Janeiro, and both men's and women's tournaments are held."
+ },
+ {
+  "s": "The ball used in rugby union is perfectly round.",
+  "a": false,
+  "e": "False. It is an oval ball, which makes it easier to carry and throw but harder to predict when it bounces."
+ },
+ {
+  "s": "Rugby union players wear hard helmets and heavy body armour, like American football players.",
+  "a": false,
+  "e": "False. Players can wear thin padding and soft headgear, but it is not compulsory."
+ },
+ {
+  "s": "A tackle above the shoulders is allowed in rugby union.",
+  "a": false,
+  "e": "False. A high tackle is dangerous and is penalised. It can result in a yellow or red card."
+ },
+ {
+  "s": "Rugby union was first played in the United States.",
+  "a": false,
+  "e": "False. The sport began in England, at Rugby School, in the early 1800s."
+ },
+ {
+  "s": "A try is scored simply by carrying the ball over the try line, without grounding it.",
+  "a": false,
+  "e": "False. The player must press the ball down in the in-goal area. Carrying it over the line is not enough."
+ },
+ {
+  "s": "Australia has never won the Rugby World Cup.",
+  "a": false,
+  "e": "False. The Wallabies won in 1991 and 1999."
+ },
+ {
+  "s": "England won the very first Rugby World Cup in 1987.",
+  "a": false,
+  "e": "False. New Zealand won. England's only title so far came in 2003."
+ },
+ {
+  "s": "Argentina plays in the Six Nations Championship every year.",
+  "a": false,
+  "e": "False. The Six Nations includes England, France, Ireland, Italy, Scotland and Wales. Argentina plays in the Rugby Championship."
+ },
+ {
+  "s": "A drop goal scores five points.",
+  "a": false,
+  "e": "False. A drop goal is worth three points, the same as a penalty kick."
+ },
+ {
+  "s": "The Rugby World Cup is held every two years.",
+  "a": false,
+  "e": "False. It is held every four years. The next men's tournament will be in Australia in 2027."
+ }
+];
+let order=[], index=0, score=0, answers=[];
+const $=id=>document.getElementById(id);
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
+function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
+function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
+function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
+$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+</script>
+</body>
+</html>
