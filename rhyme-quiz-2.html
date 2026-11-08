@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoundMatch — B1/B2 Rhyme Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--paper:#f5f0e8;--cream:#ede8dc;--accent:#c0392b;--gold:#d4a017;--green:#2e7d32;--red:#c62828;--soft:#7a7a8c;--card:#faf7f2;--border:#d9d3c7;--b1:#1565c0;--b2:#e65100}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 80px}
+.wrap{width:100%;max-width:620px}
+header{text-align:center;margin-bottom:32px}
+.logo{font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,3rem);font-weight:900;color:var(--ink);letter-spacing:-0.02em;line-height:1}
+.logo span{color:var(--accent)}
+.tagline{font-size:0.85rem;color:var(--soft);letter-spacing:0.12em;text-transform:uppercase;margin-top:6px}
+.badge{display:inline-block;background:var(--b1);color:#fff;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:3px 10px;border-radius:99px;margin-top:10px}
+.pbwrap{background:var(--border);border-radius:99px;height:6px;margin-bottom:20px;overflow:hidden}
+.pbfill{height:100%;background:linear-gradient(90deg,var(--b1),var(--b2));border-radius:99px;transition:width .5s ease}
+.stats{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;font-size:0.82rem;font-weight:500;color:var(--soft);letter-spacing:0.06em;text-transform:uppercase}
+.snum{font-size:1.1rem;font-weight:700;color:var(--ink)}
+.lvdot{display:inline-block;width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.lv-b1{background:var(--b1)}
+.lv-b2{background:var(--b2)}
+.qcard{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:36px 32px 28px;box-shadow:0 4px 24px rgba(0,0,0,0.07);margin-bottom:16px;position:relative;overflow:hidden}
+.qcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--b1),var(--b2))}
+.card-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.qlabel{font-size:0.75rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--soft)}
+.lvtag{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:99px;color:#fff}
+.lvtag-b1{background:var(--b1)}
+.lvtag-b2{background:var(--b2)}
+.headword{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,9vw,4rem);font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1}
+.instr{font-size:0.88rem;color:var(--soft);margin-bottom:28px}
+.instr em{font-style:normal;color:var(--accent);font-weight:600}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cbtn{background:var(--paper);border:1.5px solid var(--border);border-radius:10px;padding:18px 14px;font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:500;color:var(--ink);cursor:pointer;transition:all .18s ease;text-align:center}
+.cbtn:hover:not(:disabled){background:var(--ink);color:var(--paper);border-color:var(--ink);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+.cbtn.correct{background:#e8f5e9;border-color:#2e7d32;color:#2e7d32;font-weight:700}
+.cbtn.wrong{background:#ffebee;border-color:var(--red);color:var(--red);font-weight:700}
+.cbtn:disabled{cursor:default;transform:none}
+.feedback{margin-top:16px;padding:14px 20px;border-radius:10px;font-size:0.9rem;font-weight:500;line-height:1.5;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:#e8f5e9;border:1px solid #a5d6a7;color:#2e7d32}
+.feedback.ko{background:#ffebee;border:1px solid #ef9a9a;color:#c62828}
+.mrow{display:flex;align-items:center;gap:8px;margin-top:16px;padding:14px 20px;background:var(--cream);border-radius:10px;border:1px solid var(--border)}
+.mlabel{font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--soft);margin-right:4px}
+.heart{font-size:1.1rem;transition:all .3s ease}
+.heart.lost{filter:grayscale(1);opacity:0.3}
+.next-row{display:flex;justify-content:flex-end;margin-top:14px}
+.nbtn{background:var(--ink);color:var(--paper);border:none;border-radius:10px;padding:12px 28px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:0.04em}
+.nbtn:hover{background:var(--accent)}
+.endsc{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:48px 32px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.07)}
+.bignum{font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;color:var(--accent);line-height:1;margin-bottom:8px}
+.etitle{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin-bottom:12px}
+.emsg{font-size:0.95rem;color:var(--soft);line-height:1.7;max-width:380px;margin:0 auto 28px}
+.eicon{font-size:3rem;margin-bottom:16px}
+.rbtn{display:inline-block;background:var(--ink);color:var(--paper);border:none;border-radius:10px;padding:14px 36px;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:600;letter-spacing:0.06em;cursor:pointer;transition:all .2s;text-decoration:none}
+.rbtn:hover{background:var(--accent);transform:translateY(-1px)}
+.stsc{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:48px 32px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.07)}
+.stsc h2{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:16px}
+.stsc p{font-size:0.92rem;color:var(--soft);line-height:1.75;margin-bottom:10px;max-width:420px;margin-left:auto;margin-right:auto}
+.rules{background:var(--cream);border-radius:10px;padding:18px 20px;margin:20px 0 28px;text-align:left;font-size:0.87rem;line-height:1.8;color:var(--ink);border:1px solid var(--border)}
+.rules li{margin-left:18px}
+.score-bar{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.sq{width:14px;height:14px;border-radius:3px;background:var(--border)}
+.sq.c{background:#2e7d32}
+.sq.w{background:#c62828}
+@media(max-width:480px){.choices{grid-template-columns:1fr}.qcard{padding:28px 20px 22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">Sound<span>Match</span></div>
+  <div class="tagline">English Pronunciation Quiz</div>
+  <div class="badge">B1 · B2 Edition</div>
+</header>
+<div id="app"></div>
+</div>
+<script>
+/*
+  QUALITY RULES applied to every question:
+  1. Exactly ONE correct rhyme among the four options.
+  2. No two options rhyme with each other.
+  3. No option is a homophone of the headword.
+  4. The hint only names the correct answer's rhyme logic.
+  5. Verified single-syllables and clear phonetic matches for B1/B2 learners.
+*/
+
+const ALL_Q = [
+  // ── B1 Level (20 Questions) ─────────────────────────────────────────────
+  {l:'B1', q:'THOUGHT', o:['though','caught','through','tough'], a:1,
+   hint:'THOUGHT is pronounced /θɔːt/. CAUGHT has the same /ɔːt/ ending despite the different spelling.'},
+
+  {l:'B1', q:'FLIGHT',  o:['fright','fleet','float','flute'],   a:0,
+   hint:'FLIGHT ends in /aɪt/. FRIGHT shares the exact same vowel and consonant ending.'},
+
+  {l:'B1', q:'DOUBT',   o:['shout','debt','double','draft'],     a:0,
+   hint:'DOUBT is pronounced /daʊt/ (the B is silent). SHOUT ends with the same /aʊt/ sound.'},
+
+  {l:'B1', q:'CHIEF',   o:['brief','chef','chime','choir'],      a:0,
+   hint:'CHIEF ends in /iːf/. BRIEF has the same long /iː/ vowel and /f/ ending.'},
+
+  {l:'B1', q:'PRIZE',   o:['price','rise','praise','prince'],    a:1,
+   hint:'PRIZE ends with a voiced /z/ sound (/praɪz/). RISE ends with the exact same /aɪz/ sound.'},
+
+  {l:'B1', q:'KNIGHT',  o:['bright','knit','knot','know'],       a:0,
+   hint:'KNIGHT is pronounced /naɪt/ (K and GH are silent). BRIGHT ends with the same /aɪt/ sound.'},
+
+  {l:'B1', q:'WRONG',   o:['long','work','write','wrap'],        a:0,
+   hint:'WRONG is pronounced /rɒŋ/ (the W is silent). LONG ends with the same /ɒŋ/ sound.'},
+
+  {l:'B1', q:'SCENE',   o:['green','scent','scale','score'],     a:0,
+   hint:'SCENE is pronounced /siːn/. GREEN ends with the same long /iːn/ sound.'},
+
+  {l:'B1', q:'CROWN',   o:['frown','crow','cross','creep'],      a:0,
+   hint:'CROWN ends in /aʊn/. FROWN shares the exact same vowel diphthong and final consonant.'},
+
+  {l:'B1', q:'STAGE',   o:['page','stare','steep','storm'],      a:0,
+   hint:'STAGE ends in /eɪdʒ/. PAGE ends with the same vowel and soft G sound.'},
+
+  {l:'B1', q:'SIGHT',   o:['sign','sigh','flight','slice'],      a:2,
+   hint:'SIGHT ends in /aɪt/. FLIGHT ends with the exact same /aɪt/ sound.'},
+
+  {l:'B1', q:'PHRASE',  o:['phase','fresh','frame','freeze'],    a:0,
+   hint:'PHRASE is pronounced /freɪz/. PHASE shares the exact same /eɪz/ ending.'},
+
+  {l:'B1', q:'SMOOTH',  o:['soothe','smother','south','smoke'],  a:0,
+   hint:'SMOOTH ends in the voiced /uːð/ sound. SOOTHE ends with the exact same sound.'},
+
+  {l:'B1', q:'GUARD',   o:['yard','guide','guest','grade'],      a:0,
+   hint:'GUARD is pronounced /ɡɑːrd/ (the U is silent). YARD ends with the same /ɑːrd/ sound.'},
+
+  {l:'B1', q:'PEACE',   o:['release','peach','peak','pear'],     a:0,
+   hint:'PEACE ends in /iːs/. RELEASE ends with the exact same /iːs/ sound.'},
+
+  {l:'B1', q:'SEARCH',  o:['perch','scorch','surge','score'],    a:0,
+   hint:'SEARCH ends in /ɜːrtʃ/. PERCH shares the same vowel sound and /tʃ/ ending.'},
+
+  {l:'B1', q:'DREAM',   o:['stream','dread','drama','draft'],    a:0,
+   hint:'DREAM ends in /iːm/. STREAM ends with the exact same /iːm/ sound.'},
+
+  {l:'B1', q:'CLAIM',   o:['aim','clam','climb','clear'],        a:0,
+   hint:'CLAIM ends in /eɪm/. AIM has the same long /eɪ/ diphthong and /m/ ending.'},
+
+  {l:'B1', q:'SPREAD',  o:['head','spray','speed','spring'],     a:0,
+   hint:'SPREAD is pronounced with short /ɛ/ (/sprɛd/). HEAD ends with the same /ɛd/ sound.'},
+
+  {l:'B1', q:'SHIELD',  o:['field','shelf','shine','shadow'],    a:0,
+   hint:'SHIELD ends in /iːld/. FIELD ends with the exact same long /iːld/ sound.'},
+
+  // ── B2 Level (20 Questions) ─────────────────────────────────────────────
+  {l:'B2', q:'HEIGHT',  o:['hate','kite','hit','heat'],         a:1,
+   hint:'HEIGHT is pronounced /haɪt/ — it rhymes with "kite", not "hate" or "heat".'},
+
+  {l:'B2', q:'WEIGHT',  o:['state','wheat','white','width'],     a:0,
+   hint:'WEIGHT is pronounced /weɪt/ (GH is silent). STATE ends with the same /eɪt/ sound.'},
+
+  {l:'B2', q:'BLOOD',   o:['flood','blond','brood','bloom'],     a:0,
+   hint:'BLOOD is pronounced /blʌd/ with an unusual short /ʌ/ sound. FLOOD has the exact same ending.'},
+
+  {l:'B2', q:'ROUGH',   o:['cough','tough','dough','through'],   a:1,
+   hint:'ROUGH is pronounced /rʌf/ (-OUGH = /ʌf/). TOUGH has the exact same /ʌf/ sound.'},
+
+  {l:'B2', q:'BREAK',   o:['brick','streak','steak','breeze'],   a:2,
+   hint:'BREAK is pronounced /breɪk/. STEAK looks very different but is pronounced /steɪk/.'},
+
+  {l:'B2', q:'DEBT',    o:['threat','doubt','dirt','dart'],      a:0,
+   hint:'DEBT is pronounced /dɛt/ (the B is silent). THREAT ends with the same /ɛt/ sound.'},
+
+  {l:'B2', q:'TONGUE',  o:['young','tomb','song','tangle'],      a:0,
+   hint:'TONGUE is pronounced /tʌŋ/ (UE is silent). YOUNG has the exact same /ʌŋ/ ending.'},
+
+  {l:'B2', q:'COUGH',   o:['dough','off','through','bough'],     a:1,
+   hint:'COUGH is pronounced /kɒf/ (-OUGH = /ɒf/). OFF ends with the exact same /ɒf/ sound.'},
+
+  {l:'B2', q:'DOUGH',   o:['through','rough','glow','plough'],   a:2,
+   hint:'DOUGH is pronounced /doʊ/ (-OUGH = /oʊ/). GLOW ends with the exact same /oʊ/ sound.'},
+
+  {l:'B2', q:'PLOUGH',  o:['bough','tough','dough','through'],   a:0,
+   hint:'PLOUGH is pronounced /plaʊ/ (-OUGH = /aʊ/). BOUGH ends with the exact same /aʊ/ sound.'},
+
+  {l:'B2', q:'ACHE',    o:['arch','each','snake','pitch'],       a:2,
+   hint:'ACHE is pronounced /eɪk/. SNAKE ends with the exact same /eɪk/ sound.'},
+
+  {l:'B2', q:'SWEAR',   o:['sweet','swing','bear','beer'],        a:2,
+   hint:'SWEAR ends in /ɛər/. BEAR ends with the exact same /ɛər/ sound.'},
+
+  {l:'B2', q:'ISLE',    o:['smile','inch','oil','idle'],         a:0,
+   hint:'ISLE is pronounced /aɪl/ (the S is silent). SMILE ends with the same /aɪl/ sound.'},
+
+  {l:'B2', q:'SUITE',   o:['suit','site','neat','sweat'],        a:2,
+   hint:'SUITE is pronounced /swiːt/. NEAT ends with the exact same /iːt/ sound.'},
+
+  {l:'B2', q:'SWORD',   o:['swore','horde','swoon','swift'],     a:1,
+   hint:'SWORD is pronounced /sɔːrd/ (the W is silent). HORDE ends with the same /ɔːrd/ sound.'},
+
+  {l:'B2', q:'THIRST',  o:['burst','third','thrust','thread'],   a:0,
+   hint:'THIRST ends in /ɜːrst/. BURST shares the exact same vowel and consonant cluster.'},
+
+  {l:'B2', q:'CHORD',   o:['lord','chore','choir','chart'],      a:0,
+   hint:'CHORD is pronounced /kɔːrd/ (CH = /k/). LORD ends with the exact same /ɔːrd/ sound.'},
+
+  {l:'B2', q:'GUILT',   o:['gild','silt','gold','gulf'],         a:1,
+   hint:'GUILT is pronounced /ɡɪlt/ (the U is silent). SILT ends with the same /ɪlt/ sound.'},
+
+  {l:'B2', q:'FRAUD',   o:['broad','frame','front','frog'],      a:0,
+   hint:'FRAUD ends in /ɔːd/. BROAD is pronounced /brɔːd/ and ends with the exact same sound.'},
+
+  {l:'B2', q:'VAIN',    o:['crane','van','vase','vine'],         a:0,
+   hint:'VAIN ends in /eɪn/. CRANE ends with the exact same long /eɪn/ sound.'}
+];
+
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+
+const DECK = shuffle(ALL_Q);
+const TOTAL = DECK.length;
+const MAX_ERR = 3;
+
+let S = {screen:'start', cur:0, score:0, err:0, ans:false, sel:null, showNext:false, results:[]};
+
+function init(){
+  S={screen:'quiz',cur:0,score:0,err:0,ans:false,sel:null,showNext:false,results:[]};
+  render();
+}
+
+function nextQ(){
+  S.cur++; S.ans=false; S.sel=null; S.showNext=false;
+  if(S.cur>=TOTAL){S.screen='end';}
+  render();
+}
+
+function pct(){return Math.round(S.cur/TOTAL*100)}
+
+const app=document.getElementById('app');
+
+function render(){
+  if(S.screen==='start'){renderStart();return}
+  if(S.screen==='end'){renderEnd();return}
+  renderQ();
+}
+
+function renderStart(){
+  app.innerHTML=`<div class="stsc">
+    <div style="font-size:2.4rem;margin-bottom:16px">🔊</div>
+    <h2>B1 &amp; B2 Rhyme Quiz</h2>
+    <p>Test your intermediate and upper-intermediate English pronunciation awareness across tricky spelling traps!</p>
+    <div class="rules"><ul>
+      <li><strong>${TOTAL} questions</strong> across B1 and B2 levels.</li>
+      <li>Pick the word that <strong>rhymes</strong> with the target word.</li>
+      <li>After each answer, you'll see a detailed <strong>phonetic hint</strong>.</li>
+      <li>You have <strong>3 lives</strong> 🍍 — don't lose them all!</li>
+      <li>Watch out for silent letters, irregular vowels, and spelling traps!</li>
+    </ul></div>
+    <button class="rbtn" onclick="init()">Start →</button>
+  </div>`;
+}
+
+function renderEnd(){
+  const p=Math.round(S.score/TOTAL*100);
+  let icon,title,msg;
+  if(S.err>=MAX_ERR){
+    icon='💔'; title='Out of lives!';
+    msg=`You answered <strong>${S.score}</strong> out of ${TOTAL} correctly before running out of lives. Great effort — try again to beat your score!`;
+  } else if(p>=90){
+    icon='🏆'; title='Excellent!';
+    msg=`You scored <strong>${S.score} / ${TOTAL}</strong> (${p}%). Outstanding pronunciation awareness for B1–B2 level!`;
+  } else if(p>=70){
+    icon='🎉'; title='Well done!';
+    msg=`You scored <strong>${S.score} / ${TOTAL}</strong> (${p}%). Solid work! Review the tricky spellings you missed and try again.`;
+  } else {
+    icon='📖'; title='Keep practising!';
+    msg=`You scored <strong>${S.score} / ${TOTAL}</strong> (${p}%). English spelling is tough — read the hints carefully and have another go!`;
+  }
+  const grid=S.results.map(r=>`<div class="sq ${r?'c':'w'}"></div>`).join('');
+  app.innerHTML=`<div class="endsc">
+    <div class="eicon">${icon}</div>
+    <div class="bignum">${S.score}<span style="font-size:2rem;color:var(--soft)">/${TOTAL}</span></div>
+    <div class="etitle">${title}</div>
+    <p class="emsg">${msg}</p>
+    <div class="score-bar">${grid}</div>
+    <button class="rbtn" onclick="init()" style="margin-top:20px">Play Again</button>
+  </div>`;
+}
+
+function renderQ(){
+  const q=DECK[S.cur];
+  if(!q){S.screen='end';render();return}
+  const hearts=['🍍','🍍','🍍'].map((h,i)=>`<span class="heart${i<S.err?' lost':''}">${h}</span>`).join('');
+  const btns=q.o.map((opt,i)=>{
+    let cls='cbtn', dis='';
+    if(S.ans){
+      dis='disabled';
+      if(i===q.a) cls+=' correct';
+      else if(i===S.sel&&i!==q.a) cls+=' wrong';
+    }
+    return`<button class="${cls}" ${dis} onclick="choose(${i})">${opt}</button>`;
+  }).join('');
+  const feedbackCls=S.ans?(S.sel===q.a?'ok':'ko'):'';
+  const feedbackTxt=S.ans?`<strong>${S.sel===q.a?'✓ Correct!':'✗ Not quite.'}</strong> ${q.hint}`:'';
+  const nextBtn=S.showNext?`<div class="next-row"><button class="nbtn" onclick="nextQ()">Next →</button></div>`:'';
+  app.innerHTML=`
+<div class="pbwrap"><div class="pbfill" style="width:${pct()}%"></div></div>
+<div class="stats">
+  <span>Score <span class="snum">${S.score}</span> / ${TOTAL}</span>
+  <span>Q ${S.cur+1} of ${TOTAL}</span>
+</div>
+<div class="qcard">
+  <div class="card-top">
+    <span class="lvdot lv-${q.l.toLowerCase()}" title="${q.l}"></span>
+    <span class="lvtag lvtag-${q.l.toLowerCase()}">${q.l}</span>
+    <div class="qlabel" style="margin-left:2px">Which word rhymes with…</div>
+  </div>
+  <div class="headword">${q.q}</div>
+  <div class="instr">Find the word that ends with the <em>same sound</em> as <em>${q.q}</em></div>
+  <div class="choices">${btns}</div>
+  <div class="feedback ${feedbackCls}${S.ans?' show':''}">${feedbackTxt}</div>
+</div>
+<div class="mrow">
+  <span class="mlabel">Lives</span>${hearts}
+  <span style="margin-left:auto;font-size:0.78rem;color:var(--soft);font-weight:500">${TOTAL - S.cur - 1} left</span>
+</div>
+${nextBtn}`;
+}
+
+function choose(i){
+  if(S.ans)return;
+  const q=DECK[S.cur];
+  S.ans=true; S.sel=i;
+  const correct=(i===q.a);
+  S.results.push(correct);
+  if(correct) S.score++;
+  else{
+    S.err++;
+    if(S.err>=MAX_ERR){
+      render();
+      setTimeout(()=>{S.screen='end';render()},2200);
+      return;
+    }
+  }
+  if(S.cur===TOTAL-1){
+    render();
+    setTimeout(()=>{S.screen='end';render()},2200);
+    return;
+  }
+  S.showNext=true;
+  render();
+}
+
+window.choose=choose;window.init=init;window.nextQ=nextQ;
+render();
+</script>
+</body>
+</html>
