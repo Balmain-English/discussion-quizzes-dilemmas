@@ -30,11 +30,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
   <div class="kicker">English • B1–B2</div>
   <h1>Track and Field: True or False?</h1>
   <p>Fastest sprints, the longest jumps and a marathon distance that began as an accident. Test your knowledge of athletics.</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="meta"><span class="pill">20 random statements</span><span class="pill">60-statement pool</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Every time you play, 20 statements are drawn at random from a pool of 60, so each game is different. Records and rules can change, so treat the explanations as a snapshot and use the source links to read more.</p>
   <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
 </section>
 
@@ -54,7 +54,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <section class="panel result" id="result" aria-live="polite">
   <div class="number">QUIZ COMPLETE</div>
   <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Play again (new random draw)</button></div>
   <div class="review" id="review" hidden></div>
 </section>
 
@@ -79,7 +79,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <footer>Independent classroom activity • Track and Field: True or False?</footer>
 </main>
 <script>
-const items = [
+// Pool of statements: a = true/false answer, s = statement, e = explanation
+const pool = [
  {
   "s": "Usain Bolt's 100 metres world record is 9.58 seconds.",
   "a": true,
@@ -179,16 +180,281 @@ const items = [
   "s": "In the 800 metres, athletes run the whole race in their own lanes.",
   "a": false,
   "e": "False. They start in lanes, but may move to the inside after the first bend."
+ },
+ {
+  "s": "Sprinters start races from starting blocks.",
+  "a": true,
+  "e": "True. The blocks give their feet something to push against at the start."
+ },
+ {
+  "s": "The heptathlon has seven events, including the javelin and the shot put.",
+  "a": true,
+  "e": "True. The events are spread over two days."
+ },
+ {
+  "s": "In the shot put, athletes push the heavy ball from the shoulder rather than throwing it.",
+  "a": true,
+  "e": "True. Throwing it like a ball is against the rules."
+ },
+ {
+  "s": "In the discus, athletes spin round in a circle before they throw.",
+  "a": true,
+  "e": "True. The spin gives the discus speed."
+ },
+ {
+  "s": "Javelin throwers take a run-up before they throw.",
+  "a": true,
+  "e": "True. They must throw over their shoulder, and the point must land first."
+ },
+ {
+  "s": "The hammer is a heavy metal ball on a steel wire with a handle.",
+  "a": true,
+  "e": "True. The thrower spins round several times and then lets go."
+ },
+ {
+  "s": "The triple jump has three parts: hop, step and jump.",
+  "a": true,
+  "e": "True. The athlete lands on the same foot for the hop and then on the other foot for the step."
+ },
+ {
+  "s": "In the long jump, the jump is measured from the take-off board to the nearest mark in the sand.",
+  "a": true,
+  "e": "True. The jump is only valid if the athlete's foot does not go over the front of the board."
+ },
+ {
+  "s": "The steeplechase includes barriers and a water jump.",
+  "a": true,
+  "e": "True. Runners have to jump over barriers and a pit of water."
+ },
+ {
+  "s": "Florence Griffith Joyner's women's 100 m world record of 10.49 seconds, set in 1988, still stands.",
+  "a": true,
+  "e": "True. It is one of the oldest athletics records."
+ },
+ {
+  "s": "Sebastian Coe won the Olympic 1500 m in 1980 and 1984.",
+  "a": true,
+  "e": "True. He was one of Britain's greatest runners."
+ },
+ {
+  "s": "Carl Lewis won nine Olympic gold medals.",
+  "a": true,
+  "e": "True. He won them between 1984 and 1996, in sprints and the long jump."
+ },
+ {
+  "s": "The Finnish runner Paavo Nurmi, nicknamed the ‘Flying Finn’, won nine Olympic gold medals.",
+  "a": true,
+  "e": "True. He ran middle and long distances in the 1920s."
+ },
+ {
+  "s": "Kenya and Ethiopia have produced many of the world's best distance runners.",
+  "a": true,
+  "e": "True. Many of them come from the high-altitude regions of these countries."
+ },
+ {
+  "s": "In the high jump, an athlete has three attempts at each height.",
+  "a": true,
+  "e": "True. If they miss three times in a row, they are out of the competition."
+ },
+ {
+  "s": "In the 4×100 m relay, each of the four runners runs about 100 metres.",
+  "a": true,
+  "e": "True. They pass a baton to each other."
+ },
+ {
+  "s": "Armand Duplantis was born in the United States but competes for Sweden.",
+  "a": true,
+  "e": "True. His mother is Swedish and he has broken the pole vault world record many times."
+ },
+ {
+  "s": "The women's marathon was first run at the Olympics in 1984.",
+  "a": true,
+  "e": "True. The American Joan Benoit won it in Los Angeles."
+ },
+ {
+  "s": "The Olympic 400 m is one lap of the track.",
+  "a": true,
+  "e": "True. The track is 400 metres around."
+ },
+ {
+  "s": "Sprinters only use starting blocks in long-distance races.",
+  "a": false,
+  "e": "False. Blocks are used in sprint races, up to 400 metres, not in long-distance races."
+ },
+ {
+  "s": "The triple jump has only two jumps.",
+  "a": false,
+  "e": "False. It has three: a hop, a step and a jump."
+ },
+ {
+  "s": "The shot put is a light plastic ball.",
+  "a": false,
+  "e": "False. It is a heavy metal ball. The men's shot weighs 7.26 kg."
+ },
+ {
+  "s": "The 1500 metres is exactly one mile.",
+  "a": false,
+  "e": "False. A mile is 1,609 metres, so the 1500 m is slightly shorter."
+ },
+ {
+  "s": "Usain Bolt is from Kenya.",
+  "a": false,
+  "e": "False. He is from Jamaica."
+ },
+ {
+  "s": "Carl Lewis was a British sprinter.",
+  "a": false,
+  "e": "False. He was an American athlete."
+ },
+ {
+  "s": "The marathon is shorter than the 10,000 metres.",
+  "a": false,
+  "e": "False. A marathon is 42.195 km, so it is more than four times longer than the 10,000 m."
+ },
+ {
+  "s": "The steeplechase has no barriers.",
+  "a": false,
+  "e": "False. Runners must jump over barriers and a water jump."
+ },
+ {
+  "s": "High jumpers use a pole to jump over the bar.",
+  "a": false,
+  "e": "False. Pole vaulters use a pole. High jumpers do not."
+ },
+ {
+  "s": "The hammer in athletics is a wooden mallet.",
+  "a": false,
+  "e": "False. It is a metal ball on a wire."
+ },
+ {
+  "s": "In the long jump, a jump still counts if the athlete steps over the line.",
+  "a": false,
+  "e": "False. That is a foul, and the jump does not count."
+ },
+ {
+  "s": "Discus throwers take a long run-up of 30 metres.",
+  "a": false,
+  "e": "False. They spin round in a small circle."
+ },
+ {
+  "s": "In the pole vault, athletes have only one attempt at each height.",
+  "a": false,
+  "e": "False. They normally have three attempts at each height."
+ },
+ {
+  "s": "Armand Duplantis competes for the United States.",
+  "a": false,
+  "e": "False. He competes for Sweden."
+ },
+ {
+  "s": "The 10,000 m is ten laps of a 400 m track.",
+  "a": false,
+  "e": "False. It is 25 laps."
+ },
+ {
+  "s": "The 5,000 m is five laps of a 400 m track.",
+  "a": false,
+  "e": "False. It is 12.5 laps."
+ },
+ {
+  "s": "The 100 m hurdles is a men's event.",
+  "a": false,
+  "e": "False. The 100 m hurdles is for women. Men run the 110 m hurdles."
+ },
+ {
+  "s": "Marathon runners must run the entire race inside a stadium.",
+  "a": false,
+  "e": "False. The race is run on roads. It usually starts and finishes in a stadium or a city centre."
+ },
+ {
+  "s": "A javelin is a short stick, less than one metre long.",
+  "a": false,
+  "e": "False. It is about 2.5 metres long."
+ },
+ {
+  "s": "Sprinters can run in any lane they like in the 100 metres.",
+  "a": false,
+  "e": "False. Each runner must stay in their own lane."
+ },
+ {
+  "s": "In the long jump, the athlete with the best average score wins.",
+  "a": false,
+  "e": "False. The athlete with the longest single jump wins."
  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+const QUIZ_SIZE = 20, MIN_TRUE = 8, MAX_TRUE = 12;
+let deck = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+// Fisher–Yates shuffle (in place, unbiased)
+function shuffle(a){
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+// Draw 20 statements: between 8 and 12 true, the rest false, then shuffle the order
+function drawDeck(){
+  const trues  = shuffle(pool.filter(x => x.a));
+  const falses = shuffle(pool.filter(x => !x.a));
+  const nTrue  = MIN_TRUE + Math.floor(Math.random() * (MAX_TRUE - MIN_TRUE + 1));
+  return shuffle(trues.slice(0, nTrue).concat(falses.slice(0, QUIZ_SIZE - nTrue)));
+}
+function begin(){
+  deck = drawDeck(); index = 0; score = 0; answers = [];
+  $("intro").hidden = true; $("result").classList.remove("show"); $("result").style.display = "none";
+  $("quiz").hidden = false; render();
+}
+function render(){
+  const q = deck[index];
+  $("counter").textContent = `Question ${index+1} of ${deck.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${index/deck.length*100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index+1).padStart(2,"0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === deck.length-1 ? "See my result →" : "Next statement →";
+  ["trueBtn","falseBtn"].forEach(id => { const b = $(id); b.disabled = false; b.className = "choice"; });
+}
+function answer(value){
+  const q = deck[index], correct = value === q.a;
+  if (correct) score++;
+  answers.push({q, value, correct});
+  $("scoreNow").textContent = `Score: ${score}`;
+  $(value ? "trueBtn" : "falseBtn").classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite.";
+  $("explanation").textContent = q.e;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn","falseBtn"].forEach(id => $(id).disabled = true);
+}
+function finish(){
+  $("quiz").hidden = true; $("result").style.display = "block"; $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${deck.length}`;
+  $("comment").textContent = score>=17 ? "Excellent work. You spotted almost all the myths and facts."
+    : score>=12 ? "Good result. You have a solid understanding, with a few surprises along the way."
+    : score>=8 ? "A useful attempt. Read the explanations to discover which assumptions were challenged."
+    : "Many of these are surprising! Review the explanations and play again: you will get a different set of statements.";
+  $("progress").style.width = "100%";
+}
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => { index++; if (index < deck.length) render(); else finish(); });
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none"; $("result").classList.remove("show");
+  $("review").hidden = true; begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review"); r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Answer review</h3>" + answers.map((x, i) =>
+      `<details><summary>${i+1}. ${x.correct ? "Correct" : "Incorrect"} — ${x.q.s}</summary><p><b>Answer: ${x.q.a ? "True" : "False"}.</b> ${x.q.e}</p></details>`).join("");
+  }
+});
 </script>
 </body>
 </html>

@@ -30,11 +30,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
   <div class="kicker">English • B1–B2</div>
   <h1>Basketball: True or False?</h1>
   <p>Peach baskets, 100-point games and a ban on dunking. How much do you know about the history and rules of basketball?</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="meta"><span class="pill">20 random statements</span><span class="pill">60-statement pool</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Every time you play, 20 statements are drawn at random from a pool of 60, so each game is different. Records and rules can change, so treat the explanations as a snapshot and use the source links to read more.</p>
   <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
 </section>
 
@@ -54,7 +54,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <section class="panel result" id="result" aria-live="polite">
   <div class="number">QUIZ COMPLETE</div>
   <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Play again (new random draw)</button></div>
   <div class="review" id="review" hidden></div>
 </section>
 
@@ -77,7 +77,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <footer>Independent classroom activity • Basketball: True or False?</footer>
 </main>
 <script>
-const items = [
+// Pool of statements: a = true/false answer, s = statement, e = explanation
+const pool = [
  {
   "s": "Basketball was invented in 1891 by James Naismith.",
   "a": true,
@@ -177,16 +178,281 @@ const items = [
   "s": "The NBA introduced its 24-second shot clock to make the game slower.",
   "a": false,
   "e": "False. The clock forced teams to shoot within 24 seconds to speed the game up. Before 1954, teams could hold the ball for a long time."
+ },
+ {
+  "s": "NBA stands for National Basketball Association.",
+  "a": true,
+  "e": "True. It is the main professional league in North America. It was formed in 1946."
+ },
+ {
+  "s": "A free throw is worth one point.",
+  "a": true,
+  "e": "True. Free throws are given after some fouls."
+ },
+ {
+  "s": "A shot from inside the three-point line is worth two points.",
+  "a": true,
+  "e": "True. A shot from outside the line is worth three points."
+ },
+ {
+  "s": "An NBA team plays 82 games in the regular season.",
+  "a": true,
+  "e": "True. The best teams then play in the playoffs."
+ },
+ {
+  "s": "The Boston Celtics and the Los Angeles Lakers have won more NBA titles than any other team.",
+  "a": true,
+  "e": "True. Both teams have won many championships, and they are great rivals."
+ },
+ {
+  "s": "In the NBA, a player must leave the game after six personal fouls.",
+  "a": true,
+  "e": "True. This is called ‘fouling out’. In international basketball, the limit is five fouls."
+ },
+ {
+  "s": "The Harlem Globetrotters are a famous team that plays comedy exhibition games.",
+  "a": true,
+  "e": "True. They have performed around the world for almost a hundred years."
+ },
+ {
+  "s": "Stephen Curry holds the NBA record for the most three-pointers scored.",
+  "a": true,
+  "e": "True. He has changed the way basketball is played by shooting from far away."
+ },
+ {
+  "s": "The Chinese star Yao Ming played in the NBA for the Houston Rockets.",
+  "a": true,
+  "e": "True. He was 2.29 metres tall and became hugely popular in China."
+ },
+ {
+  "s": "The United States men's team has won more Olympic basketball gold medals than any other country.",
+  "a": true,
+  "e": "True. The USA has won most of the Olympic tournaments."
+ },
+ {
+  "s": "A team must bring the ball across the half-court line within eight seconds.",
+  "a": true,
+  "e": "True. If they cannot, the other team gets the ball."
+ },
+ {
+  "s": "An NBA game normally starts with a jump ball.",
+  "a": true,
+  "e": "True. The referee throws the ball up and two players try to tap it to a teammate."
+ },
+ {
+  "s": "3x3 basketball, played with three players on each team on half a court, became an Olympic sport in 2021.",
+  "a": true,
+  "e": "True. It first appeared at the Tokyo Games, which were held in 2021."
+ },
+ {
+  "s": "The Women's National Basketball Association (WNBA) was founded in 1996.",
+  "a": true,
+  "e": "True. Its first season was in 1997."
+ },
+ {
+  "s": "The backboards in professional basketball are made of glass.",
+  "a": true,
+  "e": "True. The glass lets spectators see through it, and the ball bounces well off it."
+ },
+ {
+  "s": "The French player Victor Wembanyama plays in the NBA for the San Antonio Spurs.",
+  "a": true,
+  "e": "True. He is more than 2.20 metres tall and was the first pick in the 2023 draft."
+ },
+ {
+  "s": "The French player Tony Parker won four NBA titles with the San Antonio Spurs.",
+  "a": true,
+  "e": "True. He was born in Belgium and raised in France."
+ },
+ {
+  "s": "A FIBA basketball court is 28 metres long and 15 metres wide.",
+  "a": true,
+  "e": "True. NBA courts are slightly bigger: 28.65 by 15.24 metres."
+ },
+ {
+  "s": "Some NBA players have been taller than 2.25 metres.",
+  "a": true,
+  "e": "True. Manute Bol and Gheorghe Mureșan were both 2.31 metres tall."
+ },
+ {
+  "s": "A shot from outside the three-point line is worth two points.",
+  "a": false,
+  "e": "False. It is worth three points. That is why it is called a three-pointer."
+ },
+ {
+  "s": "A free throw is worth two points.",
+  "a": false,
+  "e": "False. A free throw is worth one point."
+ },
+ {
+  "s": "A basketball team has six players on the court.",
+  "a": false,
+  "e": "False. Each team has five players on the court."
+ },
+ {
+  "s": "The NBA regular season has only 30 games.",
+  "a": false,
+  "e": "False. It has 82 games for each team."
+ },
+ {
+  "s": "Michael Jordan played for the Los Angeles Lakers.",
+  "a": false,
+  "e": "False. He is famous for the Chicago Bulls. He also played two seasons for the Washington Wizards."
+ },
+ {
+  "s": "Players are allowed to kick the ball to a teammate on purpose.",
+  "a": false,
+  "e": "False. Kicking the ball on purpose is a violation, and the other team gets the ball."
+ },
+ {
+  "s": "A basketball game can never go to overtime.",
+  "a": false,
+  "e": "False. If the score is level, extra periods of five minutes are played until there is a winner."
+ },
+ {
+  "s": "The NBA played its first season in 1996.",
+  "a": false,
+  "e": "False. The league began in 1946. 1996 is the year the WNBA was founded."
+ },
+ {
+  "s": "The 1992 Olympic basketball final was held in Paris.",
+  "a": false,
+  "e": "False. The 1992 Olympics were in Barcelona. The 2024 Games were held in Paris."
+ },
+ {
+  "s": "Kobe Bryant played for the Boston Celtics.",
+  "a": false,
+  "e": "False. He played his whole career for the Los Angeles Lakers."
+ },
+ {
+  "s": "Stephen Curry plays for the Los Angeles Lakers.",
+  "a": false,
+  "e": "False. Curry has played for the Golden State Warriors for his whole NBA career."
+ },
+ {
+  "s": "A quarter in the NBA lasts 15 minutes.",
+  "a": false,
+  "e": "False. It lasts 12 minutes. There are four quarters."
+ },
+ {
+  "s": "Victor Wembanyama plays for Real Madrid.",
+  "a": false,
+  "e": "False. He plays in the NBA for the San Antonio Spurs."
+ },
+ {
+  "s": "The NBA All-Star Game is played in June.",
+  "a": false,
+  "e": "False. It is played in February, in the middle of the season."
+ },
+ {
+  "s": "Basketball was invented in the 1920s.",
+  "a": false,
+  "e": "False. It was invented in 1891. The 1920s were when professional leagues began to grow."
+ },
+ {
+  "s": "A team gets extra points if the shot clock runs out.",
+  "a": false,
+  "e": "False. The team loses the ball. There is no extra point."
+ },
+ {
+  "s": "The NBA Finals trophy is called the Stanley Cup.",
+  "a": false,
+  "e": "False. It is called the Larry O'Brien Trophy. The Stanley Cup is for ice hockey."
+ },
+ {
+  "s": "The US women's team has never won an Olympic basketball gold medal.",
+  "a": false,
+  "e": "False. The US women have won many gold medals, including in 2024."
+ },
+ {
+  "s": "Michael Jordan never played any other professional sport.",
+  "a": false,
+  "e": "False. He played minor-league baseball in 1994, when he left basketball for a short time."
+ },
+ {
+  "s": "A player may stand still and walk three steps while dribbling.",
+  "a": false,
+  "e": "False. A player must not run or walk with the ball without dribbling."
+ },
+ {
+  "s": "The Boston Celtics are based in Chicago.",
+  "a": false,
+  "e": "False. The Celtics are from Boston. The Chicago team is the Bulls."
  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+const QUIZ_SIZE = 20, MIN_TRUE = 8, MAX_TRUE = 12;
+let deck = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+// Fisher–Yates shuffle (in place, unbiased)
+function shuffle(a){
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+// Draw 20 statements: between 8 and 12 true, the rest false, then shuffle the order
+function drawDeck(){
+  const trues  = shuffle(pool.filter(x => x.a));
+  const falses = shuffle(pool.filter(x => !x.a));
+  const nTrue  = MIN_TRUE + Math.floor(Math.random() * (MAX_TRUE - MIN_TRUE + 1));
+  return shuffle(trues.slice(0, nTrue).concat(falses.slice(0, QUIZ_SIZE - nTrue)));
+}
+function begin(){
+  deck = drawDeck(); index = 0; score = 0; answers = [];
+  $("intro").hidden = true; $("result").classList.remove("show"); $("result").style.display = "none";
+  $("quiz").hidden = false; render();
+}
+function render(){
+  const q = deck[index];
+  $("counter").textContent = `Question ${index+1} of ${deck.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${index/deck.length*100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index+1).padStart(2,"0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === deck.length-1 ? "See my result →" : "Next statement →";
+  ["trueBtn","falseBtn"].forEach(id => { const b = $(id); b.disabled = false; b.className = "choice"; });
+}
+function answer(value){
+  const q = deck[index], correct = value === q.a;
+  if (correct) score++;
+  answers.push({q, value, correct});
+  $("scoreNow").textContent = `Score: ${score}`;
+  $(value ? "trueBtn" : "falseBtn").classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite.";
+  $("explanation").textContent = q.e;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn","falseBtn"].forEach(id => $(id).disabled = true);
+}
+function finish(){
+  $("quiz").hidden = true; $("result").style.display = "block"; $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${deck.length}`;
+  $("comment").textContent = score>=17 ? "Excellent work. You spotted almost all the myths and facts."
+    : score>=12 ? "Good result. You have a solid understanding, with a few surprises along the way."
+    : score>=8 ? "A useful attempt. Read the explanations to discover which assumptions were challenged."
+    : "Many of these are surprising! Review the explanations and play again: you will get a different set of statements.";
+  $("progress").style.width = "100%";
+}
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => { index++; if (index < deck.length) render(); else finish(); });
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none"; $("result").classList.remove("show");
+  $("review").hidden = true; begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review"); r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Answer review</h3>" + answers.map((x, i) =>
+      `<details><summary>${i+1}. ${x.correct ? "Correct" : "Incorrect"} — ${x.q.s}</summary><p><b>Answer: ${x.q.a ? "True" : "False"}.</b> ${x.q.e}</p></details>`).join("");
+  }
+});
 </script>
 </body>
 </html>

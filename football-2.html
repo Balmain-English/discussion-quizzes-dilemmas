@@ -30,11 +30,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
   <div class="kicker">English • B1–B2</div>
   <h1>Football: True or False?</h1>
   <p>Hands of God, a dog called Pickles and goals from the kick-off. How much do you know about the world's most popular sport?</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="meta"><span class="pill">20 random statements</span><span class="pill">60-statement pool</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Every time you play, 20 statements are drawn at random from a pool of 60, so each game is different. Records and rules can change, so treat the explanations as a snapshot and use the source links to read more.</p>
   <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
 </section>
 
@@ -54,7 +54,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <section class="panel result" id="result" aria-live="polite">
   <div class="number">QUIZ COMPLETE</div>
   <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Play again (new random draw)</button></div>
   <div class="review" id="review" hidden></div>
 </section>
 
@@ -77,7 +77,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <footer>Independent classroom activity • Football: True or False?</footer>
 </main>
 <script>
-const items = [
+// Pool of statements: a = true/false answer, s = statement, e = explanation
+const pool = [
  {
   "s": "Pelé won three World Cups with Brazil.",
   "a": true,
@@ -177,16 +178,281 @@ const items = [
   "s": "The Champions League final is always played in the same stadium.",
   "a": false,
   "e": "False. The host stadium changes each year, and clubs and cities bid to host it."
+ },
+ {
+  "s": "A normal football match lasts 90 minutes, in two halves of 45 minutes.",
+  "a": true,
+  "e": "True. The referee can add extra minutes at the end of each half for stoppages. This is called stoppage time."
+ },
+ {
+  "s": "A goalkeeper can score a goal.",
+  "a": true,
+  "e": "True. It does not happen often, but goalkeepers have scored from long kicks and from corners at the end of matches."
+ },
+ {
+  "s": "Germany won the 2014 World Cup by beating Argentina in the final.",
+  "a": true,
+  "e": "True. Mario Götze scored the only goal in extra time in Rio de Janeiro."
+ },
+ {
+  "s": "Spain won the World Cup for the first time in 2010.",
+  "a": true,
+  "e": "True. They beat the Netherlands 1–0 in the final in South Africa."
+ },
+ {
+  "s": "France won the World Cup in 1998 on home soil.",
+  "a": true,
+  "e": "True. They beat Brazil 3–0 in the final at the Stade de France, near Paris."
+ },
+ {
+  "s": "Uruguay won the first World Cup final in 1930 by 4 goals to 2.",
+  "a": true,
+  "e": "True. They beat their neighbour Argentina in Montevideo."
+ },
+ {
+  "s": "A standard football weighs about 400 to 450 grams.",
+  "a": true,
+  "e": "True. A size 5 ball, used in adult football, is about this weight."
+ },
+ {
+  "s": "In most leagues, a team gets three points for a win and one point for a draw.",
+  "a": true,
+  "e": "True. A defeat gives zero points. Before the 1980s and 1990s, many leagues gave only two points for a win."
+ },
+ {
+  "s": "Goal-line technology can tell the referee if the whole ball has crossed the line.",
+  "a": true,
+  "e": "True. A signal is sent to the referee's watch in about one second."
+ },
+ {
+  "s": "VAR stands for Video Assistant Referee.",
+  "a": true,
+  "e": "True. It helps referees to review goals, penalties, red cards and cases of the wrong player being punished."
+ },
+ {
+  "s": "Two yellow cards in the same match mean that a player gets a red card and must leave the pitch.",
+  "a": true,
+  "e": "True. A player can also get a straight red card for a very serious foul."
+ },
+ {
+  "s": "A penalty kick is taken from 11 metres (12 yards) from the goal line.",
+  "a": true,
+  "e": "True. Only the kicker and the goalkeeper can be in the area when the kick is taken."
+ },
+ {
+  "s": "Cristiano Ronaldo has scored more than 100 goals for Portugal.",
+  "a": true,
+  "e": "True. He is the top scorer in men's international football."
+ },
+ {
+  "s": "The first Women's World Cup was held in China in 1991.",
+  "a": true,
+  "e": "True. The United States won it. The tournament has grown a lot since then."
+ },
+ {
+  "s": "Spain won the European Championship in 2024.",
+  "a": true,
+  "e": "True. They beat England 2–1 in the final in Berlin."
+ },
+ {
+  "s": "The 2022 World Cup took place in Qatar in November and December.",
+  "a": true,
+  "e": "True. This was unusual, because most World Cups are played in June and July. The weather in Qatar is too hot in summer."
+ },
+ {
+  "s": "Brazil has won the men's World Cup five times, more than any other country.",
+  "a": true,
+  "e": "True. They won in 1958, 1962, 1970, 1994 and 2002."
+ },
+ {
+  "s": "A goalkeeper wears a different colour from both teams and the referee.",
+  "a": true,
+  "e": "True. This helps players and officials to see who the goalkeeper is."
+ },
+ {
+  "s": "The FA Cup, first played in 1871–72, is the oldest national football competition in the world.",
+  "a": true,
+  "e": "True. Wanderers beat the Royal Engineers in the first final."
+ },
+ {
+  "s": "The first international football match, in 1872, was between Scotland and England and ended 0–0.",
+  "a": true,
+  "e": "True. It was played in Glasgow in front of about 4,000 people."
+ },
+ {
+  "s": "A player who is level with the second-last defender is offside.",
+  "a": false,
+  "e": "False. A player who is level is not offside. The attacker must be closer to the goal line than the second-last defender."
+ },
+ {
+  "s": "Each team has twelve players on the pitch.",
+  "a": false,
+  "e": "False. Each team has eleven players, including the goalkeeper."
+ },
+ {
+  "s": "A normal match lasts 120 minutes.",
+  "a": false,
+  "e": "False. A normal match is 90 minutes. Extra time (2 × 15 minutes) is only used in some cup games."
+ },
+ {
+  "s": "England has won the World Cup twice.",
+  "a": false,
+  "e": "False. England won once, in 1966. They beat West Germany 4–2 in the final at Wembley."
+ },
+ {
+  "s": "Italy has never won the World Cup.",
+  "a": false,
+  "e": "False. Italy has won four times: in 1934, 1938, 1982 and 2006."
+ },
+ {
+  "s": "A goal is scored when half of the ball goes over the goal line.",
+  "a": false,
+  "e": "False. The whole ball must cross the line between the posts and under the crossbar."
+ },
+ {
+  "s": "In the penalty area, defenders can use their hands to stop a shot.",
+  "a": false,
+  "e": "False. Only the goalkeeper can handle the ball in the penalty area. If a defender does it, the other team gets a penalty."
+ },
+ {
+  "s": "The Premier League is the top division in Spanish football.",
+  "a": false,
+  "e": "False. The Premier League is the top English division. The top Spanish league is La Liga."
+ },
+ {
+  "s": "A red card is only a warning.",
+  "a": false,
+  "e": "False. A yellow card is a warning. A red card means that the player must leave the pitch."
+ },
+ {
+  "s": "The men's World Cup is held every two years.",
+  "a": false,
+  "e": "False. It is held every four years. The European Championship is also every four years."
+ },
+ {
+  "s": "A penalty kick is taken from the centre circle.",
+  "a": false,
+  "e": "False. It is taken from the penalty spot, 11 metres from the goal."
+ },
+ {
+  "s": "Brazil has never lost a World Cup match at home.",
+  "a": false,
+  "e": "False. They lost the 1950 final to Uruguay in Rio. In 2014, they lost 7–1 to Germany."
+ },
+ {
+  "s": "Pelé was born in Argentina.",
+  "a": false,
+  "e": "False. He was born in Brazil, in 1940. Maradona and Messi are the famous Argentines."
+ },
+ {
+  "s": "Only English clubs play in the Champions League.",
+  "a": false,
+  "e": "False. The best teams from many European countries take part."
+ },
+ {
+  "s": "A goal scored directly from a corner kick does not count.",
+  "a": false,
+  "e": "False. A goal from a corner kick does count. This is sometimes called an ‘Olympic goal’."
+ },
+ {
+  "s": "The 2018 World Cup was held in Brazil.",
+  "a": false,
+  "e": "False. It was held in Russia, and France won it."
+ },
+ {
+  "s": "A league match cannot end in a draw.",
+  "a": false,
+  "e": "False. In most leagues, a draw is a normal result, and each team gets one point."
+ },
+ {
+  "s": "A player who has been substituted can come back on later in the same match.",
+  "a": false,
+  "e": "False. In normal football competitions, a substitute cannot return once he or she has left the pitch."
+ },
+ {
+  "s": "Wembley Stadium is in Manchester.",
+  "a": false,
+  "e": "False. It is in London. Manchester has Old Trafford and the Etihad Stadium."
+ },
+ {
+  "s": "The Ballon d'Or is a prize for the best referee.",
+  "a": false,
+  "e": "False. It is an award for the best football player of the year."
  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+const QUIZ_SIZE = 20, MIN_TRUE = 8, MAX_TRUE = 12;
+let deck = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+// Fisher–Yates shuffle (in place, unbiased)
+function shuffle(a){
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+// Draw 20 statements: between 8 and 12 true, the rest false, then shuffle the order
+function drawDeck(){
+  const trues  = shuffle(pool.filter(x => x.a));
+  const falses = shuffle(pool.filter(x => !x.a));
+  const nTrue  = MIN_TRUE + Math.floor(Math.random() * (MAX_TRUE - MIN_TRUE + 1));
+  return shuffle(trues.slice(0, nTrue).concat(falses.slice(0, QUIZ_SIZE - nTrue)));
+}
+function begin(){
+  deck = drawDeck(); index = 0; score = 0; answers = [];
+  $("intro").hidden = true; $("result").classList.remove("show"); $("result").style.display = "none";
+  $("quiz").hidden = false; render();
+}
+function render(){
+  const q = deck[index];
+  $("counter").textContent = `Question ${index+1} of ${deck.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${index/deck.length*100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index+1).padStart(2,"0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === deck.length-1 ? "See my result →" : "Next statement →";
+  ["trueBtn","falseBtn"].forEach(id => { const b = $(id); b.disabled = false; b.className = "choice"; });
+}
+function answer(value){
+  const q = deck[index], correct = value === q.a;
+  if (correct) score++;
+  answers.push({q, value, correct});
+  $("scoreNow").textContent = `Score: ${score}`;
+  $(value ? "trueBtn" : "falseBtn").classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite.";
+  $("explanation").textContent = q.e;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn","falseBtn"].forEach(id => $(id).disabled = true);
+}
+function finish(){
+  $("quiz").hidden = true; $("result").style.display = "block"; $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${deck.length}`;
+  $("comment").textContent = score>=17 ? "Excellent work. You spotted almost all the myths and facts."
+    : score>=12 ? "Good result. You have a solid understanding, with a few surprises along the way."
+    : score>=8 ? "A useful attempt. Read the explanations to discover which assumptions were challenged."
+    : "Many of these are surprising! Review the explanations and play again: you will get a different set of statements.";
+  $("progress").style.width = "100%";
+}
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => { index++; if (index < deck.length) render(); else finish(); });
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none"; $("result").classList.remove("show");
+  $("review").hidden = true; begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review"); r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Answer review</h3>" + answers.map((x, i) =>
+      `<details><summary>${i+1}. ${x.correct ? "Correct" : "Incorrect"} — ${x.q.s}</summary><p><b>Answer: ${x.q.a ? "True" : "False"}.</b> ${x.q.e}</p></details>`).join("");
+  }
+});
 </script>
 </body>
 </html>

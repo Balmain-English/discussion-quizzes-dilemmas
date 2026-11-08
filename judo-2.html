@@ -30,11 +30,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
   <div class="kicker">English • B1–B2</div>
   <h1>Judo: True or False?</h1>
   <p>‘The gentle way’ has a rough side. Test your knowledge of judo's history, rules and champions.</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="meta"><span class="pill">20 random statements</span><span class="pill">60-statement pool</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Every time you play, 20 statements are drawn at random from a pool of 60, so each game is different. Records and rules can change, so treat the explanations as a snapshot and use the source links to read more.</p>
   <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
 </section>
 
@@ -54,7 +54,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <section class="panel result" id="result" aria-live="polite">
   <div class="number">QUIZ COMPLETE</div>
   <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Play again (new random draw)</button></div>
   <div class="review" id="review" hidden></div>
 </section>
 
@@ -76,7 +76,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <footer>Independent classroom activity • Judo: True or False?</footer>
 </main>
 <script>
-const items = [
+// Pool of statements: a = true/false answer, s = statement, e = explanation
+const pool = [
  {
   "s": "Judo was founded in Japan by Jigoro Kano in 1882.",
   "a": true,
@@ -176,16 +177,281 @@ const items = [
   "s": "An Olympic judo contest lasts ten minutes.",
   "a": false,
   "e": "False. It lasts four minutes, followed by ‘golden score’ extra time if the score is level."
+ },
+ {
+  "s": "A waza-ari is a score that is lower than an ippon.",
+  "a": true,
+  "e": "True. A waza-ari is like a half point. An ippon is a full point and ends the contest."
+ },
+ {
+  "s": "Judo contests take place on mats called tatami.",
+  "a": true,
+  "e": "True. The mats are soft to protect the fighters when they fall."
+ },
+ {
+  "s": "In judo, the colour of the belt shows the rank of the judoka.",
+  "a": true,
+  "e": "True. Beginners wear a white belt, and the belt colours change as the judoka improves."
+ },
+ {
+  "s": "When time runs out, the judoka with the higher score wins the contest.",
+  "a": true,
+  "e": "True. If the score is level, the contest continues in ‘golden score’ until someone scores."
+ },
+ {
+  "s": "A ‘shido’ is a penalty in judo.",
+  "a": true,
+  "e": "True. Judoka can get a shido for passive play or for not following the rules."
+ },
+ {
+  "s": "Judo throws are called ‘nage-waza’.",
+  "a": true,
+  "e": "True. In Japanese, ‘nage’ means to throw and ‘waza’ means technique."
+ },
+ {
+  "s": "Many words used in judo are Japanese.",
+  "a": true,
+  "e": "True. For example, ‘hajime’ means begin, and ‘matte’ means stop."
+ },
+ {
+  "s": "The International Judo Federation was founded in 1951.",
+  "a": true,
+  "e": "True. It organises the world championships and the Olympic judo events."
+ },
+ {
+  "s": "Judo was not part of the 1968 Olympic Games in Mexico City.",
+  "a": true,
+  "e": "True. It was in 1964, and then returned in 1972."
+ },
+ {
+  "s": "A mixed team event was added to the Olympic judo programme in 2021.",
+  "a": true,
+  "e": "True. Teams of men and women compete together. It was first held in Tokyo."
+ },
+ {
+  "s": "The French judoka Teddy Riner is a heavyweight with several Olympic medals.",
+  "a": true,
+  "e": "True. He is one of the most successful judoka of all time."
+ },
+ {
+  "s": "Japan has won more Olympic judo gold medals than any other country.",
+  "a": true,
+  "e": "True. As the home of judo, Japan has dominated the sport for many years."
+ },
+ {
+  "s": "Children often start judo with coloured belts, such as yellow and orange.",
+  "a": true,
+  "e": "True. Many clubs use a range of colours before the black belt."
+ },
+ {
+  "s": "Judoka should keep their finger- and toenails short for safety.",
+  "a": true,
+  "e": "True. Long nails can hurt their partner during training."
+ },
+ {
+  "s": "People of all ages can practise judo.",
+  "a": true,
+  "e": "True. Children, adults and older people can do judo, and there are special classes for each group."
+ },
+ {
+  "s": "The Kodokan, the home of judo, is in Tokyo.",
+  "a": true,
+  "e": "True. Jigoro Kano founded the Kodokan school there."
+ },
+ {
+  "s": "Judo classes often begin with a warm-up and learning how to fall safely (ukemi).",
+  "a": true,
+  "e": "True. Learning to fall safely is one of the first skills."
+ },
+ {
+  "s": "Jigoro Kano was the first Asian member of the International Olympic Committee.",
+  "a": true,
+  "e": "True. He joined in 1909 and helped Japan to take part in the Olympics."
+ },
+ {
+  "s": "In judo competition, chokes and arm locks are allowed.",
+  "a": true,
+  "e": "True. They are only allowed in specific forms, and only on the elbow joint, not on other joints."
+ },
+ {
+  "s": "A white belt is the highest belt in judo.",
+  "a": false,
+  "e": "False. A white belt is usually the first belt. Black belts and red belts are for higher levels."
+ },
+ {
+  "s": "Judo is practised on a hard wooden floor.",
+  "a": false,
+  "e": "False. It is practised on soft tatami mats."
+ },
+ {
+  "s": "There is no referee in a judo contest.",
+  "a": false,
+  "e": "False. There is a referee on the mat and two judges at the side."
+ },
+ {
+  "s": "Judo is an Olympic sport for men only.",
+  "a": false,
+  "e": "False. Men and women both compete at the Olympic Games."
+ },
+ {
+  "s": "Judo was invented in Brazil.",
+  "a": false,
+  "e": "False. Judo comes from Japan. Brazilian jiu-jitsu was developed in Brazil."
+ },
+ {
+  "s": "A judo uniform is called a ‘karategi’.",
+  "a": false,
+  "e": "False. It is called a judogi. A karategi is the uniform for karate."
+ },
+ {
+  "s": "‘Dojo’ is the name of a type of judo belt.",
+  "a": false,
+  "e": "False. A dojo is a training hall, the place where people practise."
+ },
+ {
+  "s": "‘Hajime’ is the word the referee uses to stop a fight.",
+  "a": false,
+  "e": "False. ‘Hajime’ means begin. The word for stop is ‘matte’."
+ },
+ {
+  "s": "Judo was created in the 1500s.",
+  "a": false,
+  "e": "False. It was created in 1882. Some of the older martial arts that inspired it are many centuries old."
+ },
+ {
+  "s": "A judo contest continues until one fighter is knocked out.",
+  "a": false,
+  "e": "False. Judo is about throws and holds, not knocking opponents out."
+ },
+ {
+  "s": "Teddy Riner is a Japanese judoka.",
+  "a": false,
+  "e": "False. He is French."
+ },
+ {
+  "s": "In judo, the heaviest fighter always wins.",
+  "a": false,
+  "e": "False. Judo has weight categories, and skill matters more than size."
+ },
+ {
+  "s": "In judo, the only way to win is by pinning the opponent.",
+  "a": false,
+  "e": "False. A fighter can also win by a throw, an arm lock or a choke."
+ },
+ {
+  "s": "Judo has been in every Olympic Games since 1964.",
+  "a": false,
+  "e": "False. It was not held in 1968, so it was missing from the Mexico City Games."
+ },
+ {
+  "s": "Judo is a team sport only.",
+  "a": false,
+  "e": "False. Most judo events are individual. There is also a team event."
+ },
+ {
+  "s": "Judoka score points by kicking their opponent.",
+  "a": false,
+  "e": "False. Kicks and punches are not allowed. Points come from throws and holds."
+ },
+ {
+  "s": "The Kodokan is in Paris.",
+  "a": false,
+  "e": "False. It is in Tokyo."
+ },
+ {
+  "s": "Only Japanese people can get a black belt.",
+  "a": false,
+  "e": "False. People from all over the world get black belts."
+ },
+ {
+  "s": "A throw scores ippon even if the opponent lands on their front.",
+  "a": false,
+  "e": "False. For an ippon, the opponent must land largely on their back, with force and speed."
+ },
+ {
+  "s": "Falling safely is not taught in judo.",
+  "a": false,
+  "e": "False. Learning to fall safely (ukemi) is one of the first things students learn."
+ },
+ {
+  "s": "Most students get a black belt after a week of training.",
+  "a": false,
+  "e": "False. It usually takes many years of regular training."
  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+const QUIZ_SIZE = 20, MIN_TRUE = 8, MAX_TRUE = 12;
+let deck = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+// Fisher–Yates shuffle (in place, unbiased)
+function shuffle(a){
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+// Draw 20 statements: between 8 and 12 true, the rest false, then shuffle the order
+function drawDeck(){
+  const trues  = shuffle(pool.filter(x => x.a));
+  const falses = shuffle(pool.filter(x => !x.a));
+  const nTrue  = MIN_TRUE + Math.floor(Math.random() * (MAX_TRUE - MIN_TRUE + 1));
+  return shuffle(trues.slice(0, nTrue).concat(falses.slice(0, QUIZ_SIZE - nTrue)));
+}
+function begin(){
+  deck = drawDeck(); index = 0; score = 0; answers = [];
+  $("intro").hidden = true; $("result").classList.remove("show"); $("result").style.display = "none";
+  $("quiz").hidden = false; render();
+}
+function render(){
+  const q = deck[index];
+  $("counter").textContent = `Question ${index+1} of ${deck.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${index/deck.length*100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index+1).padStart(2,"0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === deck.length-1 ? "See my result →" : "Next statement →";
+  ["trueBtn","falseBtn"].forEach(id => { const b = $(id); b.disabled = false; b.className = "choice"; });
+}
+function answer(value){
+  const q = deck[index], correct = value === q.a;
+  if (correct) score++;
+  answers.push({q, value, correct});
+  $("scoreNow").textContent = `Score: ${score}`;
+  $(value ? "trueBtn" : "falseBtn").classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite.";
+  $("explanation").textContent = q.e;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn","falseBtn"].forEach(id => $(id).disabled = true);
+}
+function finish(){
+  $("quiz").hidden = true; $("result").style.display = "block"; $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${deck.length}`;
+  $("comment").textContent = score>=17 ? "Excellent work. You spotted almost all the myths and facts."
+    : score>=12 ? "Good result. You have a solid understanding, with a few surprises along the way."
+    : score>=8 ? "A useful attempt. Read the explanations to discover which assumptions were challenged."
+    : "Many of these are surprising! Review the explanations and play again: you will get a different set of statements.";
+  $("progress").style.width = "100%";
+}
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => { index++; if (index < deck.length) render(); else finish(); });
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none"; $("result").classList.remove("show");
+  $("review").hidden = true; begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review"); r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Answer review</h3>" + answers.map((x, i) =>
+      `<details><summary>${i+1}. ${x.correct ? "Correct" : "Incorrect"} — ${x.q.s}</summary><p><b>Answer: ${x.q.a ? "True" : "False"}.</b> ${x.q.e}</p></details>`).join("");
+  }
+});
 </script>
 </body>
 </html>

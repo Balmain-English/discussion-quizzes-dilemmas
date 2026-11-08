@@ -30,11 +30,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
   <div class="kicker">English • B1–B2</div>
   <h1>Handball: True or False?</h1>
   <p>Fast, physical and high-scoring: handball is one of Europe's most popular indoor sports. How much do you know about the game?</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="meta"><span class="pill">20 random statements</span><span class="pill">60-statement pool</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Every time you play, 20 statements are drawn at random from a pool of 60, so each game is different. Records and rules can change, so treat the explanations as a snapshot and use the source links to read more.</p>
   <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
 </section>
 
@@ -54,7 +54,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <section class="panel result" id="result" aria-live="polite">
   <div class="number">QUIZ COMPLETE</div>
   <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Play again (new random draw)</button></div>
   <div class="review" id="review" hidden></div>
 </section>
 
@@ -74,7 +74,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <footer>Independent classroom activity • Handball: True or False?</footer>
 </main>
 <script>
-const items = [
+// Pool of statements: a = true/false answer, s = statement, e = explanation
+const pool = [
  {
   "s": "A handball team has seven players on court, including the goalkeeper.",
   "a": true,
@@ -174,16 +175,281 @@ const items = [
   "s": "Handball first appeared in the Olympics in 1992.",
   "a": false,
   "e": "False. It was first played at the 1936 Olympics, and then permanently from 1972."
+ },
+ {
+  "s": "A player may not dribble, hold the ball and then dribble again.",
+  "a": true,
+  "e": "True. This is a ‘double dribble’ and the other team gets the ball."
+ },
+ {
+  "s": "A 7-metre throw is the handball penalty.",
+  "a": true,
+  "e": "True. It is taken from a line 7 metres from the goal."
+ },
+ {
+  "s": "A handball goal is 3 metres wide and 2 metres high.",
+  "a": true,
+  "e": "True. This is much smaller than a football goal."
+ },
+ {
+  "s": "Players may not touch the ball with the foot or the lower leg.",
+  "a": true,
+  "e": "True. Only the goalkeeper can use their feet or legs, inside the goal area."
+ },
+ {
+  "s": "Denmark's men won the Olympic handball gold medal in 2016 and 2024.",
+  "a": true,
+  "e": "True. Denmark is one of the best handball nations."
+ },
+ {
+  "s": "Norway's women's team is one of the strongest in handball.",
+  "a": true,
+  "e": "True. Norway has won many Olympic, world and European titles."
+ },
+ {
+  "s": "France's women won the Olympic handball gold medal at the Tokyo Games.",
+  "a": true,
+  "e": "True. The final was against the Russian Olympic Committee team."
+ },
+ {
+  "s": "In handball, a team can be warned for ‘passive play’ if it does not try to attack.",
+  "a": true,
+  "e": "True. If the team still does not attack, the referee can give the ball to the other team."
+ },
+ {
+  "s": "A handball match starts with a throw-off from the centre of the court.",
+  "a": true,
+  "e": "True. One player stands in the middle and passes the ball to a teammate."
+ },
+ {
+  "s": "Fast counter-attacks are common in handball.",
+  "a": true,
+  "e": "True. After a save, the goalkeeper often throws the ball quickly to a teammate who runs forward."
+ },
+ {
+  "s": "The Danish player Mikkel Hansen is one of the best handball players of his time.",
+  "a": true,
+  "e": "True. He is a left-handed back and has won many titles."
+ },
+ {
+  "s": "The French player Nikola Karabatić is one of the greatest handball players of all time.",
+  "a": true,
+  "e": "True. He won Olympic gold in 2008 and 2012, and many other titles."
+ },
+ {
+  "s": "Handball is especially popular in Germany, Spain, Denmark and France.",
+  "a": true,
+  "e": "True. These countries have big leagues and passionate fans."
+ },
+ {
+  "s": "Handballs come in different sizes for different ages and for men and women.",
+  "a": true,
+  "e": "True. Smaller balls are used by younger players and women."
+ },
+ {
+  "s": "A ‘jump shot’, in which a player shoots while in the air, is a typical handball move.",
+  "a": true,
+  "e": "True. Players jump from outside the goal area and shoot over the defenders."
+ },
+ {
+  "s": "A red card in handball means that a player is disqualified.",
+  "a": true,
+  "e": "True. A player cannot play for the rest of the match, and the team continues with fewer players for a time."
+ },
+ {
+  "s": "Beach handball is a version of the sport played on sand.",
+  "a": true,
+  "e": "True. It is played with four players per team, and has special scoring rules."
+ },
+ {
+  "s": "Each team can ask for a team time-out during a match.",
+  "a": true,
+  "e": "True. A time-out lasts one minute."
+ },
+ {
+  "s": "The International Handball Federation is based in Basel, Switzerland.",
+  "a": true,
+  "e": "True. It organises world championships and Olympic competitions."
+ },
+ {
+  "s": "Players are allowed to kick the ball to their teammates.",
+  "a": false,
+  "e": "False. Outfield players cannot kick the ball."
+ },
+ {
+  "s": "A handball match is divided into four quarters.",
+  "a": false,
+  "e": "False. It has two halves of 30 minutes."
+ },
+ {
+  "s": "The handball penalty is taken from 4 metres.",
+  "a": false,
+  "e": "False. It is taken from 7 metres."
+ },
+ {
+  "s": "A handball goal is 5 metres wide.",
+  "a": false,
+  "e": "False. It is 3 metres wide and 2 metres high."
+ },
+ {
+  "s": "Handball was part of the Olympics in 1900.",
+  "a": false,
+  "e": "False. It first appeared in 1936. Indoor handball was added in 1972."
+ },
+ {
+  "s": "Denmark's men have never won an Olympic gold medal in handball.",
+  "a": false,
+  "e": "False. Denmark won in 2016 and 2024."
+ },
+ {
+  "s": "Nikola Karabatić is a Spanish handball player.",
+  "a": false,
+  "e": "False. He plays for France. He was born in Serbia."
+ },
+ {
+  "s": "Mikkel Hansen is a Swedish handball player.",
+  "a": false,
+  "e": "False. He is Danish."
+ },
+ {
+  "s": "No physical contact is allowed in handball.",
+  "a": false,
+  "e": "False. Some contact between players is allowed, such as using the body to block."
+ },
+ {
+  "s": "Players score by hitting the ball with their head.",
+  "a": false,
+  "e": "False. Players score by throwing the ball with their hands."
+ },
+ {
+  "s": "Handball is played on ice.",
+  "a": false,
+  "e": "False. It is played on a hard indoor court."
+ },
+ {
+  "s": "The goalkeeper wears the same colour shirt as the other players on their team.",
+  "a": false,
+  "e": "False. The goalkeeper wears a different colour."
+ },
+ {
+  "s": "A handball match lasts 120 minutes.",
+  "a": false,
+  "e": "False. It lasts 60 minutes, in two halves."
+ },
+ {
+  "s": "A suspension in handball lasts ten minutes.",
+  "a": false,
+  "e": "False. A normal suspension lasts two minutes."
+ },
+ {
+  "s": "A player can hold the ball for as long as they like.",
+  "a": false,
+  "e": "False. A player can hold the ball for a maximum of three seconds."
+ },
+ {
+  "s": "A two-minute suspension can only be given to goalkeepers.",
+  "a": false,
+  "e": "False. It can be given to any player."
+ },
+ {
+  "s": "Only men play handball.",
+  "a": false,
+  "e": "False. Women play handball too, and the women's game is very popular."
+ },
+ {
+  "s": "The Handball World Championship is held every ten years.",
+  "a": false,
+  "e": "False. It is held about every two years."
+ },
+ {
+  "s": "France has never won the Handball World Championship.",
+  "a": false,
+  "e": "False. The French men have won it many times."
+ },
+ {
+  "s": "A handball is a heavy ball of about 5 kg.",
+  "a": false,
+  "e": "False. It weighs about 425 to 475 grams for men."
+ },
+ {
+  "s": "Handball has no goalkeepers.",
+  "a": false,
+  "e": "False. Every team has a goalkeeper."
  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+const QUIZ_SIZE = 20, MIN_TRUE = 8, MAX_TRUE = 12;
+let deck = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+// Fisher–Yates shuffle (in place, unbiased)
+function shuffle(a){
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+// Draw 20 statements: between 8 and 12 true, the rest false, then shuffle the order
+function drawDeck(){
+  const trues  = shuffle(pool.filter(x => x.a));
+  const falses = shuffle(pool.filter(x => !x.a));
+  const nTrue  = MIN_TRUE + Math.floor(Math.random() * (MAX_TRUE - MIN_TRUE + 1));
+  return shuffle(trues.slice(0, nTrue).concat(falses.slice(0, QUIZ_SIZE - nTrue)));
+}
+function begin(){
+  deck = drawDeck(); index = 0; score = 0; answers = [];
+  $("intro").hidden = true; $("result").classList.remove("show"); $("result").style.display = "none";
+  $("quiz").hidden = false; render();
+}
+function render(){
+  const q = deck[index];
+  $("counter").textContent = `Question ${index+1} of ${deck.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${index/deck.length*100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index+1).padStart(2,"0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === deck.length-1 ? "See my result →" : "Next statement →";
+  ["trueBtn","falseBtn"].forEach(id => { const b = $(id); b.disabled = false; b.className = "choice"; });
+}
+function answer(value){
+  const q = deck[index], correct = value === q.a;
+  if (correct) score++;
+  answers.push({q, value, correct});
+  $("scoreNow").textContent = `Score: ${score}`;
+  $(value ? "trueBtn" : "falseBtn").classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite.";
+  $("explanation").textContent = q.e;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn","falseBtn"].forEach(id => $(id).disabled = true);
+}
+function finish(){
+  $("quiz").hidden = true; $("result").style.display = "block"; $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${deck.length}`;
+  $("comment").textContent = score>=17 ? "Excellent work. You spotted almost all the myths and facts."
+    : score>=12 ? "Good result. You have a solid understanding, with a few surprises along the way."
+    : score>=8 ? "A useful attempt. Read the explanations to discover which assumptions were challenged."
+    : "Many of these are surprising! Review the explanations and play again: you will get a different set of statements.";
+  $("progress").style.width = "100%";
+}
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => { index++; if (index < deck.length) render(); else finish(); });
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none"; $("result").classList.remove("show");
+  $("review").hidden = true; begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review"); r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Answer review</h3>" + answers.map((x, i) =>
+      `<details><summary>${i+1}. ${x.correct ? "Correct" : "Incorrect"} — ${x.q.s}</summary><p><b>Answer: ${x.q.a ? "True" : "False"}.</b> ${x.q.e}</p></details>`).join("");
+  }
+});
 </script>
 </body>
 </html>

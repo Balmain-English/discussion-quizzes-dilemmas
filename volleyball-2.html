@@ -30,11 +30,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
   <div class="kicker">English • B1–B2</div>
   <h1>Volleyball: True or False?</h1>
   <p>Invented as a gentler alternative to basketball, volleyball is now played by hundreds of millions of people. How much do you know?</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="meta"><span class="pill">20 random statements</span><span class="pill">60-statement pool</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Every time you play, 20 statements are drawn at random from a pool of 60, so each game is different. Records and rules can change, so treat the explanations as a snapshot and use the source links to read more.</p>
   <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
 </section>
 
@@ -54,7 +54,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <section class="panel result" id="result" aria-live="polite">
   <div class="number">QUIZ COMPLETE</div>
   <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Play again (new random draw)</button></div>
   <div class="review" id="review" hidden></div>
 </section>
 
@@ -74,7 +74,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <footer>Independent classroom activity • Volleyball: True or False?</footer>
 </main>
 <script>
-const items = [
+// Pool of statements: a = true/false answer, s = statement, e = explanation
+const pool = [
  {
   "s": "Volleyball was invented in 1895 by William G. Morgan in Massachusetts.",
   "a": true,
@@ -174,16 +175,281 @@ const items = [
   "s": "Volleyball was part of the 1896 Olympic Games.",
   "a": false,
   "e": "False. It was first included in 1964, almost seventy years later."
+ },
+ {
+  "s": "A set is won by the first team to reach 25 points with a lead of at least two points.",
+  "a": true,
+  "e": "True. If the score is 24–24, play continues until a team leads by two."
+ },
+ {
+  "s": "A serve must go over the net and into the opponent's court.",
+  "a": true,
+  "e": "True. If it goes out or into the net, the other team gets the point."
+ },
+ {
+  "s": "A ‘spike’ is a powerful attacking hit down over the net.",
+  "a": true,
+  "e": "True. Players usually jump high to hit the ball."
+ },
+ {
+  "s": "The setter's job is to pass the ball to a hitter, who then attacks.",
+  "a": true,
+  "e": "True. The setter is like the team's playmaker."
+ },
+ {
+  "s": "FIVB is the international volleyball federation.",
+  "a": true,
+  "e": "True. FIVB stands for the International Volleyball Federation, in French."
+ },
+ {
+  "s": "Brazil is one of the strongest volleyball nations in the world.",
+  "a": true,
+  "e": "True. Brazil's men and women have won many Olympic and world titles."
+ },
+ {
+  "s": "France's men won the Olympic volleyball gold medal at the Tokyo Games.",
+  "a": true,
+  "e": "True. They beat the Russian Olympic Committee team in the final."
+ },
+ {
+  "s": "Poland's men's team has won the World Championship twice, in 2014 and 2018.",
+  "a": true,
+  "e": "True. Volleyball is very popular in Poland."
+ },
+ {
+  "s": "In beach volleyball, the first two sets are played to 21 points.",
+  "a": true,
+  "e": "True. If a third set is needed, it is played to 15 points."
+ },
+ {
+  "s": "Beach volleyball players usually play barefoot.",
+  "a": true,
+  "e": "True. The sand is soft and players move better without shoes."
+ },
+ {
+  "s": "Players can hit the ball with any part of their body.",
+  "a": true,
+  "e": "True. The ball can be touched with any part of the body, but it must be hit cleanly, not held."
+ },
+ {
+  "s": "Players are not allowed to touch the net during play.",
+  "a": true,
+  "e": "True. If a player touches the net during a rally, the team loses the point."
+ },
+ {
+  "s": "A referee stands on a raised platform next to the net.",
+  "a": true,
+  "e": "True. This allows the referee to see the whole court and the net."
+ },
+ {
+  "s": "An indoor volleyball court is 18 metres long and 9 metres wide.",
+  "a": true,
+  "e": "True. The net divides it into two courts, each 9 by 9 metres."
+ },
+ {
+  "s": "Sitting volleyball is played at the Paralympic Games.",
+  "a": true,
+  "e": "True. Players have to keep part of their body on the floor when they hit the ball."
+ },
+ {
+  "s": "A serve that touches the net and goes over is still in play.",
+  "a": true,
+  "e": "True. This is called a ‘let serve’ and has been allowed since 2000."
+ },
+ {
+  "s": "Players must stay in their rotation order until the ball is served.",
+  "a": true,
+  "e": "True. Then they can move to attack or defend."
+ },
+ {
+  "s": "Italy's women won the Olympic volleyball gold medal at the 2024 Paris Games.",
+  "a": true,
+  "e": "True. They beat the United States in the final."
+ },
+ {
+  "s": "A ‘dig’ is a defensive pass of a ball that has been hit hard.",
+  "a": true,
+  "e": "True. Players often dive to the floor to dig a hard attack."
+ },
+ {
+  "s": "Olympic indoor volleyball matches are the best of three sets.",
+  "a": false,
+  "e": "False. They are the best of five sets."
+ },
+ {
+  "s": "The serve must be hit underarm.",
+  "a": false,
+  "e": "False. Most players use an overarm serve. Some players jump to hit it."
+ },
+ {
+  "s": "The men's net is three metres high.",
+  "a": false,
+  "e": "False. It is 2.43 metres high. The women's is 2.24 metres."
+ },
+ {
+  "s": "Each beach volleyball team has six players.",
+  "a": false,
+  "e": "False. Each team has two players."
+ },
+ {
+  "s": "In volleyball, players hit the ball with a racket.",
+  "a": false,
+  "e": "False. Players use their hands and arms."
+ },
+ {
+  "s": "Volleyball was invented in Brazil.",
+  "a": false,
+  "e": "False. It was invented in the United States, in 1895."
+ },
+ {
+  "s": "The fifth set in an indoor match is played to 25 points.",
+  "a": false,
+  "e": "False. It is played to 15 points."
+ },
+ {
+  "s": "Italy has never won an Olympic volleyball gold medal.",
+  "a": false,
+  "e": "False. Italy's women won in 2024. Many Italian teams are strong."
+ },
+ {
+  "s": "Volleyball was in the 1948 Olympics.",
+  "a": false,
+  "e": "False. It was first held in 1964."
+ },
+ {
+  "s": "A set is won by the first team to score 10 points.",
+  "a": false,
+  "e": "False. Normal sets go to 25 points."
+ },
+ {
+  "s": "An indoor volleyball court is 18 metres long and 18 metres wide.",
+  "a": false,
+  "e": "False. It is 18 metres long and 9 metres wide."
+ },
+ {
+  "s": "A team may hit the ball five times before sending it over the net.",
+  "a": false,
+  "e": "False. The maximum is three touches."
+ },
+ {
+  "s": "In volleyball, rotation is counterclockwise.",
+  "a": false,
+  "e": "False. Teams rotate clockwise."
+ },
+ {
+  "s": "The libero wears the same colour as the rest of the team.",
+  "a": false,
+  "e": "False. The libero wears a different colour from the other players."
+ },
+ {
+  "s": "A team scores a point when the ball touches the net.",
+  "a": false,
+  "e": "False. The ball can touch the net during a serve, and play continues."
+ },
+ {
+  "s": "Beach volleyball matches are the best of five sets.",
+  "a": false,
+  "e": "False. They are the best of three sets."
+ },
+ {
+  "s": "A volleyball match can end in a draw.",
+  "a": false,
+  "e": "False. Matches go on until one team wins the required number of sets."
+ },
+ {
+  "s": "Volleyball is played on a clay court.",
+  "a": false,
+  "e": "False. It is played indoors on a hard floor or outdoors on sand."
+ },
+ {
+  "s": "The serve must be hit with two hands.",
+  "a": false,
+  "e": "False. Most players serve with one hand."
+ },
+ {
+  "s": "Volleyball is a contact sport where players can tackle each other.",
+  "a": false,
+  "e": "False. The net separates the two teams, and there is no contact between opponents."
+ },
+ {
+  "s": "A player can hit the ball twice in a row.",
+  "a": false,
+  "e": "False. Double touches are not allowed, except for the first contact after a block."
  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+const QUIZ_SIZE = 20, MIN_TRUE = 8, MAX_TRUE = 12;
+let deck = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+// Fisher–Yates shuffle (in place, unbiased)
+function shuffle(a){
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+// Draw 20 statements: between 8 and 12 true, the rest false, then shuffle the order
+function drawDeck(){
+  const trues  = shuffle(pool.filter(x => x.a));
+  const falses = shuffle(pool.filter(x => !x.a));
+  const nTrue  = MIN_TRUE + Math.floor(Math.random() * (MAX_TRUE - MIN_TRUE + 1));
+  return shuffle(trues.slice(0, nTrue).concat(falses.slice(0, QUIZ_SIZE - nTrue)));
+}
+function begin(){
+  deck = drawDeck(); index = 0; score = 0; answers = [];
+  $("intro").hidden = true; $("result").classList.remove("show"); $("result").style.display = "none";
+  $("quiz").hidden = false; render();
+}
+function render(){
+  const q = deck[index];
+  $("counter").textContent = `Question ${index+1} of ${deck.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${index/deck.length*100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index+1).padStart(2,"0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === deck.length-1 ? "See my result →" : "Next statement →";
+  ["trueBtn","falseBtn"].forEach(id => { const b = $(id); b.disabled = false; b.className = "choice"; });
+}
+function answer(value){
+  const q = deck[index], correct = value === q.a;
+  if (correct) score++;
+  answers.push({q, value, correct});
+  $("scoreNow").textContent = `Score: ${score}`;
+  $(value ? "trueBtn" : "falseBtn").classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite.";
+  $("explanation").textContent = q.e;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn","falseBtn"].forEach(id => $(id).disabled = true);
+}
+function finish(){
+  $("quiz").hidden = true; $("result").style.display = "block"; $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${deck.length}`;
+  $("comment").textContent = score>=17 ? "Excellent work. You spotted almost all the myths and facts."
+    : score>=12 ? "Good result. You have a solid understanding, with a few surprises along the way."
+    : score>=8 ? "A useful attempt. Read the explanations to discover which assumptions were challenged."
+    : "Many of these are surprising! Review the explanations and play again: you will get a different set of statements.";
+  $("progress").style.width = "100%";
+}
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => { index++; if (index < deck.length) render(); else finish(); });
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none"; $("result").classList.remove("show");
+  $("review").hidden = true; begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review"); r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Answer review</h3>" + answers.map((x, i) =>
+      `<details><summary>${i+1}. ${x.correct ? "Correct" : "Incorrect"} — ${x.q.s}</summary><p><b>Answer: ${x.q.a ? "True" : "False"}.</b> ${x.q.e}</p></details>`).join("");
+  }
+});
 </script>
 </body>
 </html>

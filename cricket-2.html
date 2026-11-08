@@ -30,11 +30,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
   <div class="kicker">English • B1–B2</div>
   <h1>Cricket: True or False?</h1>
   <p>Ducks, ashes and five-day matches that still end in a draw. Test your knowledge of cricket's records and rules.</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="meta"><span class="pill">20 random statements</span><span class="pill">60-statement pool</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Every time you play, 20 statements are drawn at random from a pool of 60, so each game is different. Records and rules can change, so treat the explanations as a snapshot and use the source links to read more.</p>
   <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
 </section>
 
@@ -54,7 +54,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <section class="panel result" id="result" aria-live="polite">
   <div class="number">QUIZ COMPLETE</div>
   <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Play again (new random draw)</button></div>
   <div class="review" id="review" hidden></div>
 </section>
 
@@ -78,7 +78,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <footer>Independent classroom activity • Cricket: True or False?</footer>
 </main>
 <script>
-const items = [
+// Pool of statements: a = true/false answer, s = statement, e = explanation
+const pool = [
  {
   "s": "A Test match can last five days and still end in a draw.",
   "a": true,
@@ -178,16 +179,281 @@ const items = [
   "s": "England has never won the men's 50-over Cricket World Cup.",
   "a": false,
   "e": "False. England won it in 2019 after a dramatic final against New Zealand, decided by a Super Over."
+ },
+ {
+  "s": "A team is ‘all out’ when ten batters are out.",
+  "a": true,
+  "e": "True. The eleventh batter has no partner, so the innings ends."
+ },
+ {
+  "s": "LBW stands for ‘leg before wicket’.",
+  "a": true,
+  "e": "True. A batter can be out if the ball would hit the stumps but hits their leg first."
+ },
+ {
+  "s": "A six is scored when the ball crosses the boundary without bouncing.",
+  "a": true,
+  "e": "True. Fans love sixes, especially in Twenty20 matches."
+ },
+ {
+  "s": "A ‘wide’ is a ball that is too far from the batter. It gives the batting team an extra run.",
+  "a": true,
+  "e": "True. The bowler also has to bowl the ball again."
+ },
+ {
+  "s": "In a one-day international, each team normally bats for a maximum of 50 overs.",
+  "a": true,
+  "e": "True. The team with more runs at the end wins."
+ },
+ {
+  "s": "The Indian Premier League (IPL) is a Twenty20 competition.",
+  "a": true,
+  "e": "True. It started in 2008 and is one of the richest sports leagues in the world."
+ },
+ {
+  "s": "A red ball is used in Test cricket and a white ball in most one-day matches.",
+  "a": true,
+  "e": "True. White balls are easier to see under floodlights."
+ },
+ {
+  "s": "An umpire raises a finger to signal that a batter is out.",
+  "a": true,
+  "e": "True. The umpire raises both arms for a six."
+ },
+ {
+  "s": "The first Women's Cricket World Cup was held in 1973, before the first men's one.",
+  "a": true,
+  "e": "True. It was held in England, and England won."
+ },
+ {
+  "s": "Lord's, in London, is often called the ‘home of cricket’.",
+  "a": true,
+  "e": "True. It is the home of the MCC, the club that writes the laws of cricket."
+ },
+ {
+  "s": "The West Indies won the first men's Cricket World Cup in 1975.",
+  "a": true,
+  "e": "True. They also won in 1979."
+ },
+ {
+  "s": "A wicket is made of three stumps and two bails.",
+  "a": true,
+  "e": "True. The bails are the small pieces of wood on top of the stumps."
+ },
+ {
+  "s": "Muttiah Muralitharan of Sri Lanka took 800 wickets in Test cricket.",
+  "a": true,
+  "e": "True. It is the highest number in the history of Tests."
+ },
+ {
+  "s": "Shane Warne's famous first ball in the 1993 Ashes was called the ‘ball of the century’.",
+  "a": true,
+  "e": "True. It turned a long way and bowled the English batter Mike Gatting."
+ },
+ {
+  "s": "Each team bats twice in a Test match, unless one team wins by an innings.",
+  "a": true,
+  "e": "True. The team with the most runs in total wins."
+ },
+ {
+  "s": "Day-night Test matches use a pink ball.",
+  "a": true,
+  "e": "True. The pink ball is easier to see under floodlights than a red ball."
+ },
+ {
+  "s": "‘Bodyline’ was a controversial English tactic in the Ashes series of 1932–33.",
+  "a": true,
+  "e": "True. The bowlers aimed at the batters' bodies, and many people thought it was unfair."
+ },
+ {
+  "s": "The Decision Review System (DRS) allows teams to ask for a check of an umpire's decision.",
+  "a": true,
+  "e": "True. It uses technology such as ball-tracking and slow-motion replays."
+ },
+ {
+  "s": "The wicketkeeper is the only fielder who can wear gloves.",
+  "a": true,
+  "e": "True. They stand behind the stumps and catch balls that the batter misses."
+ },
+ {
+  "s": "A batter is not out if the ball bounces before it hits the stumps.",
+  "a": false,
+  "e": "False. The batter is out bowled. A bounce does not matter."
+ },
+ {
+  "s": "An innings ends when five batters are out.",
+  "a": false,
+  "e": "False. An innings ends when ten batters are out, or when the overs are finished."
+ },
+ {
+  "s": "A bowler can bowl two overs in a row.",
+  "a": false,
+  "e": "False. Another bowler must bowl the next over, from the other end."
+ },
+ {
+  "s": "In a Twenty20 match, each team bats for 50 overs.",
+  "a": false,
+  "e": "False. Each team bats for 20 overs. That is why it is called Twenty20."
+ },
+ {
+  "s": "A ‘bye’ is a run scored from the bat.",
+  "a": false,
+  "e": "False. A bye is a run when the ball does not hit the bat or the batter."
+ },
+ {
+  "s": "The Ashes is a cricket series between India and Pakistan.",
+  "a": false,
+  "e": "False. It is played between England and Australia."
+ },
+ {
+  "s": "Lord's cricket ground is in Sydney.",
+  "a": false,
+  "e": "False. It is in London. Sydney's ground is the SCG."
+ },
+ {
+  "s": "The first men's Cricket World Cup was held in 1992.",
+  "a": false,
+  "e": "False. The first was in 1975. The 1992 tournament was held in Australia and New Zealand."
+ },
+ {
+  "s": "The West Indies have never won the Cricket World Cup.",
+  "a": false,
+  "e": "False. They won in 1975 and 1979."
+ },
+ {
+  "s": "The Ashes trophy is a large golden cup.",
+  "a": false,
+  "e": "False. The Ashes urn is tiny, only about 11 cm tall."
+ },
+ {
+  "s": "The wicketkeeper stands in front of the batter.",
+  "a": false,
+  "e": "False. The wicketkeeper stands behind the stumps."
+ },
+ {
+  "s": "A ‘no-ball’ means that the batter is out.",
+  "a": false,
+  "e": "False. A no-ball is an illegal delivery. It gives the batting team an extra run."
+ },
+ {
+  "s": "Cricket has been in every Olympic Games since 1900.",
+  "a": false,
+  "e": "False. It was only played in 1900. It returns in 2028."
+ },
+ {
+  "s": "England won the very first Test match.",
+  "a": false,
+  "e": "False. Australia won it by 45 runs in 1877."
+ },
+ {
+  "s": "The Gabba stadium is in Melbourne.",
+  "a": false,
+  "e": "False. The Gabba is in Brisbane. The Melbourne ground is the MCG."
+ },
+ {
+  "s": "The Melbourne Cricket Ground is in Sydney.",
+  "a": false,
+  "e": "False. It is in Melbourne, as the name says. It holds around 100,000 people."
+ },
+ {
+  "s": "A spin bowler usually bowls faster than a fast bowler.",
+  "a": false,
+  "e": "False. Fast bowlers are much faster. Spinners try to make the ball turn sharply."
+ },
+ {
+  "s": "Don Bradman was born in England.",
+  "a": false,
+  "e": "False. He was Australian, born in New South Wales."
+ },
+ {
+  "s": "The Twenty20 format was first played in the 1980s.",
+  "a": false,
+  "e": "False. It was first played in England in 2003."
+ },
+ {
+  "s": "A cricket ball is usually made of plastic.",
+  "a": false,
+  "e": "False. It is made of cork and leather, with a stitched seam."
+ },
+ {
+  "s": "In Test cricket, each team bats three times.",
+  "a": false,
+  "e": "False. Each team has a maximum of two innings."
  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+const QUIZ_SIZE = 20, MIN_TRUE = 8, MAX_TRUE = 12;
+let deck = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+// Fisher–Yates shuffle (in place, unbiased)
+function shuffle(a){
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+// Draw 20 statements: between 8 and 12 true, the rest false, then shuffle the order
+function drawDeck(){
+  const trues  = shuffle(pool.filter(x => x.a));
+  const falses = shuffle(pool.filter(x => !x.a));
+  const nTrue  = MIN_TRUE + Math.floor(Math.random() * (MAX_TRUE - MIN_TRUE + 1));
+  return shuffle(trues.slice(0, nTrue).concat(falses.slice(0, QUIZ_SIZE - nTrue)));
+}
+function begin(){
+  deck = drawDeck(); index = 0; score = 0; answers = [];
+  $("intro").hidden = true; $("result").classList.remove("show"); $("result").style.display = "none";
+  $("quiz").hidden = false; render();
+}
+function render(){
+  const q = deck[index];
+  $("counter").textContent = `Question ${index+1} of ${deck.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${index/deck.length*100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index+1).padStart(2,"0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === deck.length-1 ? "See my result →" : "Next statement →";
+  ["trueBtn","falseBtn"].forEach(id => { const b = $(id); b.disabled = false; b.className = "choice"; });
+}
+function answer(value){
+  const q = deck[index], correct = value === q.a;
+  if (correct) score++;
+  answers.push({q, value, correct});
+  $("scoreNow").textContent = `Score: ${score}`;
+  $(value ? "trueBtn" : "falseBtn").classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite.";
+  $("explanation").textContent = q.e;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn","falseBtn"].forEach(id => $(id).disabled = true);
+}
+function finish(){
+  $("quiz").hidden = true; $("result").style.display = "block"; $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${deck.length}`;
+  $("comment").textContent = score>=17 ? "Excellent work. You spotted almost all the myths and facts."
+    : score>=12 ? "Good result. You have a solid understanding, with a few surprises along the way."
+    : score>=8 ? "A useful attempt. Read the explanations to discover which assumptions were challenged."
+    : "Many of these are surprising! Review the explanations and play again: you will get a different set of statements.";
+  $("progress").style.width = "100%";
+}
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => { index++; if (index < deck.length) render(); else finish(); });
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none"; $("result").classList.remove("show");
+  $("review").hidden = true; begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review"); r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Answer review</h3>" + answers.map((x, i) =>
+      `<details><summary>${i+1}. ${x.correct ? "Correct" : "Incorrect"} — ${x.q.s}</summary><p><b>Answer: ${x.q.a ? "True" : "False"}.</b> ${x.q.e}</p></details>`).join("");
+  }
+});
 </script>
 </body>
 </html>

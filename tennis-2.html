@@ -30,11 +30,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
   <div class="kicker">English • B1–B2</div>
   <h1>Tennis: True or False?</h1>
   <p>Love, deuce and yellow balls. Test your knowledge of tennis history, records and rules.</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="meta"><span class="pill">20 random statements</span><span class="pill">60-statement pool</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Every time you play, 20 statements are drawn at random from a pool of 60, so each game is different. Records and rules can change, so treat the explanations as a snapshot and use the source links to read more.</p>
   <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
 </section>
 
@@ -54,7 +54,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <section class="panel result" id="result" aria-live="polite">
   <div class="number">QUIZ COMPLETE</div>
   <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Play again (new random draw)</button></div>
   <div class="review" id="review" hidden></div>
 </section>
 
@@ -78,7 +78,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <footer>Independent classroom activity • Tennis: True or False?</footer>
 </main>
 <script>
-const items = [
+// Pool of statements: a = true/false answer, s = statement, e = explanation
+const pool = [
  {
   "s": "Wimbledon is the oldest tennis tournament in the world, first played in 1877.",
   "a": true,
@@ -178,16 +179,281 @@ const items = [
   "s": "In a standard tie-break, the first player to reach five points wins.",
   "a": false,
   "e": "False. It is the first to seven points, with a lead of at least two."
+ },
+ {
+  "s": "A tennis match is usually the best of three or five sets.",
+  "a": true,
+  "e": "True. Men's Grand Slam matches are the best of five sets, and most other matches are the best of three."
+ },
+ {
+  "s": "A serve must land in the diagonally opposite service box.",
+  "a": true,
+  "e": "True. If it lands outside, it is a fault."
+ },
+ {
+  "s": "Wimbledon stopped using line judges in 2025, and now uses electronic line calling.",
+  "a": true,
+  "e": "True. Cameras and computers decide if the ball is in or out."
+ },
+ {
+  "s": "Rafael Nadal won the French Open 14 times.",
+  "a": true,
+  "e": "True. He is nicknamed the ‘King of Clay’."
+ },
+ {
+  "s": "Roger Federer won the Wimbledon men's singles title eight times.",
+  "a": true,
+  "e": "True. This is a men's record for the tournament."
+ },
+ {
+  "s": "Novak Djokovic has won more than 20 Grand Slam singles titles.",
+  "a": true,
+  "e": "True. He is one of the greatest players in tennis history."
+ },
+ {
+  "s": "Venus and Serena Williams are sisters.",
+  "a": true,
+  "e": "True. They have both been world number one and also won many doubles titles together."
+ },
+ {
+  "s": "The French Open is played on clay courts.",
+  "a": true,
+  "e": "True. Clay courts are slower, so the ball bounces higher."
+ },
+ {
+  "s": "The US Open is played in New York.",
+  "a": true,
+  "e": "True. It is held at the end of the summer."
+ },
+ {
+  "s": "The Davis Cup is an international team competition for men.",
+  "a": true,
+  "e": "True. It began in 1900."
+ },
+ {
+  "s": "The Billie Jean King Cup is a team competition for women.",
+  "a": true,
+  "e": "True. It used to be called the Fed Cup."
+ },
+ {
+  "s": "An ‘ace’ is a serve that the opponent cannot touch.",
+  "a": true,
+  "e": "True. Aces are common in men's tennis."
+ },
+ {
+  "s": "A double fault happens when a player misses both serves and loses the point.",
+  "a": true,
+  "e": "True. Players get two chances to serve."
+ },
+ {
+  "s": "A set is usually won by the first player to win six games, with a lead of at least two.",
+  "a": true,
+  "e": "True. If the score is 6–6, a tie-break is usually played."
+ },
+ {
+  "s": "At deuce, a player has to win two points in a row to win the game.",
+  "a": true,
+  "e": "True. The first point is called ‘advantage’."
+ },
+ {
+  "s": "Strawberries and cream are traditional food at Wimbledon.",
+  "a": true,
+  "e": "True. Spectators eat thousands of kilos of strawberries every year."
+ },
+ {
+  "s": "In 1973, Billie Jean King beat Bobby Riggs in a famous match called the ‘Battle of the Sexes’.",
+  "a": true,
+  "e": "True. It was watched by millions of people and became a symbol for women's rights."
+ },
+ {
+  "s": "The Rod Laver Arena is in Melbourne.",
+  "a": true,
+  "e": "True. It is the main stadium at the Australian Open."
+ },
+ {
+  "s": "Wheelchair tennis is played at the Grand Slam tournaments.",
+  "a": true,
+  "e": "True. Wheelchair players use the same courts and almost the same rules, except that the ball can bounce twice."
+ },
+ {
+  "s": "In tennis, the ball must bounce twice before a player hits it.",
+  "a": false,
+  "e": "False. Players hit the ball after one bounce or before it bounces (a volley)."
+ },
+ {
+  "s": "An underarm serve is not allowed in tennis.",
+  "a": false,
+  "e": "False. It is allowed, but it is rare. Some players use it as a surprise."
+ },
+ {
+  "s": "Players change ends after every point.",
+  "a": false,
+  "e": "False. They change ends after the first game and then after every two games."
+ },
+ {
+  "s": "The French Open is played on grass.",
+  "a": false,
+  "e": "False. It is played on clay."
+ },
+ {
+  "s": "The US Open is played in London.",
+  "a": false,
+  "e": "False. It is played in New York. London is the home of Wimbledon."
+ },
+ {
+  "s": "The scores in a tennis game go 1, 2, 3, 4.",
+  "a": false,
+  "e": "False. The scores are love, 15, 30, 40 and then game."
+ },
+ {
+  "s": "A tennis match always has three sets.",
+  "a": false,
+  "e": "False. It can have three or five sets, depending on the competition."
+ },
+ {
+  "s": "Rafael Nadal won Wimbledon 14 times.",
+  "a": false,
+  "e": "False. Nadal won the French Open 14 times. He won Wimbledon twice."
+ },
+ {
+  "s": "Roger Federer is from Spain.",
+  "a": false,
+  "e": "False. He is Swiss. Rafael Nadal is Spanish."
+ },
+ {
+  "s": "Novak Djokovic is from Croatia.",
+  "a": false,
+  "e": "False. He is from Serbia."
+ },
+ {
+  "s": "The Davis Cup is a women's competition.",
+  "a": false,
+  "e": "False. The women's equivalent is the Billie Jean King Cup."
+ },
+ {
+  "s": "A ‘let’ means the player loses the point.",
+  "a": false,
+  "e": "False. A let means the point is replayed, for example when a serve touches the net and goes in."
+ },
+ {
+  "s": "When a player double faults, the server wins the point.",
+  "a": false,
+  "e": "False. A double fault means the server loses the point."
+ },
+ {
+  "s": "Wimbledon is held in January.",
+  "a": false,
+  "e": "False. It is held in late June and July."
+ },
+ {
+  "s": "Tennis was invented in the United States.",
+  "a": false,
+  "e": "False. Modern tennis began in England in the 1870s, from older French and English games."
+ },
+ {
+  "s": "Grass courts are slower than clay courts.",
+  "a": false,
+  "e": "False. Grass is faster. The ball bounces lower and quicker on grass."
+ },
+ {
+  "s": "A player may touch the net with a racket during a point.",
+  "a": false,
+  "e": "False. If a player touches the net during a point, they lose the point."
+ },
+ {
+  "s": "The Australian Open is played in autumn.",
+  "a": false,
+  "e": "False. It is played in January, in the middle of the Australian summer."
+ },
+ {
+  "s": "The strings of a tennis racket are always made of metal.",
+  "a": false,
+  "e": "False. Today most strings are synthetic. Some players use natural gut."
+ },
+ {
+  "s": "The first Wimbledon tournament was held in Paris.",
+  "a": false,
+  "e": "False. It was held in London in 1877."
+ },
+ {
+  "s": "Andy Murray is from Australia.",
+  "a": false,
+  "e": "False. He is from Scotland, in the UK. He won Wimbledon in 2013 and 2016."
  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+const QUIZ_SIZE = 20, MIN_TRUE = 8, MAX_TRUE = 12;
+let deck = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+// Fisher–Yates shuffle (in place, unbiased)
+function shuffle(a){
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+// Draw 20 statements: between 8 and 12 true, the rest false, then shuffle the order
+function drawDeck(){
+  const trues  = shuffle(pool.filter(x => x.a));
+  const falses = shuffle(pool.filter(x => !x.a));
+  const nTrue  = MIN_TRUE + Math.floor(Math.random() * (MAX_TRUE - MIN_TRUE + 1));
+  return shuffle(trues.slice(0, nTrue).concat(falses.slice(0, QUIZ_SIZE - nTrue)));
+}
+function begin(){
+  deck = drawDeck(); index = 0; score = 0; answers = [];
+  $("intro").hidden = true; $("result").classList.remove("show"); $("result").style.display = "none";
+  $("quiz").hidden = false; render();
+}
+function render(){
+  const q = deck[index];
+  $("counter").textContent = `Question ${index+1} of ${deck.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${index/deck.length*100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index+1).padStart(2,"0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === deck.length-1 ? "See my result →" : "Next statement →";
+  ["trueBtn","falseBtn"].forEach(id => { const b = $(id); b.disabled = false; b.className = "choice"; });
+}
+function answer(value){
+  const q = deck[index], correct = value === q.a;
+  if (correct) score++;
+  answers.push({q, value, correct});
+  $("scoreNow").textContent = `Score: ${score}`;
+  $(value ? "trueBtn" : "falseBtn").classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite.";
+  $("explanation").textContent = q.e;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn","falseBtn"].forEach(id => $(id).disabled = true);
+}
+function finish(){
+  $("quiz").hidden = true; $("result").style.display = "block"; $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${deck.length}`;
+  $("comment").textContent = score>=17 ? "Excellent work. You spotted almost all the myths and facts."
+    : score>=12 ? "Good result. You have a solid understanding, with a few surprises along the way."
+    : score>=8 ? "A useful attempt. Read the explanations to discover which assumptions were challenged."
+    : "Many of these are surprising! Review the explanations and play again: you will get a different set of statements.";
+  $("progress").style.width = "100%";
+}
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => { index++; if (index < deck.length) render(); else finish(); });
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none"; $("result").classList.remove("show");
+  $("review").hidden = true; begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review"); r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Answer review</h3>" + answers.map((x, i) =>
+      `<details><summary>${i+1}. ${x.correct ? "Correct" : "Incorrect"} — ${x.q.s}</summary><p><b>Answer: ${x.q.a ? "True" : "False"}.</b> ${x.q.e}</p></details>`).join("");
+  }
+});
 </script>
 </body>
 </html>

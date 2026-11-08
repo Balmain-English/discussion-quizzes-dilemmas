@@ -30,11 +30,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
   <div class="kicker">English • B1–B2</div>
   <h1>Rugby League: True or False?</h1>
   <p>Thirteen players, six tackles and a game born in a Yorkshire hotel. How much do you know about rugby league?</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="meta"><span class="pill">20 random statements</span><span class="pill">60-statement pool</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Every time you play, 20 statements are drawn at random from a pool of 60, so each game is different. Records and rules can change, so treat the explanations as a snapshot and use the source links to read more.</p>
   <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
 </section>
 
@@ -54,7 +54,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <section class="panel result" id="result" aria-live="polite">
   <div class="number">QUIZ COMPLETE</div>
   <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Play again (new random draw)</button></div>
   <div class="review" id="review" hidden></div>
 </section>
 
@@ -76,7 +76,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <footer>Independent classroom activity • Rugby League: True or False?</footer>
 </main>
 <script>
-const items = [
+// Pool of statements: a = true/false answer, s = statement, e = explanation
+const pool = [
  {
   "s": "A rugby league team has 13 players on the pitch.",
   "a": true,
@@ -176,16 +177,281 @@ const items = [
   "s": "Rugby league is the most popular sport in Japan.",
   "a": false,
   "e": "False. Rugby league is mainly played in northern England, Australia, New Zealand, Papua New Guinea and parts of France."
+ },
+ {
+  "s": "A conversion kick is worth two points in rugby league.",
+  "a": true,
+  "e": "True. A try plus a conversion is worth six points in total."
+ },
+ {
+  "s": "A penalty goal is worth two points in rugby league.",
+  "a": true,
+  "e": "True. This is different from rugby union, where it is worth three."
+ },
+ {
+  "s": "The Super League season ends with a final called the Grand Final.",
+  "a": true,
+  "e": "True. The two best teams meet to decide the champion."
+ },
+ {
+  "s": "The NRL is the top club competition in Australia.",
+  "a": true,
+  "e": "True. NRL stands for National Rugby League. It includes one team from New Zealand."
+ },
+ {
+  "s": "A player in the sin bin must leave the pitch for ten minutes.",
+  "a": true,
+  "e": "True. The team plays with twelve players during that time."
+ },
+ {
+  "s": "After a tackle, the player gets up and rolls the ball back with a foot. This is called the play-the-ball.",
+  "a": true,
+  "e": "True. It restarts play after each tackle."
+ },
+ {
+  "s": "Wigan Warriors and St Helens are two of the most successful English clubs.",
+  "a": true,
+  "e": "True. Both clubs come from towns in the north-west of England."
+ },
+ {
+  "s": "Rugby league is the national sport of Papua New Guinea.",
+  "a": true,
+  "e": "True. It is hugely popular there, and many fans follow it closely."
+ },
+ {
+  "s": "A try is scored by pressing the ball down on or over the opposing try line.",
+  "a": true,
+  "e": "True. This is called ‘grounding’ the ball."
+ },
+ {
+  "s": "If a game is level after 80 minutes, extra time is played under ‘golden point’ rules.",
+  "a": true,
+  "e": "True. The first team to score wins."
+ },
+ {
+  "s": "The Australian national team is nicknamed the Kangaroos.",
+  "a": true,
+  "e": "True. The kangaroo is also a national animal of Australia."
+ },
+ {
+  "s": "The New Zealand national team is nicknamed the Kiwis.",
+  "a": true,
+  "e": "True. The kiwi is a bird, and a symbol of New Zealand."
+ },
+ {
+  "s": "The 2021 Rugby League World Cup was held in England in 2022.",
+  "a": true,
+  "e": "True. It was moved because of the pandemic. Australia won the men's final."
+ },
+ {
+  "s": "Rugby league and rugby union both use an oval ball.",
+  "a": true,
+  "e": "True. The ball has almost the same shape and size in both sports."
+ },
+ {
+  "s": "Great Britain used to play international rugby league as a single team.",
+  "a": true,
+  "e": "True. They were called the Lions. In recent years, England has played as its own team."
+ },
+ {
+  "s": "Rugby league has no rucks.",
+  "a": true,
+  "e": "True. After a tackle, the tackled player plays the ball, so players do not compete for it on the ground."
+ },
+ {
+  "s": "A ‘40/20’ is a kick from your own half that bounces into touch inside the other team's 20-metre area.",
+  "a": true,
+  "e": "True. The kicking team keeps the ball and starts a new set of six tackles."
+ },
+ {
+  "s": "Women's rugby league has its own World Cup.",
+  "a": true,
+  "e": "True. The first women's tournament was held in 2000."
+ },
+ {
+  "s": "A try and a successful conversion are worth six points together.",
+  "a": true,
+  "e": "True. A try is four points and a conversion is two."
+ },
+ {
+  "s": "A rugby league team has 15 players on the pitch.",
+  "a": false,
+  "e": "False. It has 13. Fifteen is the number for rugby union."
+ },
+ {
+  "s": "A drop goal is worth three points in rugby league.",
+  "a": false,
+  "e": "False. It is worth only one point in rugby league."
+ },
+ {
+  "s": "A conversion is worth three points in rugby league.",
+  "a": false,
+  "e": "False. It is worth two points."
+ },
+ {
+  "s": "The Super League is played in Australia.",
+  "a": false,
+  "e": "False. The Super League is the top club competition in Europe, mostly in England and France."
+ },
+ {
+  "s": "The NRL is the top league in England.",
+  "a": false,
+  "e": "False. The NRL is Australia's top competition. England's top league is the Super League."
+ },
+ {
+  "s": "Rugby league has lineouts.",
+  "a": false,
+  "e": "False. There are no lineouts in rugby league. After the ball goes out, play restarts with a scrum."
+ },
+ {
+  "s": "Rugby league is most popular in southern Spain.",
+  "a": false,
+  "e": "False. It is popular in northern England, Australia, New Zealand, Papua New Guinea and the south of France."
+ },
+ {
+  "s": "A scrum is used after every tackle.",
+  "a": false,
+  "e": "False. After a tackle, the player plays the ball. A scrum is used after small mistakes, for example a knock-on."
+ },
+ {
+  "s": "Rugby league was invented in Wales.",
+  "a": false,
+  "e": "False. It began in northern England, in 1895."
+ },
+ {
+  "s": "The Challenge Cup is only for Australian clubs.",
+  "a": false,
+  "e": "False. It is mainly for English clubs, and it also includes some clubs from France."
+ },
+ {
+  "s": "The Kangaroos is the nickname of the New Zealand team.",
+  "a": false,
+  "e": "False. The Kangaroos are Australia. New Zealand's team is called the Kiwis."
+ },
+ {
+  "s": "A sin bin in rugby league lasts 20 minutes.",
+  "a": false,
+  "e": "False. A sin bin lasts ten minutes."
+ },
+ {
+  "s": "The Rugby League World Cup is played every year.",
+  "a": false,
+  "e": "False. It is held about every four years, though the dates have changed a few times."
+ },
+ {
+  "s": "In rugby league, a team can have unlimited tackles.",
+  "a": false,
+  "e": "False. After the sixth tackle, the ball goes to the other team."
+ },
+ {
+  "s": "The State of Origin series is played over five games.",
+  "a": false,
+  "e": "False. It is played over three games each year."
+ },
+ {
+  "s": "A video referee is never used in rugby league.",
+  "a": false,
+  "e": "False. The video referee helps to decide tries and other important moments."
+ },
+ {
+  "s": "The NRL has teams in only one Australian city.",
+  "a": false,
+  "e": "False. It has teams in Sydney, Brisbane, Melbourne and many other places."
+ },
+ {
+  "s": "The Catalans Dragons play in Spain.",
+  "a": false,
+  "e": "False. They are based in Perpignan, in the south of France."
+ },
+ {
+  "s": "A substitute is never allowed in rugby league.",
+  "a": false,
+  "e": "False. Teams can use replacements from the bench. The number is limited."
+ },
+ {
+  "s": "A try is worth two points in rugby league.",
+  "a": false,
+  "e": "False. A try is worth four points."
+ },
+ {
+  "s": "Australia won the first Rugby League World Cup in 1954.",
+  "a": false,
+  "e": "False. Great Britain won the first tournament, in France."
  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+const QUIZ_SIZE = 20, MIN_TRUE = 8, MAX_TRUE = 12;
+let deck = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+// Fisher–Yates shuffle (in place, unbiased)
+function shuffle(a){
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+// Draw 20 statements: between 8 and 12 true, the rest false, then shuffle the order
+function drawDeck(){
+  const trues  = shuffle(pool.filter(x => x.a));
+  const falses = shuffle(pool.filter(x => !x.a));
+  const nTrue  = MIN_TRUE + Math.floor(Math.random() * (MAX_TRUE - MIN_TRUE + 1));
+  return shuffle(trues.slice(0, nTrue).concat(falses.slice(0, QUIZ_SIZE - nTrue)));
+}
+function begin(){
+  deck = drawDeck(); index = 0; score = 0; answers = [];
+  $("intro").hidden = true; $("result").classList.remove("show"); $("result").style.display = "none";
+  $("quiz").hidden = false; render();
+}
+function render(){
+  const q = deck[index];
+  $("counter").textContent = `Question ${index+1} of ${deck.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${index/deck.length*100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index+1).padStart(2,"0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === deck.length-1 ? "See my result →" : "Next statement →";
+  ["trueBtn","falseBtn"].forEach(id => { const b = $(id); b.disabled = false; b.className = "choice"; });
+}
+function answer(value){
+  const q = deck[index], correct = value === q.a;
+  if (correct) score++;
+  answers.push({q, value, correct});
+  $("scoreNow").textContent = `Score: ${score}`;
+  $(value ? "trueBtn" : "falseBtn").classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite.";
+  $("explanation").textContent = q.e;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn","falseBtn"].forEach(id => $(id).disabled = true);
+}
+function finish(){
+  $("quiz").hidden = true; $("result").style.display = "block"; $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${deck.length}`;
+  $("comment").textContent = score>=17 ? "Excellent work. You spotted almost all the myths and facts."
+    : score>=12 ? "Good result. You have a solid understanding, with a few surprises along the way."
+    : score>=8 ? "A useful attempt. Read the explanations to discover which assumptions were challenged."
+    : "Many of these are surprising! Review the explanations and play again: you will get a different set of statements.";
+  $("progress").style.width = "100%";
+}
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => { index++; if (index < deck.length) render(); else finish(); });
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none"; $("result").classList.remove("show");
+  $("review").hidden = true; begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review"); r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Answer review</h3>" + answers.map((x, i) =>
+      `<details><summary>${i+1}. ${x.correct ? "Correct" : "Incorrect"} — ${x.q.s}</summary><p><b>Answer: ${x.q.a ? "True" : "False"}.</b> ${x.q.e}</p></details>`).join("");
+  }
+});
 </script>
 </body>
 </html>

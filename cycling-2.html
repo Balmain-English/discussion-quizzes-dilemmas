@@ -30,11 +30,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
   <div class="kicker">English • B1–B2</div>
   <h1>Cycling: True or False?</h1>
   <p>Yellow jerseys, cobbled roads and riders who follow each other so closely that they save energy. How much do you know about bike racing?</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="meta"><span class="pill">20 random statements</span><span class="pill">60-statement pool</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Every time you play, 20 statements are drawn at random from a pool of 60, so each game is different. Records and rules can change, so treat the explanations as a snapshot and use the source links to read more.</p>
   <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
 </section>
 
@@ -54,7 +54,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <section class="panel result" id="result" aria-live="polite">
   <div class="number">QUIZ COMPLETE</div>
   <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Play again (new random draw)</button></div>
   <div class="review" id="review" hidden></div>
 </section>
 
@@ -77,7 +77,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <footer>Independent classroom activity • Cycling: True or False?</footer>
 </main>
 <script>
-const items = [
+// Pool of statements: a = true/false answer, s = statement, e = explanation
+const pool = [
  {
   "s": "The first Tour de France was held in 1903.",
   "a": true,
@@ -177,16 +178,281 @@ const items = [
   "s": "The route of the Tour de France is exactly the same every year.",
   "a": false,
   "e": "False. The race organisers change the route each year, although some famous climbs often return."
+ },
+ {
+  "s": "A Grand Tour, such as the Tour de France, lasts about three weeks.",
+  "a": true,
+  "e": "True. There are three: the Tour de France, the Giro d'Italia and the Vuelta a España."
+ },
+ {
+  "s": "The Vuelta a España is a three-week race in Spain.",
+  "a": true,
+  "e": "True. It is usually held in late summer."
+ },
+ {
+  "s": "Tadej Pogačar, from Slovenia, has won the Tour de France more than once.",
+  "a": true,
+  "e": "True. He first won it in 2020, when he was only 21."
+ },
+ {
+  "s": "Jonas Vingegaard, from Denmark, won the Tour de France in 2022 and 2023.",
+  "a": true,
+  "e": "True. He is a strong climber."
+ },
+ {
+  "s": "The French cyclist Bernard Hinault won the Tour de France five times.",
+  "a": true,
+  "e": "True. His nickname was ‘the Badger’."
+ },
+ {
+  "s": "The climb to Alpe d'Huez, in the French Alps, has 21 numbered hairpin bends.",
+  "a": true,
+  "e": "True. It is one of the most famous climbs in the Tour."
+ },
+ {
+  "s": "In an individual time trial, riders race alone against the clock.",
+  "a": true,
+  "e": "True. They start at different times, one after the other."
+ },
+ {
+  "s": "The riders in a Tour de France team work together to help their leader.",
+  "a": true,
+  "e": "True. Team-mates give protection from the wind, bring drinks and help with repairs."
+ },
+ {
+  "s": "A ‘domestique’ is a rider who works to help a team leader.",
+  "a": true,
+  "e": "True. The word is French and means servant."
+ },
+ {
+  "s": "Mountain biking became an Olympic sport in 1996.",
+  "a": true,
+  "e": "True. It was first held at the Atlanta Games."
+ },
+ {
+  "s": "BMX freestyle became an Olympic sport at the Tokyo Games.",
+  "a": true,
+  "e": "True. Riders do tricks and jumps and are judged on style."
+ },
+ {
+  "s": "Track bikes have a fixed gear and no brakes.",
+  "a": true,
+  "e": "True. The rider slows down by using their legs to slow the pedals."
+ },
+ {
+  "s": "Track cycling takes place on a banked oval track called a velodrome.",
+  "a": true,
+  "e": "True. The steep banking helps riders go fast round the bends."
+ },
+ {
+  "s": "In the ‘hour record’, a rider tries to ride as far as possible in sixty minutes.",
+  "a": true,
+  "e": "True. It is a test of endurance on the track."
+ },
+ {
+  "s": "The Tour de France Femmes, the women's Tour, started again in 2022.",
+  "a": true,
+  "e": "True. Earlier women's tours had existed, but were stopped for many years."
+ },
+ {
+  "s": "The French rider Julian Alaphilippe was road race World Champion in 2020 and 2021.",
+  "a": true,
+  "e": "True. He wore the rainbow jersey for two years."
+ },
+ {
+  "s": "The 2024 Tour de France did not finish in Paris, because of the Olympic Games.",
+  "a": true,
+  "e": "True. It finished in Nice instead, which was an unusual choice."
+ },
+ {
+  "s": "The International Cycling Union (UCI) sets a minimum weight of 6.8 kg for road racing bikes.",
+  "a": true,
+  "e": "True. This stops teams from making bikes lighter than a safe limit."
+ },
+ {
+  "s": "A ‘breakaway’ is a small group of riders that attacks and rides ahead of the main group.",
+  "a": true,
+  "e": "True. Riders often try to stay ahead until the finish."
+ },
+ {
+  "s": "A Grand Tour is a one-day race.",
+  "a": false,
+  "e": "False. Grand Tours last about three weeks."
+ },
+ {
+  "s": "The Vuelta a España is held in Italy.",
+  "a": false,
+  "e": "False. It is held in Spain. The Giro is the Italian Grand Tour."
+ },
+ {
+  "s": "Tadej Pogačar is a French rider.",
+  "a": false,
+  "e": "False. He is Slovenian."
+ },
+ {
+  "s": "Jonas Vingegaard is a Dutch rider.",
+  "a": false,
+  "e": "False. He is Danish."
+ },
+ {
+  "s": "Bernard Hinault won the Tour de France ten times.",
+  "a": false,
+  "e": "False. He won it five times."
+ },
+ {
+  "s": "A ‘domestique’ is the team's leader.",
+  "a": false,
+  "e": "False. A domestique helps the leader."
+ },
+ {
+  "s": "In an individual time trial, all the riders start together.",
+  "a": false,
+  "e": "False. Riders start one by one, with a gap between them."
+ },
+ {
+  "s": "Track cycling is held on public roads.",
+  "a": false,
+  "e": "False. It is held in a velodrome."
+ },
+ {
+  "s": "Mountain biking was part of the first Olympic Games in 1896.",
+  "a": false,
+  "e": "False. It was added in 1996."
+ },
+ {
+  "s": "BMX racing has been in the Olympics since 1980.",
+  "a": false,
+  "e": "False. BMX racing was added in 2008."
+ },
+ {
+  "s": "Women have never raced in the Tour de France.",
+  "a": false,
+  "e": "False. There is a women's Tour, the Tour de France Femmes, held every year since 2022."
+ },
+ {
+  "s": "Riders are not allowed to eat while riding.",
+  "a": false,
+  "e": "False. Riders eat and drink on the bike. Helpers hand them food from team cars."
+ },
+ {
+  "s": "Alpe d'Huez is a famous climb in Spain.",
+  "a": false,
+  "e": "False. It is in the French Alps."
+ },
+ {
+  "s": "The white jersey at the Tour de France is for the oldest rider.",
+  "a": false,
+  "e": "False. It is for the best young rider, under 26 years old."
+ },
+ {
+  "s": "The first Tour de France was held in 1953.",
+  "a": false,
+  "e": "False. The first was in 1903."
+ },
+ {
+  "s": "Only men have raced Paris–Roubaix.",
+  "a": false,
+  "e": "False. A women's race was introduced in 2021."
+ },
+ {
+  "s": "Paris–Roubaix is a race in Italy.",
+  "a": false,
+  "e": "False. It goes from near Paris to Roubaix, in the north of France."
+ },
+ {
+  "s": "Eddy Merckx was a Dutch cyclist.",
+  "a": false,
+  "e": "False. He is Belgian."
+ },
+ {
+  "s": "Riders only wear helmets in the mountains.",
+  "a": false,
+  "e": "False. Helmets are compulsory in professional road races at all times."
+ },
+ {
+  "s": "A velodrome track is completely flat.",
+  "a": false,
+  "e": "False. The ends are steeply banked."
+ },
+ {
+  "s": "Lance Armstrong's seven Tour de France titles still officially count.",
+  "a": false,
+  "e": "False. They were removed in 2012 because of doping."
  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+const QUIZ_SIZE = 20, MIN_TRUE = 8, MAX_TRUE = 12;
+let deck = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+// Fisher–Yates shuffle (in place, unbiased)
+function shuffle(a){
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+// Draw 20 statements: between 8 and 12 true, the rest false, then shuffle the order
+function drawDeck(){
+  const trues  = shuffle(pool.filter(x => x.a));
+  const falses = shuffle(pool.filter(x => !x.a));
+  const nTrue  = MIN_TRUE + Math.floor(Math.random() * (MAX_TRUE - MIN_TRUE + 1));
+  return shuffle(trues.slice(0, nTrue).concat(falses.slice(0, QUIZ_SIZE - nTrue)));
+}
+function begin(){
+  deck = drawDeck(); index = 0; score = 0; answers = [];
+  $("intro").hidden = true; $("result").classList.remove("show"); $("result").style.display = "none";
+  $("quiz").hidden = false; render();
+}
+function render(){
+  const q = deck[index];
+  $("counter").textContent = `Question ${index+1} of ${deck.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${index/deck.length*100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index+1).padStart(2,"0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === deck.length-1 ? "See my result →" : "Next statement →";
+  ["trueBtn","falseBtn"].forEach(id => { const b = $(id); b.disabled = false; b.className = "choice"; });
+}
+function answer(value){
+  const q = deck[index], correct = value === q.a;
+  if (correct) score++;
+  answers.push({q, value, correct});
+  $("scoreNow").textContent = `Score: ${score}`;
+  $(value ? "trueBtn" : "falseBtn").classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite.";
+  $("explanation").textContent = q.e;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn","falseBtn"].forEach(id => $(id).disabled = true);
+}
+function finish(){
+  $("quiz").hidden = true; $("result").style.display = "block"; $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${deck.length}`;
+  $("comment").textContent = score>=17 ? "Excellent work. You spotted almost all the myths and facts."
+    : score>=12 ? "Good result. You have a solid understanding, with a few surprises along the way."
+    : score>=8 ? "A useful attempt. Read the explanations to discover which assumptions were challenged."
+    : "Many of these are surprising! Review the explanations and play again: you will get a different set of statements.";
+  $("progress").style.width = "100%";
+}
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => { index++; if (index < deck.length) render(); else finish(); });
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none"; $("result").classList.remove("show");
+  $("review").hidden = true; begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review"); r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Answer review</h3>" + answers.map((x, i) =>
+      `<details><summary>${i+1}. ${x.correct ? "Correct" : "Incorrect"} — ${x.q.s}</summary><p><b>Answer: ${x.q.a ? "True" : "False"}.</b> ${x.q.e}</p></details>`).join("");
+  }
+});
 </script>
 </body>
 </html>

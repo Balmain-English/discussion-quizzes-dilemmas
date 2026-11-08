@@ -30,11 +30,11 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
   <div class="kicker">English • B1–B2</div>
   <h1>Swimming: True or False?</h1>
   <p>From open-water Olympic races to the Seine in 1900. How much do you know about the history and rules of swimming?</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="meta"><span class="pill">20 random statements</span><span class="pill">60-statement pool</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Every time you play, 20 statements are drawn at random from a pool of 60, so each game is different. Records and rules can change, so treat the explanations as a snapshot and use the source links to read more.</p>
   <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
 </section>
 
@@ -54,7 +54,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <section class="panel result" id="result" aria-live="polite">
   <div class="number">QUIZ COMPLETE</div>
   <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Play again (new random draw)</button></div>
   <div class="review" id="review" hidden></div>
 </section>
 
@@ -77,7 +77,8 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <footer>Independent classroom activity • Swimming: True or False?</footer>
 </main>
 <script>
-const items = [
+// Pool of statements: a = true/false answer, s = statement, e = explanation
+const pool = [
  {
   "s": "Michael Phelps won 23 Olympic gold medals.",
   "a": true,
@@ -177,16 +178,281 @@ const items = [
   "s": "Butterfly is the oldest competitive swimming stroke.",
   "a": false,
   "e": "False. It is the newest. It developed from breaststroke in the 1930s and became its own stroke in 1952."
+ },
+ {
+  "s": "Most Olympic swimming finals are swum by eight swimmers.",
+  "a": true,
+  "e": "True. Each swimmer has a lane. The fastest in the heats get the best lanes."
+ },
+ {
+  "s": "The four main competitive strokes are front crawl, backstroke, breaststroke and butterfly.",
+  "a": true,
+  "e": "True. Combining all four gives a medley race."
+ },
+ {
+  "s": "In breaststroke, the arms and legs move at the same time on both sides of the body.",
+  "a": true,
+  "e": "True. The movements must be symmetrical."
+ },
+ {
+  "s": "Katie Ledecky is famous for winning long-distance freestyle races.",
+  "a": true,
+  "e": "True. She has won many Olympic and world titles at 800 and 1,500 metres."
+ },
+ {
+  "s": "The French swimmer Léon Marchand won four gold medals at the Paris 2024 Olympics.",
+  "a": true,
+  "e": "True. He won the 200 m butterfly, 200 m breaststroke, 200 m medley and 400 m medley."
+ },
+ {
+  "s": "Florent Manaudou won the Olympic 50 m freestyle gold medal in 2012.",
+  "a": true,
+  "e": "True. He is a French sprinter. His sister Laure also won Olympic gold."
+ },
+ {
+  "s": "Laure Manaudou won the Olympic 400 m freestyle gold medal in 2004.",
+  "a": true,
+  "e": "True. She was only 17 years old at the time."
+ },
+ {
+  "s": "Swimmers usually wear goggles and a swimming cap in races.",
+  "a": true,
+  "e": "True. Goggles protect the eyes and caps help to reduce drag in the water."
+ },
+ {
+  "s": "A ‘tumble turn’ is a quick turn at the wall in front crawl.",
+  "a": true,
+  "e": "True. The swimmer does a somersault and pushes off with their feet."
+ },
+ {
+  "s": "Synchronised swimming is now called ‘artistic swimming’.",
+  "a": true,
+  "e": "True. The name changed in 2017. It is a sport with music, teamwork and acrobatic moves."
+ },
+ {
+  "s": "Swimming is a low-impact form of exercise that is gentle on the joints.",
+  "a": true,
+  "e": "True. Water supports the body, so it is a good exercise for many people."
+ },
+ {
+  "s": "A 100-metre race in a 50-metre pool has two lengths.",
+  "a": true,
+  "e": "True. Swimmers turn once at the far end and finish at the start end."
+ },
+ {
+  "s": "Touchpads at the end of the lane record each swimmer's finish time.",
+  "a": true,
+  "e": "True. They measure times to one hundredth of a second."
+ },
+ {
+  "s": "In backstroke, the race starts in the water.",
+  "a": true,
+  "e": "True. The swimmers hold the handles on the starting block and push off the wall."
+ },
+ {
+  "s": "In breaststroke and butterfly, swimmers must touch the wall with both hands at the same time.",
+  "a": true,
+  "e": "True. If they touch with one hand, they can be disqualified."
+ },
+ {
+  "s": "Michael Phelps won eight gold medals at the 2008 Beijing Olympics.",
+  "a": true,
+  "e": "True. This was a record for the most golds at a single Games."
+ },
+ {
+  "s": "The shortest crossing of the English Channel is about 34 kilometres.",
+  "a": true,
+  "e": "True. Swimmers often go further because of the tides and currents."
+ },
+ {
+  "s": "Many open-water swimmers cover their bodies in grease to keep warm.",
+  "a": true,
+  "e": "True. It helps to protect the skin too."
+ },
+ {
+  "s": "Ian Thorpe, nicknamed the ‘Thorpedo’, is an Australian swimmer.",
+  "a": true,
+  "e": "True. He won five Olympic gold medals."
+ },
+ {
+  "s": "There are five strokes in competitive swimming, including sidestroke.",
+  "a": false,
+  "e": "False. There are four strokes. Sidestroke is not used in competitions."
+ },
+ {
+  "s": "In breaststroke, swimmers can use the dolphin kick all the time.",
+  "a": false,
+  "e": "False. One dolphin kick is allowed during the underwater part after the start or a turn."
+ },
+ {
+  "s": "In backstroke, swimmers swim face down.",
+  "a": false,
+  "e": "False. Backstroke is swum on the back, face up."
+ },
+ {
+  "s": "Michael Phelps is Australian.",
+  "a": false,
+  "e": "False. He is from the United States."
+ },
+ {
+  "s": "Katie Ledecky is mainly a 50-metre sprinter.",
+  "a": false,
+  "e": "False. She is best known for longer events, such as the 800 m freestyle."
+ },
+ {
+  "s": "Léon Marchand is a Belgian swimmer.",
+  "a": false,
+  "e": "False. He is French and trains in the United States."
+ },
+ {
+  "s": "Mark Spitz swam at the 1992 Olympics.",
+  "a": false,
+  "e": "False. He won seven golds in 1972. He tried a comeback for 1992 but did not qualify."
+ },
+ {
+  "s": "Ian Thorpe is a British swimmer.",
+  "a": false,
+  "e": "False. He is Australian."
+ },
+ {
+  "s": "Competition swimming pools are 100 metres long.",
+  "a": false,
+  "e": "False. They are 25 or 50 metres long."
+ },
+ {
+  "s": "Most swimmers cross the English Channel in about two hours.",
+  "a": false,
+  "e": "False. The best swimmers take about seven to ten hours, and many take much longer."
+ },
+ {
+  "s": "A tumble turn is not allowed in front crawl.",
+  "a": false,
+  "e": "False. It is allowed and almost all swimmers use it."
+ },
+ {
+  "s": "The 1896 Olympic swimming events were held in an indoor pool.",
+  "a": false,
+  "e": "False. They were held in the open sea, in cold water."
+ },
+ {
+  "s": "Water in a competition pool is about 5 °C.",
+  "a": false,
+  "e": "False. It is normally about 25 to 28 °C."
+ },
+ {
+  "s": "A 200-metre race in a 25-metre pool is four lengths.",
+  "a": false,
+  "e": "False. It is eight lengths."
+ },
+ {
+  "s": "Swimming was not part of the 1900 Olympics.",
+  "a": false,
+  "e": "False. It was part of the 1900 Games, and the races took place in the River Seine."
+ },
+ {
+  "s": "In the individual medley, swimmers start with freestyle.",
+  "a": false,
+  "e": "False. They start with butterfly, then backstroke, breaststroke and freestyle."
+ },
+ {
+  "s": "In a 4×100 m relay, each swimmer swims 400 metres.",
+  "a": false,
+  "e": "False. Each swimmer swims 100 metres. Together they swim 400 metres."
+ },
+ {
+  "s": "A swimmer who makes a false start gets a warning only.",
+  "a": false,
+  "e": "False. In swimming, a false start means disqualification."
+ },
+ {
+  "s": "Swimmers are timed to the nearest minute.",
+  "a": false,
+  "e": "False. Times are recorded to the nearest hundredth of a second."
+ },
+ {
+  "s": "Competition pools have no lane dividers.",
+  "a": false,
+  "e": "False. Lanes are separated by floating ropes, which reduce waves."
+ },
+ {
+  "s": "Olympic pools are only one metre deep.",
+  "a": false,
+  "e": "False. They are at least two metres deep, so swimmers cannot touch the bottom."
  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+const QUIZ_SIZE = 20, MIN_TRUE = 8, MAX_TRUE = 12;
+let deck = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+// Fisher–Yates shuffle (in place, unbiased)
+function shuffle(a){
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+// Draw 20 statements: between 8 and 12 true, the rest false, then shuffle the order
+function drawDeck(){
+  const trues  = shuffle(pool.filter(x => x.a));
+  const falses = shuffle(pool.filter(x => !x.a));
+  const nTrue  = MIN_TRUE + Math.floor(Math.random() * (MAX_TRUE - MIN_TRUE + 1));
+  return shuffle(trues.slice(0, nTrue).concat(falses.slice(0, QUIZ_SIZE - nTrue)));
+}
+function begin(){
+  deck = drawDeck(); index = 0; score = 0; answers = [];
+  $("intro").hidden = true; $("result").classList.remove("show"); $("result").style.display = "none";
+  $("quiz").hidden = false; render();
+}
+function render(){
+  const q = deck[index];
+  $("counter").textContent = `Question ${index+1} of ${deck.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${index/deck.length*100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index+1).padStart(2,"0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === deck.length-1 ? "See my result →" : "Next statement →";
+  ["trueBtn","falseBtn"].forEach(id => { const b = $(id); b.disabled = false; b.className = "choice"; });
+}
+function answer(value){
+  const q = deck[index], correct = value === q.a;
+  if (correct) score++;
+  answers.push({q, value, correct});
+  $("scoreNow").textContent = `Score: ${score}`;
+  $(value ? "trueBtn" : "falseBtn").classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite.";
+  $("explanation").textContent = q.e;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn","falseBtn"].forEach(id => $(id).disabled = true);
+}
+function finish(){
+  $("quiz").hidden = true; $("result").style.display = "block"; $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${deck.length}`;
+  $("comment").textContent = score>=17 ? "Excellent work. You spotted almost all the myths and facts."
+    : score>=12 ? "Good result. You have a solid understanding, with a few surprises along the way."
+    : score>=8 ? "A useful attempt. Read the explanations to discover which assumptions were challenged."
+    : "Many of these are surprising! Review the explanations and play again: you will get a different set of statements.";
+  $("progress").style.width = "100%";
+}
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => { index++; if (index < deck.length) render(); else finish(); });
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none"; $("result").classList.remove("show");
+  $("review").hidden = true; begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review"); r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Answer review</h3>" + answers.map((x, i) =>
+      `<details><summary>${i+1}. ${x.correct ? "Correct" : "Incorrect"} — ${x.q.s}</summary><p><b>Answer: ${x.q.a ? "True" : "False"}.</b> ${x.q.e}</p></details>`).join("");
+  }
+});
 </script>
 </body>
 </html>
