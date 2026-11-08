@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Judo: True or False?</title>
+<style>
+:root{--ink:#203044;--muted:#607084;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--line:#dce4eb}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:28px 18px 50px}.hero{background:linear-gradient(125deg,#1b2f5e,#3e63b0);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.85}.hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08;margin:9px 0 12px}.hero p{max-width:660px;margin:0;color:#eef5f9}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 11px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
+.instructions{color:var(--muted);margin:0}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}.fill{height:100%;width:0;background:var(--blue);transition:width .25s}
+.number{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.statement{font-size:clamp(1.25rem,3vw,1.65rem);line-height:1.35;font-weight:700;margin:10px 0 22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}.choice:disabled{cursor:default;opacity:1}.choice.selected{border-color:var(--blue);background:var(--blue2)}.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{display:none;margin-top:18px;border-radius:12px;padding:15px 16px;background:#f0f4f7;border-left:4px solid var(--blue)}.feedback.show{display:block}.feedback strong{display:block;margin-bottom:4px}.feedback p{margin:0}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:750;font-size:.95rem;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#eaf0f4;color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none}.result.show{display:block}.score{font-size:2.7rem;font-weight:800;color:var(--blue);line-height:1.1}.scoreline{color:var(--muted)}.review{margin-top:18px}.review details{border-top:1px solid var(--line);padding:12px 0}.review summary{font-weight:700;cursor:pointer}.review p{margin:8px 0 0;color:var(--muted)}
+.sources h2{margin:0 0 8px;font-size:1.2rem}.sources p{color:var(--muted);font-size:.9rem}.sources ol{padding-left:22px}.sources li{margin:9px 0;font-size:.9rem}.sources a{color:var(--blue);overflow-wrap:anywhere}.note{font-size:.88rem;color:var(--muted);margin-top:16px}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
+@media(max-width:560px){.wrap{padding:16px 12px 34px}.hero{padding:24px 20px}.panel{padding:18px}.choices{grid-template-columns:1fr}.topline{align-items:flex-start}}
+@media print{body{background:white}.hero{background:#1b2f5e!important;print-color-adjust:exact}.panel{box-shadow:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">English • B1–B2</div>
+  <h1>Judo: True or False?</h1>
+  <p>‘The gentle way’ has a rough side. Test your knowledge of judo's history, rules and champions.</p>
+  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+</header>
+
+<section class="panel" id="intro">
+  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
+  <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
+</section>
+
+<section class="panel" id="quiz" hidden aria-live="polite">
+  <div class="topline"><span id="counter">Question 1 of 20</span><span id="scoreNow">Score: 0</span></div>
+  <div class="track"><div class="fill" id="progress"></div></div>
+  <div class="number" id="qnumber">STATEMENT 01</div>
+  <div class="statement" id="statement"></div>
+  <div class="choices">
+    <button class="choice" id="trueBtn">✓ &nbsp; True</button>
+    <button class="choice" id="falseBtn">✕ &nbsp; False</button>
+  </div>
+  <div class="feedback" id="feedback" role="status" aria-live="polite"><strong id="verdict"></strong><p id="explanation"></p></div>
+  <div class="actions"><button class="btn primary" id="next" disabled>Next statement →</button></div>
+</section>
+
+<section class="panel result" id="result" aria-live="polite">
+  <div class="number">QUIZ COMPLETE</div>
+  <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
+  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="review" id="review" hidden></div>
+</section>
+
+<section class="panel sources">
+  <h2>Sources and useful context</h2>
+  <p>These pages are good starting points for background reading on the topics in the quiz. Research findings can be updated or challenged over time.</p>
+  <ol>
+    <li><a href="https://en.wikipedia.org/wiki/Judo" target="_blank" rel="noopener">Judo</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Kan%C5%8D_Jigor%C5%8D" target="_blank" rel="noopener">Kanō Jigorō</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Kodokan" target="_blank" rel="noopener">Kodokan</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Judo_at_the_Summer_Olympics" target="_blank" rel="noopener">Judo at the Summer Olympics</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Anton_Geesink" target="_blank" rel="noopener">Anton Geesink</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Teddy_Riner" target="_blank" rel="noopener">Teddy Riner</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Brazilian_jiu-jitsu" target="_blank" rel="noopener">Brazilian jiu-jitsu</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Judo#Rank" target="_blank" rel="noopener">Judo rank system</a></li>
+  </ol>
+  <p class="note"><b>Language tip:</b> A “judoka” is a person who practises judo. “Ippon” is a full point that wins the contest. A “dojo” is a training hall. “Dan” is a level of black belt.</p>
+</section>
+<footer>Independent classroom activity • Judo: True or False?</footer>
+</main>
+<script>
+const items = [
+ {
+  "s": "Judo was founded in Japan by Jigoro Kano in 1882.",
+  "a": true,
+  "e": "True. Kano created it from older styles of jujutsu and founded the Kodokan school in Tokyo."
+ },
+ {
+  "s": "The word ‘judo’ means ‘the gentle way’.",
+  "a": true,
+  "e": "True. ‘Ju’ means gentle or flexible, and ‘do’ means way. The idea is to use an opponent's force against them."
+ },
+ {
+  "s": "Judo became an Olympic sport at the Tokyo Games in 1964.",
+  "a": true,
+  "e": "True. Women's judo was added as a full medal sport in 1992."
+ },
+ {
+  "s": "In judo, throwing an opponent cleanly onto their back with force and speed wins the contest immediately.",
+  "a": true,
+  "e": "True. This is an ippon. Holding someone down for long enough can also score ippon."
+ },
+ {
+  "s": "At the 1964 Olympics, a Dutchman, Anton Geesink, beat Japan's judoka in the open category.",
+  "a": true,
+  "e": "True. It shocked Japan and showed that judo was truly an international sport."
+ },
+ {
+  "s": "More people are registered with judo clubs in France than in Japan.",
+  "a": true,
+  "e": "True. Judo is a major sport in France, with several hundred thousand licensed players."
+ },
+ {
+  "s": "In competition, one judoka wears a white judogi and the other wears a blue one.",
+  "a": true,
+  "e": "True. It makes it easier for the referees and the audience to see who is who."
+ },
+ {
+  "s": "Judo includes groundwork, such as holds and chokes.",
+  "a": true,
+  "e": "True. This is called ‘newaza’. Many contests continue on the mat after a throw."
+ },
+ {
+  "s": "Brazilian jiu-jitsu developed from judo.",
+  "a": true,
+  "e": "True. A Japanese judoka, Mitsuyo Maeda, taught judo to the Gracie family in Brazil in the early 1900s."
+ },
+ {
+  "s": "Judoka bow to each other before and after a contest.",
+  "a": true,
+  "e": "True. Respect is an important part of judo."
+ },
+ {
+  "s": "Women's judo became a full Olympic sport in 1992.",
+  "a": true,
+  "e": "True. It had been a demonstration sport in 1988."
+ },
+ {
+  "s": "Judo began in China.",
+  "a": false,
+  "e": "False. Judo developed in Japan, from older Japanese martial arts."
+ },
+ {
+  "s": "Punching and kicking are allowed in judo competition.",
+  "a": false,
+  "e": "False. Judo contests are based on throws, holds and joint locks, not strikes."
+ },
+ {
+  "s": "A black belt is the highest rank in judo.",
+  "a": false,
+  "e": "False. Black belt is the start of the dan grades. The highest ranks can wear red-and-white or red belts."
+ },
+ {
+  "s": "Judo was part of the first modern Olympics in 1896.",
+  "a": false,
+  "e": "False. It was added in 1964. The first Games had no combat sport apart from wrestling and fencing."
+ },
+ {
+  "s": "‘Judo’ means ‘the hard way’.",
+  "a": false,
+  "e": "False. It means ‘the gentle way’, which is a very different idea."
+ },
+ {
+  "s": "Judoka wear shoes on the mat.",
+  "a": false,
+  "e": "False. They are barefoot on the tatami, which is the mat."
+ },
+ {
+  "s": "Judo has no weight categories.",
+  "a": false,
+  "e": "False. Competitors fight in weight classes, from extra-lightweight to heavyweight."
+ },
+ {
+  "s": "‘Tatami’ is the name for the winning throw in judo.",
+  "a": false,
+  "e": "False. Tatami is the mat. The full-point throw is called ippon."
+ },
+ {
+  "s": "An Olympic judo contest lasts ten minutes.",
+  "a": false,
+  "e": "False. It lasts four minutes, followed by ‘golden score’ extra time if the score is level."
+ }
+];
+let order=[], index=0, score=0, answers=[];
+const $=id=>document.getElementById(id);
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
+function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
+function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
+function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
+$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+</script>
+</body>
+</html>
