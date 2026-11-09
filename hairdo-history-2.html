@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>History of Hairdos Pub Quiz</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: linear-gradient(135deg,#7c3aed,#ec4899,#ef4444); min-height: 100vh; padding: 16px; color: #1f2937; }
+  .card { max-width: 640px; margin: 0 auto; background: #fff; border-radius: 20px; padding: 22px; box-shadow: 0 20px 40px rgba(0,0,0,.25); }
+  h1 { font-size: 1.4rem; margin: 0; color: #5b21b6; }
+  .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 10px; }
+  .meta { text-align: right; font-size: .85rem; color: #6b7280; }
+  .meta b { color: #db2777; font-size: 1.05rem; }
+  .bar { height: 8px; background: #e5e7eb; border-radius: 99px; margin-bottom: 20px; overflow: hidden; }
+  .bar div { height: 100%; background: linear-gradient(90deg,#7c3aed,#ec4899); width: 0; transition: width .3s; }
+  h2 { font-size: 1.2rem; margin: 0 0 16px; line-height: 1.35; }
+  .opt { display: block; width: 100%; text-align: left; padding: 14px; margin-bottom: 10px; border: 2px solid #d1d5db; border-radius: 14px; background: #fff; font-size: 1rem; cursor: pointer; font-family: inherit; }
+  .opt:hover:enabled { border-color: #8b5cf6; background: #f5f3ff; }
+  .opt.correct { border-color: #22c55e; background: #f0fdf4; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; }
+  .opt.dim { opacity: .5; }
+  .fb { padding: 14px; border-radius: 14px; margin: 6px 0 16px; }
+  .fb.good { background: #dcfce7; border: 2px solid #22c55e; }
+  .fb.bad { background: #fee2e2; border: 2px solid #ef4444; }
+  .fb p { margin: 4px 0 0; }
+  .btn { width: 100%; padding: 15px; border: 0; border-radius: 14px; background: linear-gradient(90deg,#7c3aed,#ec4899); color: #fff; font-weight: 700; font-size: 1.05rem; cursor: pointer; }
+  .end { text-align: center; }
+  .big { font-size: 3.5rem; font-weight: 800; color: #db2777; margin: 8px 0; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="card" id="app"></div>
+<script>
+const Q = [
+ {q:"Which hairstyle did Jennifer Aniston make a must-have in the 1990s on 'Friends'?", o:["The Mullet","The Shag","The Rachel","The Farrah"], c:2, e:"The layered 'Rachel' was one of the most requested cuts of the 1990s, named after her character Rachel Green."},
+ {q:"Which ancient civilization wore wigs to protect shaved heads from the sun and show status?", o:["Ancient Greece","Ancient Egypt","Ancient Rome","Ancient China"], c:1, e:"Egyptians made wigs from human hair, wool and plant fibres, with wigs dating back thousands of years."},
+ {q:"The 'pompadour' is named after whom?", o:["Madame de Pompadour, mistress of Louis XV","A French military general","An Italian barber","A Parisian hat maker"], c:0, e:"Madame de Pompadour wore her hair swept high off the forehead, and the style took her name."},
+ {q:"In which decade did the beehive reach peak popularity?", o:["1940s","1950s","1960s","1970s"], c:2, e:"The beehive soared in the early 1960s, helped by hairspray and teasing."},
+ {q:"When the bob first took off in the 1920s, how was it seen?", o:["Dull and practical","Only for children","Strictly for the military","Scandalous and rebellious"], c:3, e:"Flappers chopping their hair was a bold statement of independence and modernity."},
+ {q:"Which hairstyle is nicknamed 'business in the front, party in the back'?", o:["The Pompadour","The Mullet","The Bob","The Quiff"], c:1, e:"The mullet: short at the front and sides, long at the back."},
+ {q:"Which band's 'mop-top' haircuts became a sensation in the 1960s?", o:["The Beatles","The Rolling Stones","The Who","The Kinks"], c:0, e:"The Beatles' fringed mop-tops were copied by millions during Beatlemania."},
+ {q:"What famously topped a towering Marie Antoinette-era 'pouf' in the 1770s?", o:["A sleeping cat","A bowl of fruit","A working windmill","A model warship"], c:3, e:"One famous style commemorated a naval victory with a model frigate perched in the hair!"},
+ {q:"Dreadlocks have been worn for thousands of years. Where is there evidence of them?", o:["Only 20th-century Jamaica","Only medieval Europe","Many ancient cultures, including Egypt, India and Africa","Only Victorian England"], c:2, e:"Locked hair appears across many ancient cultures, long before modern associations."},
+ {q:"What defined the Farrah Fawcett look of the 1970s?", o:["Blunt bangs","Tight curls","A high bun","Feathered, flicked-back layers"], c:3, e:"Her voluminous feathered wings became the defining look of the decade."},
+ {q:"Who was Madam C.J. Walker?", o:["A pioneering Black hair-care entrepreneur and early self-made female millionaire","A Hollywood stylist","Queen Victoria's hairdresser","The inventor of the hairdryer"], c:0, e:"In the early 1900s she built a hair-care empire and became one of America's first self-made female millionaires."},
+ {q:"What was a 'victory roll' in 1940s hair?", o:["A dance move","A wartime workout","A rolled-up pinned hairstyle named after aerial manoeuvres","A style made with ration coupons"], c:2, e:"Victory rolls echoed the aerial manoeuvres of WWII fighter pilots."},
+ {q:"Which plant-based dye did ancient Egyptians use on hair?", o:["Indigo only","Henna","Beetroot","Saffron"], c:1, e:"Henna has coloured hair for thousands of years."},
+ {q:"Whose fashion for wigs in the 1600s helped spread them across European courts?", o:["Charlemagne","Henry VIII","Napoleon","Louis XIV"], c:3, e:"Louis XIV's grand wigs set the fashion for the aristocracy across Europe."},
+ {q:"In the 1960s-70s the afro became a symbol of what?", o:["The hippie scene only","Black pride and the Black Power movement","Disco","Punk"], c:1, e:"It was a powerful expression of identity and pride."},
+ {q:"What is a 'tonsure'?", o:["A Viking braid","A Greek headband","A partly shaved head traditionally worn by monks","A powdered wig"], c:2, e:"Shaving part of the head signalled religious devotion."},
+ {q:"Which decade was all about 'big hair', teasing and hairspray?", o:["1980s","1960s","1990s","1950s"], c:0, e:"The 80s: the bigger, the better."},
+ {q:"What was the traditional samurai topknot called?", o:["Kimono","Chonmage","Katana","Bonsai"], c:1, e:"The chonmage is the ancestor of today's man bun."},
+ {q:"The Marcel wave of the 1870s was created using what?", o:["A hot curling iron","Salt water","Sugar syrup","Paper rollers"], c:0, e:"François Marcel used heated tongs to create deep, lasting waves in 1872."},
+ {q:"The CROWN Act, first passed in California in 2019, protects against what?", o:["Hair discrimination based on texture and protective styles","Hair dye bans","Wig taxes","Salon licensing rules"], c:0, e:"It bans discrimination over natural hair and styles like locs, braids and twists."}
+];
+let i=0, score=0, answered=false;
+const app=document.getElementById('app');
+function render(){
+  if(i>=Q.length){ return end(); }
+  const q=Q[i]; answered=false;
+  app.innerHTML=`<div class="top"><h1>History of Hairdos Quiz</h1><div class="meta">Question ${i+1}/${Q.length}<br>Score: <b>${score}</b></div></div>
+  <div class="bar"><div style="width:${(i+1)/Q.length*100}%"></div></div>
+  <h2>${q.q}</h2><div id="opts"></div><div id="fb"></div><div id="nx"></div>`;
+  const opts=document.getElementById('opts');
+  q.o.forEach((t,k)=>{ const b=document.createElement('button'); b.className='opt'; b.textContent=String.fromCharCode(65+k)+". "+t; b.onclick=()=>pick(k); opts.appendChild(b); });
+}
+function pick(k){
+  if(answered) return; answered=true;
+  const q=Q[i], btns=document.querySelectorAll('.opt'), ok=k===q.c;
+  if(ok) score++;
+  btns.forEach((b,j)=>{ b.disabled=true; if(j===q.c) b.classList.add('correct'); else if(j===k) b.classList.add('wrong'); else b.classList.add('dim'); });
+  document.getElementById('fb').innerHTML=`<div class="fb ${ok?'good':'bad'}"><b>${ok?'✓ Correct!':'✗ Not quite'}</b><p>${q.e}</p></div>`;
+  document.getElementById('nx').innerHTML=`<button class="btn" onclick="i++;render()">${i<Q.length-1?'Next Question':'See Results'}</button>`;
+}
+function end(){
+  const p=score/Q.length*100;
+  const m=p>=90?"Hair history legend! 🎉":p>=60?"Great job, you know your hairdos! 💇":p>=40?"Solid effort, a few new facts learned! ✨":"Thanks for playing, hair history is tricky! 📚";
+  app.innerHTML=`<div class="end"><h1>Quiz Complete! 🎊</h1><div class="big">${score}/${Q.length}</div><p style="font-size:1.2rem">${m}</p><button class="btn" onclick="i=0;score=0;render()">Play Again</button></div>`;
+}
+render();
+</script>
+</body>
+</html>
