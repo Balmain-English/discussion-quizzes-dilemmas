@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian Animals Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #764ba2;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .question-header {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.1em;
+        }
+        
+        .question-type {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        
+        .options {
+            margin-top: 15px;
+        }
+        
+        .option {
+            margin: 10px 0;
+            padding: 12px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .option input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .option label {
+            cursor: pointer;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            width: 200px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .checkbox-group {
+            margin-top: 10px;
+        }
+        
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: 30px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .result {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: #f0f4ff;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .score {
+            font-size: 3em;
+            color: #667eea;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .feedback {
+            font-size: 1.2em;
+            color: #333;
+            margin-top: 15px;
+        }
+        
+        .emoji {
+            font-size: 4em;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦘 Australian Animals Quiz 🐨</h1>
+        <p class="subtitle">Test your knowledge about Australia's unique wildlife!</p>
+        
+        <form id="quizForm">
+            <!-- Question 1 -->
+            <div class="question">
+                <span class="question-type">Multiple Choice</span>
+                <div class="question-header">1. Which of these animals is NOT a marsupial?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q1" value="a" id="q1a"><label for="q1a">A) Kangaroo</label></div>
+                    <div class="option"><input type="radio" name="q1" value="b" id="q1b"><label for="q1b">B) Koala</label></div>
+                    <div class="option"><input type="radio" name="q1" value="c" id="q1c"><label for="q1c">C) Platypus</label></div>
+                    <div class="option"><input type="radio" name="q1" value="d" id="q1d"><label for="q1d">D) Wombat</label></div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <span class="question-type">Gap Fill</span>
+                <div class="question-header">2. The dingo is considered Australia's largest land ___________.</div>
+                <input type="text" name="q2" placeholder="Your answer">
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <span class="question-type">Odd One Out</span>
+                <div class="question-header">3. Which animal doesn't belong with the others?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q3" value="a" id="q3a"><label for="q3a">A) Echidna</label></div>
+                    <div class="option"><input type="radio" name="q3" value="b" id="q3b"><label for="q3b">B) Platypus</label></div>
+                    <div class="option"><input type="radio" name="q3" value="c" id="q3c"><label for="q3c">C) Emu</label></div>
+                    <div class="option"><input type="radio" name="q3" value="d" id="q3d"><label for="q3d">D) (All lay eggs)</label></div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <span class="question-type">Multiple Choice</span>
+                <div class="question-header">4. What makes the Tasmanian devil remarkable among marsupials?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q4" value="a" id="q4a"><label for="q4a">A) It can fly</label></div>
+                    <div class="option"><input type="radio" name="q4" value="b" id="q4b"><label for="q4b">B) It's carnivorous</label></div>
+                    <div class="option"><input type="radio" name="q4" value="c" id="q4c"><label for="q4c">C) It lives underwater</label></div>
+                    <div class="option"><input type="radio" name="q4" value="d" id="q4d"><label for="q4d">D) It changes colour</label></div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <span class="question-type">Gap Fill</span>
+                <div class="question-header">5. Koalas feed almost exclusively on ___________ leaves.</div>
+                <input type="text" name="q5" placeholder="Your answer">
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <span class="question-type">True/False</span>
+                <div class="question-header">6. Kangaroos can hop backwards.</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q6" value="a" id="q6a"><label for="q6a">A) True</label></div>
+                    <div class="option"><input type="radio" name="q6" value="b" id="q6b"><label for="q6b">B) False</label></div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question">
+                <span class="question-type">Multiple Choice</span>
+                <div class="question-header">7. The platypus is one of only two mammals that lay eggs. What is the other?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q7" value="a" id="q7a"><label for="q7a">A) Wombat</label></div>
+                    <div class="option"><input type="radio" name="q7" value="b" id="q7b"><label for="q7b">B) Echidna</label></div>
+                    <div class="option"><input type="radio" name="q7" value="c" id="q7c"><label for="q7c">C) Quoll</label></div>
+                    <div class="option"><input type="radio" name="q7" value="d" id="q7d"><label for="q7d">D) Sugar glider</label></div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question">
+                <span class="question-type">Odd One Out</span>
+                <div class="question-header">8. Which bird cannot fly?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q8" value="a" id="q8a"><label for="q8a">A) Kookaburra</label></div>
+                    <div class="option"><input type="radio" name="q8" value="b" id="q8b"><label for="q8b">B) Emu</label></div>
+                    <div class="option"><input type="radio" name="q8" value="c" id="q8c"><label for="q8c">C) Cockatoo</label></div>
+                    <div class="option"><input type="radio" name="q8" value="d" id="q8d"><label for="q8d">D) Galah</label></div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question">
+                <span class="question-type">Gap Fill</span>
+                <div class="question-header">9. Baby kangaroos are called ___________.</div>
+                <input type="text" name="q9" placeholder="Your answer">
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question">
+                <span class="question-type">Multiple Choice</span>
+                <div class="question-header">10. What is unique about the box jellyfish found in Australian waters?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q10" value="a" id="q10a"><label for="q10a">A) It glows in the dark</label></div>
+                    <div class="option"><input type="radio" name="q10" value="b" id="q10b"><label for="q10b">B) It's one of the most venomous creatures</label></div>
+                    <div class="option"><input type="radio" name="q10" value="c" id="q10c"><label for="q10c">C) It can live for 100 years</label></div>
+                    <div class="option"><input type="radio" name="q10" value="d" id="q10d"><label for="q10d">D) It's the largest jellyfish</label></div>
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question">
+                <span class="question-type">Multiple Selection</span>
+                <div class="question-header">11. Which of these animals are venomous? (Select all that apply)</div>
+                <div class="checkbox-group">
+                    <div class="option"><input type="checkbox" name="q11" value="a" id="q11a"><label for="q11a">A) Male platypus</label></div>
+                    <div class="option"><input type="checkbox" name="q11" value="b" id="q11b"><label for="q11b">B) Funnel-web spider</label></div>
+                    <div class="option"><input type="checkbox" name="q11" value="c" id="q11c"><label for="q11c">C) Koala</label></div>
+                    <div class="option"><input type="checkbox" name="q11" value="d" id="q11d"><label for="q11d">D) Inland taipan snake</label></div>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question">
+                <span class="question-type">Gap Fill</span>
+                <div class="question-header">12. Wombats are known for producing cube-shaped ___________.</div>
+                <input type="text" name="q12" placeholder="Your answer">
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question">
+                <span class="question-type">Odd One Out</span>
+                <div class="question-header">13. Which animal is NOT native to Australia?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q13" value="a" id="q13a"><label for="q13a">A) Crocodile</label></div>
+                    <div class="option"><input type="radio" name="q13" value="b" id="q13b"><label for="q13b">B) Dingo</label></div>
+                    <div class="option"><input type="radio" name="q13" value="c" id="q13c"><label for="q13c">C) Camel</label></div>
+                    <div class="option"><input type="radio" name="q13" value="d" id="q13d"><label for="q13d">D) Frilled lizard</label></div>
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question">
+                <span class="question-type">Multiple Choice</span>
+                <div class="question-header">14. What sound is the kookaburra famous for?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q14" value="a" id="q14a"><label for="q14a">A) A howling sound</label></div>
+                    <div class="option"><input type="radio" name="q14" value="b" id="q14b"><label for="q14b">B) A laughing sound</label></div>
+                    <div class="option"><input type="radio" name="q14" value="c" id="q14c"><label for="q14c">C) A whistling sound</label></div>
+                    <div class="option"><input type="radio" name="q14" value="d" id="q14d"><label for="q14d">D) A chirping sound</label></div>
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question">
+                <span class="question-type">True/False</span>
+                <div class="question-header">15. Great white sharks can be found in Australian waters.</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q15" value="a" id="q15a"><label for="q15a">A) True</label></div>
+                    <div class="option"><input type="radio" name="q15" value="b" id="q15b"><label for="q15b">B) False</label></div>
+                </div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question">
+                <span class="question-type">Gap Fill</span>
+                <div class="question-header">16. The sugar glider can ___________ through the air from tree to tree using membrane flaps.</div>
+                <input type="text" name="q16" placeholder="Your answer">
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question">
+                <span class="question-type">Multiple Choice</span>
+                <div class="question-header">17. Which Australian reptile can grow over 5 meters long?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q17" value="a" id="q17a"><label for="q17a">A) Frilled lizard</label></div>
+                    <div class="option"><input type="radio" name="q17" value="b" id="q17b"><label for="q17b">B) Saltwater crocodile</label></div>
+                    <div class="option"><input type="radio" name="q17" value="c" id="q17c"><label for="q17c">C) Blue-tongued skink</label></div>
+                    <div class="option"><input type="radio" name="q17" value="d" id="q17d"><label for="q17d">D) Goanna</label></div>
+                </div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question">
+                <span class="question-type">Odd One Out</span>
+                <div class="question-header">18. Which animal is NOT found in the ocean?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q18" value="a" id="q18a"><label for="q18a">A) Dugong</label></div>
+                    <div class="option"><input type="radio" name="q18" value="b" id="q18b"><label for="q18b">B) Numbat</label></div>
+                    <div class="option"><input type="radio" name="q18" value="c" id="q18c"><label for="q18c">C) Sea snake</label></div>
+                    <div class="option"><input type="radio" name="q18" value="d" id="q18d"><label for="q18d">D) Blue-ringed octopus</label></div>
+                </div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question">
+                <span class="question-type">Gap Fill</span>
+                <div class="question-header">19. The thorny devil is a type of ___________ that lives in the desert.</div>
+                <input type="text" name="q19" placeholder="Your answer">
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question">
+                <span class="question-type">Multiple Choice</span>
+                <div class="question-header">20. What is unusual about the lifestyle of the quokka?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q20" value="a" id="q20a"><label for="q20a">A) It's nocturnal</label></div>
+                    <div class="option"><input type="radio" name="q20" value="b" id="q20b"><label for="q20b">B) It appears to smile and is very friendly</label></div>
+                    <div class="option"><input type="radio" name="q20" value="c" id="q20c"><label for="q20c">C) It lives underground</label></div>
+                    <div class="option"><input type="radio" name="q20" value="d" id="q20d"><label for="q20d">D) It can swim long distances</label></div>
+                </div>
+            </div>
+
+            <button type="submit">Submit Quiz</button>
+        </form>
+
+        <div class="result" id="result">
+            <div class="emoji" id="emoji"></div>
+            <div class="score" id="score"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+    </div>
+
+    <script>
+        const answers = {
+            q1: 'c',
+            q2: ['predator', 'carnivore'],
+            q3: 'c',
+            q4: 'b',
+            q5: ['eucalyptus', 'eucalypt', 'gum'],
+            q6: 'b',
+            q7: 'b',
+            q8: 'b',
+            q9: ['joey', 'joeys'],
+            q10: 'b',
+            q11: ['a', 'b', 'd'],
+            q12: ['droppings', 'faeces', 'feces', 'poo', 'poop', 'scat'],
+            q13: 'c',
+            q14: 'b',
+            q15: 'a',
+            q16: ['glide', 'fly', 'soar'],
+            q17: 'b',
+            q18: 'b',
+            q19: ['lizard', 'reptile'],
+            q20: 'b'
+        };
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let score = 0;
+            const totalQuestions = 20;
+
+            // Check each answer
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qName = 'q' + i;
+                
+                if (i === 11) {
+                    const selected = Array.from(document.querySelectorAll(`input[name="${qName}"]:checked`))
+                        .map(el => el.value)
+                        .sort();
+                    const correct = answers[qName].sort();
+                    if (JSON.stringify(selected) === JSON.stringify(correct)) {
+                        score++;
+                    }
+                } else if ([2, 5, 9, 12, 16, 19].includes(i)) {
+                    const userAnswer = document.querySelector(`input[name="${qName}"]`).value.toLowerCase().trim();
+                    if (answers[qName].some(ans => userAnswer === ans)) {
+                        score++;
+                    }
+                } else {
+                    const selected = document.querySelector(`input[name="${qName}"]:checked`);
+                    if (selected && selected.value === answers[qName]) {
+                        score++;
+                    }
+                }
+            }
+
+            // Display result
+            const percentage = (score / totalQuestions) * 100;
+            let emoji, feedback;
+
+            if (percentage >= 90) {
+                emoji = '🏆';
+                feedback = 'Outstanding! You\'re an Australian wildlife expert!';
+            } else if (percentage >= 75) {
+                emoji = '🌟';
+                feedback = 'Excellent work! You know your Aussie animals well!';
+            } else if (percentage >= 60) {
+                emoji = '👍';
+                feedback = 'Good job! You have solid knowledge of Australian wildlife!';
+            } else if (percentage >= 40) {
+                emoji = '📚';
+                feedback = 'Not bad! Keep learning about these fascinating creatures!';
+            } else {
+                emoji = '🦘';
+                feedback = 'Keep trying! Australia\'s wildlife is worth discovering!';
+            }
+
+            document.getElementById('emoji').textContent = emoji;
+            document.getElementById('score').textContent = `${score} / ${totalQuestions}`;
+            document.getElementById('feedback').textContent = feedback;
+            document.getElementById('result').classList.add('show');
+            
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
