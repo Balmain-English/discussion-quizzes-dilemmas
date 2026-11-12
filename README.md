@@ -1,1 +1,1 @@
-Quizzes, true/false, discussion
+ercises to promote discussion such as quizzes and dilemmas
