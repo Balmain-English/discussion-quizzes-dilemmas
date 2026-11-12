@@ -1,1 +1,1 @@
-exercises to promote discussion such as quizzes and dilemmas
+Exercises to promote discussion such as quizzes and dilemmas
