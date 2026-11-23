@@ -3,22 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Memory: True or False?</title>
+<title>Memory: Myth or Fact? (B2 Discussion)</title>
 <style>
-:root{--ink:#203044;--muted:#607084;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--line:#dce4eb}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-.wrap{max-width:860px;margin:0 auto;padding:28px 18px 50px}.hero{background:linear-gradient(125deg,#3b2a5e,#7a5fa8);color:#fff;border-radius:18px;padding:30px 30px 26px}
-.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.85}.hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08;margin:9px 0 12px}.hero p{max-width:660px;margin:0;color:#eef5f9}
-.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 11px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
-.instructions{color:var(--muted);margin:0}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
-.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}.fill{height:100%;width:0;background:var(--blue);transition:width .25s}
+:root{--ink:#203044;--muted:#5a6b7c;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--amber:#8a5300;--amberbg:#fdf6e7;--line:#dce4eb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:840px;margin:0 auto;padding:28px 18px 50px}
+.hero{background:linear-gradient(125deg,#3b2a5e,#7a5fa8);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.9}
+.hero h1{font-size:clamp(1.9rem,4.8vw,2.8rem);line-height:1.12;margin:9px 0 12px}
+.hero p{max-width:650px;margin:0;color:#eef5f9;font-size:1.05rem}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
+.instructions{color:var(--ink);margin:0 0 12px}
+.steps{margin:0;padding-left:20px;color:var(--muted)}
+.steps li{margin-bottom:6px}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}
+.fill{height:100%;width:0;background:var(--blue);transition:width .25s}
 .number{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-.statement{font-size:clamp(1.25rem,3vw,1.65rem);line-height:1.35;font-weight:700;margin:10px 0 22px}
-.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}.choice:disabled{cursor:default;opacity:1}.choice.selected{border-color:var(--blue);background:var(--blue2)}.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
-.feedback{display:none;margin-top:18px;border-radius:12px;padding:15px 16px;background:#f0f4f7;border-left:4px solid var(--blue)}.feedback.show{display:block}.feedback strong{display:block;margin-bottom:4px}.feedback p{margin:0}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:750;font-size:.95rem;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#eaf0f4;color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
-.result{display:none}.result.show{display:block}.score{font-size:2.7rem;font-weight:800;color:var(--blue);line-height:1.1}.scoreline{color:var(--muted)}.review{margin-top:18px}.review details{border-top:1px solid var(--line);padding:12px 0}.review summary{font-weight:700;cursor:pointer}.review p{margin:8px 0 0;color:var(--muted)}
-.sources h2{margin:0 0 8px;font-size:1.2rem}.sources p{color:var(--muted);font-size:.9rem}.sources ol{padding-left:22px}.sources li{margin:9px 0;font-size:.9rem}.sources a{color:var(--blue);overflow-wrap:anywhere}.note{font-size:.88rem;color:var(--muted);margin-top:16px}
+.statement{font-size:clamp(1.2rem,2.8vw,1.55rem);line-height:1.4;font-weight:700;margin:10px 0 22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}
+.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}
+.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}
+.choice:disabled{cursor:default;opacity:1}
+.choice.selected{border-color:var(--blue);background:var(--blue2)}
+.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}
+.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{display:none;margin-top:18px;border-radius:12px;padding:16px 18px;background:#f0f4f7;border-left:4px solid var(--blue)}
+.feedback.show{display:block}
+.feedback strong{display:block;margin-bottom:4px;font-size:1.05rem}
+.feedback p{margin:0}
+.discuss-box{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--amberbg);border-left:4px solid #d98a1c;color:#4a3005}
+.discuss-box span{display:block;font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:3px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:700;font-size:.95rem;cursor:pointer}
+.primary{background:var(--blue);color:white}
+.secondary{background:#eaf0f4;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none}
+.result.show{display:block}
+.score{font-size:2.6rem;font-weight:800;color:var(--blue);line-height:1.1;margin:6px 0}
+.scoreline{color:var(--muted)}
+.review{margin-top:18px}
+.review details{border-top:1px solid var(--line);padding:12px 0}
+.review summary{font-weight:700;cursor:pointer}
+.review p{margin:8px 0 0;color:var(--muted)}
+.vocab h2{margin:0 0 10px;font-size:1.2rem}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:12px}
+.vocab-item{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.92rem}
+.vocab-item b{color:var(--blue);display:block;margin-bottom:2px}
+.wrapup{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.wrapup h3{margin:0 0 8px;font-size:1.05rem}
+.wrapup ul{margin:0;padding-left:20px;color:var(--muted)}
+.wrapup li{margin-bottom:6px}
 footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 @media(max-width:560px){.wrap{padding:16px 12px 34px}.hero{padding:24px 20px}.panel{padding:18px}.choices{grid-template-columns:1fr}.topline{align-items:flex-start}}
 @media print{body{background:white}.hero{background:#3b2a5e!important;print-color-adjust:exact}.panel{box-shadow:none}}
@@ -27,171 +67,255 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
 <body>
 <main class="wrap">
 <header class="hero">
-  <div class="kicker">English • B1–B2</div>
-  <h1>Memory: True or False?</h1>
-  <p>How well do you understand your own memory? Some popular beliefs about remembering and forgetting turn out to be wrong.</p>
-  <div class="meta"><span class="pill">20 statements</span><span class="pill">True / False</span><span class="pill">Instant explanations</span></div>
+  <div class="kicker">English Discussion Activity • B2 Level</div>
+  <h1>Memory: Myth or Fact?</h1>
+  <p>How well can you trust your own memory? Test common beliefs about remembering, forgetting, and learning.</p>
+  <div class="meta">
+    <span class="pill">12 statements</span>
+    <span class="pill">True / False</span>
+    <span class="pill">Pair &amp; group discussion</span>
+  </div>
 </header>
 
 <section class="panel" id="intro">
-  <p class="instructions">Read each statement and decide whether it is <b>true</b> or <b>false</b>. Choose one answer. You will then see an explanation and a little context. Science changes as new studies appear, so treat the explanations as a snapshot and use the source links to read more.</p>
-  <div class="actions"><button class="btn primary" id="start">Start the quiz</button></div>
+  <p class="instructions"><b>How to do this activity:</b></p>
+  <ol class="steps">
+    <li>Read each statement with your partner or group and decide if you think it is <b>True</b> or <b>False</b>.</li>
+    <li>Give reasons for your choice before clicking an answer.</li>
+    <li>Read the explanation and use the <b>Let's Discuss</b> question to talk about your own life and opinions.</li>
+  </ol>
+  <div class="actions"><button class="btn primary" id="start">Start discussion quiz</button></div>
 </section>
 
 <section class="panel" id="quiz" hidden aria-live="polite">
-  <div class="topline"><span id="counter">Question 1 of 20</span><span id="scoreNow">Score: 0</span></div>
+  <div class="topline"><span id="counter">Statement 1 of 12</span><span id="scoreNow">Score: 0</span></div>
   <div class="track"><div class="fill" id="progress"></div></div>
   <div class="number" id="qnumber">STATEMENT 01</div>
   <div class="statement" id="statement"></div>
   <div class="choices">
-    <button class="choice" id="trueBtn">✓ &nbsp; True</button>
-    <button class="choice" id="falseBtn">✕ &nbsp; False</button>
+    <button class="choice" id="trueBtn">✓ &nbsp; True (Fact)</button>
+    <button class="choice" id="falseBtn">✕ &nbsp; False (Myth)</button>
   </div>
-  <div class="feedback" id="feedback" role="status" aria-live="polite"><strong id="verdict"></strong><p id="explanation"></p></div>
+  <div class="feedback" id="feedback" role="status" aria-live="polite">
+    <strong id="verdict"></strong>
+    <p id="explanation"></p>
+    <div class="discuss-box">
+      <span>Let's Discuss</span>
+      <p id="discussion"></p>
+    </div>
+  </div>
   <div class="actions"><button class="btn primary" id="next" disabled>Next statement →</button></div>
 </section>
 
 <section class="panel result" id="result" aria-live="polite">
-  <div class="number">QUIZ COMPLETE</div>
-  <h2>Your result</h2><div class="score" id="finalScore">0 / 20</div><p class="scoreline" id="comment"></p>
-  <div class="actions"><button class="btn primary" id="reviewBtn">Review answers</button><button class="btn secondary" id="restart">Try again (new order)</button></div>
+  <div class="number">ACTIVITY COMPLETE</div>
+  <h2>Your group score</h2>
+  <div class="score" id="finalScore">0 / 12</div>
+  <p class="scoreline" id="comment"></p>
+  <div class="actions">
+    <button class="btn primary" id="reviewBtn">Review all statements</button>
+    <button class="btn secondary" id="restart">Play again (new order)</button>
+  </div>
   <div class="review" id="review" hidden></div>
 </section>
 
-<section class="panel sources">
-  <h2>Sources and useful context</h2>
-  <p>These pages are good starting points for background reading on the topics in the quiz. Research findings can be updated or challenged over time.</p>
-  <ol>
-    <li><a href="https://en.wikipedia.org/wiki/Reconstructive_memory" target="_blank" rel="noopener">Reconstructive memory (Wikipedia)</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Elizabeth_Loftus" target="_blank" rel="noopener">Elizabeth Loftus and misinformation research</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Lost_in_the_mall_technique" target="_blank" rel="noopener">“Lost in the mall” technique</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Forgetting_curve" target="_blank" rel="noopener">Forgetting curve</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Spacing_effect" target="_blank" rel="noopener">Spacing effect</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Testing_effect" target="_blank" rel="noopener">Testing effect (retrieval practice)</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Henry_Molaison" target="_blank" rel="noopener">Henry Molaison (patient H.M.)</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Eidetic_memory" target="_blank" rel="noopener">Eidetic memory</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Flashbulb_memory" target="_blank" rel="noopener">Flashbulb memory</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Childhood_amnesia" target="_blank" rel="noopener">Childhood amnesia</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Method_of_loci" target="_blank" rel="noopener">Method of loci (memory palace)</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Context-dependent_memory" target="_blank" rel="noopener">Context-dependent memory (Godden & Baddeley)</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Eleanor_Maguire" target="_blank" rel="noopener">Eleanor Maguire (London taxi driver research)</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Tip_of_the_tongue" target="_blank" rel="noopener">Tip of the tongue</a></li>
-  </ol>
-  <p class="note"><b>Language tip:</b> “Recall” means to bring a memory back to mind. “Consolidation” is the process of making a new memory stable. “Reconstructive” means built again each time.</p>
+<section class="panel vocab">
+  <h2>Useful Vocabulary for Your Discussion</h2>
+  <div class="vocab-grid">
+    <div class="vocab-item"><b>Recall (verb)</b>To bring a past memory or fact back into your mind.</div>
+    <div class="vocab-item"><b>Cram (verb)</b>To study a huge amount of information in a very short time right before an exam.</div>
+    <div class="vocab-item"><b>Eyewitness (noun)</b>A person who saw an accident or crime happen and can describe it.</div>
+    <div class="vocab-item"><b>Trigger (verb)</b>To cause a memory, feeling, or reaction to start suddenly.</div>
+    <div class="vocab-item"><b>Vivid (adjective)</b>Producing very clear, bright, and detailed images in your mind.</div>
+    <div class="vocab-item"><b>Long-term (adjective)</b>Lasting for a long period of time in the future.</div>
+  </div>
+
+  <div class="wrapup">
+    <h3>Final Wrap-Up Questions</h3>
+    <ul>
+      <li>Do you think smartphones and search engines are making our memories weaker, or just freeing our brains for other things?</li>
+      <li>If you could permanently erase one embarrassing or unpleasant memory, would you do it? Why or why not?</li>
+      <li>What is one memory from the past year that you hope you will remember for the rest of your life?</li>
+    </ul>
+  </div>
 </section>
-<footer>Independent classroom activity • Memory: True or False?</footer>
+
+<footer>Classroom Speaking Activity • Memory & Learning (CEFR B2)</footer>
 </main>
+
 <script>
 const items = [
- {
-  "s": "Every time you recall a memory, your brain partly rebuilds it, so memories can change over time.",
-  "a": true,
-  "e": "True. Memory works more like rebuilding a story than playing a video. Each recall can add, remove or change details."
- },
- {
-  "s": "Photographic memory, where an adult can ‘photograph’ a page and read it perfectly later, is well proven by research.",
-  "a": false,
-  "e": "False. A few children show unusually detailed visual imagery, but there is no convincing case in adults. Memory champions use techniques, not a mental camera."
- },
- {
-  "s": "In a classic 1974 experiment, people who heard the verb ‘smashed’ in a question about a car crash guessed higher speeds than people who heard ‘hit’.",
-  "a": true,
-  "e": "True. This study by Loftus and Palmer showed that the wording of a question can change what people remember about an event."
- },
- {
-  "s": "Flashbulb memories, the vivid memories of shocking events, are usually perfectly accurate.",
-  "a": false,
-  "e": "False. They feel very vivid and people feel very sure about them, but studies show that the details often change over the years."
- },
- {
-  "s": "Most forgetting happens soon after learning: the ‘forgetting curve’ is steepest in the first hours and days.",
-  "a": true,
-  "e": "True. Hermann Ebbinghaus described this in the 1880s. It is why a quick review soon after learning is so helpful."
- },
- {
-  "s": "Modern research suggests that working memory holds closer to four chunks of information than the famous ‘seven’.",
-  "a": true,
-  "e": "True. George Miller's ‘seven, plus or minus two’ is famous, but later researchers, such as Nelson Cowan, suggested a limit nearer to four chunks."
- },
- {
-  "s": "Sleep after learning helps the brain to turn new information into stable, long-term memories.",
-  "a": true,
-  "e": "True. Many studies link sleep, especially deep sleep, to memory consolidation. Sacrificing sleep to study is often a bad trade."
- },
- {
-  "s": "Studying everything the night before an exam is just as good for long-term memory as spreading the same study over several days.",
-  "a": false,
-  "e": "False. This is the ‘spacing effect’. Spread-out study produces much better long-term memory than cramming, even if cramming can help for a test tomorrow."
- },
- {
-  "s": "Testing yourself with practice questions usually helps you remember more than simply re-reading your notes.",
-  "a": true,
-  "e": "True. Retrieving information is a powerful way to strengthen it. This is called the testing effect or retrieval practice."
- },
- {
-  "s": "Patient H.M. could not form new memories of facts and events after brain surgery, but he could still improve at a new motor skill.",
-  "a": true,
-  "e": "True. He got better at a mirror-drawing task over several days, even though he could not remember practising. This showed that there are different memory systems."
- },
- {
-  "s": "Memories are stored in one single place in the brain, like files in a cabinet.",
-  "a": false,
-  "e": "False. A memory is spread across networks in different brain areas, such as those for sight, sound, emotion and place."
- },
- {
-  "s": "Researchers have convinced some adults that they were lost in a shopping mall as a child, even though it never happened.",
-  "a": true,
-  "e": "True. In Loftus's famous study, about a quarter of participants accepted the false event after hearing it described by a family member."
- },
- {
-  "s": "Memories triggered by smells are often described as more emotional than memories triggered by words or pictures.",
-  "a": true,
-  "e": "True. This is sometimes called the ‘Proust effect’. Smell is closely connected to the brain areas involved in emotion and memory."
- },
- {
-  "s": "Most adults can remember clear events from when they were one year old.",
-  "a": false,
-  "e": "False. Most people's earliest memories date from around the age of three to four. This is called childhood amnesia."
- },
- {
-  "s": "London taxi drivers who learned the city's streets had a larger back part of the hippocampus than most people.",
-  "a": true,
-  "e": "True. Eleanor Maguire's brain-scan studies found changes linked to the years of learning ‘The Knowledge’."
- },
- {
-  "s": "A goldfish only remembers things for about three seconds.",
-  "a": false,
-  "e": "False. Experiments show goldfish can remember things for weeks or months, for example the time of day they are fed."
- },
- {
-  "s": "The ‘memory palace’ technique, linking items to places you know well, is a real method used by memory champions.",
-  "a": true,
-  "e": "True. The method of loci is more than 2,000 years old. You place things you want to remember along a familiar route in your imagination."
- },
- {
-  "s": "In a 1975 study, divers who learned word lists underwater remembered them better when tested underwater than when tested on land.",
-  "a": true,
-  "e": "True. This is context-dependent memory: recall is often easier in the same setting where you learned."
- },
- {
-  "s": "When an eyewitness feels very confident, you can be sure the memory is accurate.",
-  "a": false,
-  "e": "False. Confidence and accuracy are only loosely connected. Many wrongful convictions involved confident but mistaken witnesses."
- },
- {
-  "s": "The ‘tip-of-the-tongue’ feeling, when you know a word but cannot say it, only happens to older people.",
-  "a": false,
-  "e": "False. It happens at every age. It does become more frequent as people get older."
- }
+  {
+    "s": "Every time you remember an event, your brain partly rebuilds it, so memories can slowly change over time.",
+    "a": true,
+    "e": "True. Memory does not work like playing back a video recording. Each time you recall a story, your brain can accidentally add, drop, or change small details.",
+    "d": "Have you and a friend or family member ever remembered the exact same event differently? What happened?"
+  },
+  {
+    "s": "Many adults have a 'photographic memory' that lets them look at a page once and read every word from memory later.",
+    "a": false,
+    "e": "False. While some people have very strong visual memory, scientists have found no proof of a true 'mental camera' in adults. Memory champions use clever mental tricks, not magic brains.",
+    "d": "Are you better at remembering faces, names, numbers, or places? Why do you think that is?"
+  },
+  {
+    "s": "Changing just one word in a question—such as asking how fast cars 'smashed' instead of 'hit'—can change what witnesses remember.",
+    "a": true,
+    "e": "True. In a famous study, people who heard the word 'smashed' guessed much higher car speeds and even 'remembered' broken glass that was never there.",
+    "d": "Why is it important for police officers, journalists, or teachers to ask neutral questions without leading people?"
+  },
+  {
+    "s": "Most forgetting happens very soon after you learn something new—within the first few hours and days.",
+    "a": true,
+    "e": "True. Studies show we lose a large amount of new information quickly unless we review it. A short 10-minute review the next day makes a huge difference.",
+    "d": "What do you usually do when you learn a new English word so that you don't forget it the next day?"
+  },
+  {
+    "s": "Studying everything the night before an exam is just as good for long-term memory as studying a little each day.",
+    "a": false,
+    "e": "False. 'Cramming' all night might help you pass a test tomorrow, but you will forget most of it next week. Spreading study over several days builds much stronger memories.",
+    "d": "Are you someone who plans ahead and studies little by little, or do you usually leave things until the last minute?"
+  },
+  {
+    "s": "Testing yourself with flashcards or practice questions helps you remember much better than simply re-reading your notes.",
+    "a": true,
+    "e": "True. Re-reading feels easy, so it tricks your brain into thinking you know the material. Actively trying to pull answers from your memory strengthens the connections in your brain.",
+    "d": "Which study methods work best for you—making notes, using flashcards, watching videos, or explaining things to someone else?"
+  },
+  {
+    "s": "Getting a good night's sleep after studying helps your brain organize and save new memories.",
+    "a": true,
+    "e": "True. During deep sleep, your brain processes what you learned during the day and moves important information into long-term storage.",
+    "d": "How many hours of sleep do you usually get, and how does lack of sleep affect your concentration?"
+  },
+  {
+    "s": "Researchers have successfully convinced adults that they were lost in a shopping mall as a child, even though it never happened.",
+    "a": true,
+    "e": "True. When a trusted family member described the fake event, about a quarter of the adults began to 'remember' details of getting lost. Imagination can easily turn into a false memory.",
+    "d": "What is your earliest childhood memory? How sure are you that every detail really happened?"
+  },
+  {
+    "s": "Most adults can clearly remember events from when they were one year old.",
+    "a": false,
+    "e": "False. Almost nobody remembers their first two or three years of life. Most people's earliest real memories start around age three or four, when language and the brain develop further.",
+    "d": "Why do you think our brains don't keep memories from when we were babies?"
+  },
+  {
+    "s": "Memories triggered by a familiar smell often feel more emotional than memories triggered by a photo or a word.",
+    "a": true,
+    "e": "True. The part of the brain that processes smells is directly connected to the areas for emotion and memory, which is why a perfume or cooking smell can instantly take you back in time.",
+    "d": "Is there a specific smell, song, or food that immediately brings back a strong memory for you?"
+  },
+  {
+    "s": "A goldfish can only remember things for about three seconds.",
+    "a": false,
+    "e": "False. This popular saying is completely untrue. Experiments show that goldfish can remember feeding times, colors, and mazes for weeks or even months.",
+    "d": "Have you ever had a pet that surprised you with how smart or observant it was?"
+  },
+  {
+    "s": "The 'tip-of-the-tongue' feeling—when you know a word but cannot quite say it—only happens to elderly people.",
+    "a": false,
+    "e": "False. People of all ages experience this, especially bilingual and multilingual speakers! It happens more often as we get older, because our brains store so many more words.",
+    "d": "What do you do during an English conversation when a word is 'on the tip of your tongue' and you can't remember it?"
+  }
 ];
-let order=[], index=0, score=0, answers=[];
-const $=id=>document.getElementById(id);
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function begin(){order=shuffle(items.map((_,i)=>i));index=0;score=0;answers=[];$("intro").hidden=true;$("result").classList.remove("show");$("result").style.display="none";$("quiz").hidden=false;render();}
-function render(){const q=items[order[index]];$("counter").textContent=`Question ${index+1} of ${items.length}`;$("scoreNow").textContent=`Score: ${score}`;$("progress").style.width=`${index/items.length*100}%`;$("qnumber").textContent=`STATEMENT ${String(index+1).padStart(2,"0")}`;$("statement").textContent=q.s;$("feedback").classList.remove("show");$("next").disabled=true;$("next").textContent=index===items.length-1?"See my result →":"Next statement →";["trueBtn","falseBtn"].forEach(id=>{const b=$(id);b.disabled=false;b.className="choice";});}
-function answer(value){const q=items[order[index]],correct=value===q.a; if(correct)score++;answers.push({id:order[index],value,correct});$("scoreNow").textContent=`Score: ${score}`;const chosen=value?"trueBtn":"falseBtn";$(chosen).classList.add("selected",correct?"correct":"wrong");$(q.a?"trueBtn":"falseBtn").classList.add("correct");$("verdict").textContent=correct?"That's right!":"Not quite."; $("explanation").textContent=q.e;$("feedback").classList.add("show");$("next").disabled=false;["trueBtn","falseBtn"].forEach(id=>$(id).disabled=true);}
-function finish(){$("quiz").hidden=true;$("result").style.display="block";$("result").classList.add("show");$("finalScore").textContent=`${score} / ${items.length}`;$("comment").textContent=score>=17?"Excellent work. You spotted almost all the myths and facts.":score>=12?"Good result. You have a solid understanding, with a few surprises along the way.":score>=8?"A useful attempt. Read the explanations to discover which assumptions were challenged.":"Many of these are surprising! Review the explanations and try again."; $("progress").style.width="100%";}
-$("start").addEventListener("click",begin);$("trueBtn").addEventListener("click",()=>answer(true));$("falseBtn").addEventListener("click",()=>answer(false));$("next").addEventListener("click",()=>{index++;if(index<items.length)render();else finish();});$("restart").addEventListener("click",()=>{ $("result").style.display="none";$("result").classList.remove("show");$("intro").hidden=false;$("review").hidden=true;begin();});$("reviewBtn").addEventListener("click",()=>{const r=$("review");r.hidden=!r.hidden;if(!r.hidden){r.innerHTML="<h3>Answer review</h3>"+answers.map((x,i)=>{const q=items[x.id];return `<details><summary>${i+1}. ${x.correct?"Correct":"Incorrect"} — ${q.s}</summary><p><b>Answer: ${q.a?"True":"False"}.</b> ${q.e}</p></details>`}).join("");}});
+
+let order = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function begin() {
+  order = shuffle(items.map((_, i) => i));
+  index = 0;
+  score = 0;
+  answers = [];
+  $("intro").hidden = true;
+  $("result").classList.remove("show");
+  $("result").style.display = "none";
+  $("quiz").hidden = false;
+  render();
+}
+
+function render() {
+  const q = items[order[index]];
+  $("counter").textContent = `Statement ${index + 1} of ${items.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${(index / items.length) * 100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index + 1).padStart(2, "0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === items.length - 1 ? "See final results →" : "Next statement →";
+  ["trueBtn", "falseBtn"].forEach(id => {
+    const b = $(id);
+    b.disabled = false;
+    b.className = "choice";
+  });
+}
+
+function answer(value) {
+  const q = items[order[index]];
+  const correct = value === q.a;
+  if (correct) score++;
+  answers.push({ id: order[index], value, correct });
+  $("scoreNow").textContent = `Score: ${score}`;
+  const chosen = value ? "trueBtn" : "falseBtn";
+  $(chosen).classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite!";
+  $("explanation").textContent = q.e;
+  $("discussion").textContent = q.d;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn", "falseBtn"].forEach(id => $(id).disabled = true);
+}
+
+function finish() {
+  $("quiz").hidden = true;
+  $("result").style.display = "block";
+  $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${items.length}`;
+  $("comment").textContent =
+    score >= 10 ? "Impressive! You spotted almost every myth and fact." :
+    score >= 7 ? "Great job! You have strong instincts, with a few surprises along the way." :
+    "Many of these myths fool almost everyone! Use the review below to continue your discussion.";
+  $("progress").style.width = "100%";
+}
+
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => {
+  index++;
+  if (index < items.length) render();
+  else finish();
+});
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none";
+  $("result").classList.remove("show");
+  $("review").hidden = true;
+  begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review");
+  r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Discussion &amp; Answer Review</h3>" + answers.map((x, i) => {
+      const q = items[x.id];
+      return `<details>
+        <summary>${i + 1}. ${x.correct ? "✓ Correct" : "✕ Incorrect"} — ${q.s}</summary>
+        <p><b>Answer: ${q.a ? "True (Fact)" : "False (Myth)"}.</b> ${q.e}</p>
+        <p><b>Discussion question:</b> ${q.d}</p>
+      </details>`;
+    }).join("");
+  }
+});
 </script>
 </body>
 </html>

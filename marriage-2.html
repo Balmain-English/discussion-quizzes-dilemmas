@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marriage & Relationships: Myth or Fact? (B2 Discussion)</title>
+<style>
+:root{--ink:#203044;--muted:#5a6b7c;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--amber:#8a5300;--amberbg:#fdf6e7;--line:#dce4eb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:840px;margin:0 auto;padding:28px 18px 50px}
+.hero{background:linear-gradient(125deg,#173c5b,#34769a);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.9}
+.hero h1{font-size:clamp(1.9rem,4.8vw,2.8rem);line-height:1.12;margin:9px 0 12px}
+.hero p{max-width:650px;margin:0;color:#eef5f9;font-size:1.05rem}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
+.instructions{color:var(--ink);margin:0 0 12px}
+.steps{margin:0;padding-left:20px;color:var(--muted)}
+.steps li{margin-bottom:6px}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}
+.fill{height:100%;width:0;background:var(--blue);transition:width .25s}
+.number{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.statement{font-size:clamp(1.2rem,2.8vw,1.55rem);line-height:1.4;font-weight:700;margin:10px 0 22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}
+.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}
+.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}
+.choice:disabled{cursor:default;opacity:1}
+.choice.selected{border-color:var(--blue);background:var(--blue2)}
+.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}
+.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{display:none;margin-top:18px;border-radius:12px;padding:16px 18px;background:#f0f4f7;border-left:4px solid var(--blue)}
+.feedback.show{display:block}
+.feedback strong{display:block;margin-bottom:4px;font-size:1.05rem}
+.feedback p{margin:0}
+.discuss-box{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--amberbg);border-left:4px solid #d98a1c;color:#4a3005}
+.discuss-box span{display:block;font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:3px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:700;font-size:.95rem;cursor:pointer}
+.primary{background:var(--blue);color:white}
+.secondary{background:#eaf0f4;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none}
+.result.show{display:block}
+.score{font-size:2.6rem;font-weight:800;color:var(--blue);line-height:1.1;margin:6px 0}
+.scoreline{color:var(--muted)}
+.review{margin-top:18px}
+.review details{border-top:1px solid var(--line);padding:12px 0}
+.review summary{font-weight:700;cursor:pointer}
+.review p{margin:8px 0 0;color:var(--muted)}
+.vocab h2{margin:0 0 10px;font-size:1.2rem}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:12px}
+.vocab-item{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.92rem}
+.vocab-item b{color:var(--blue);display:block;margin-bottom:2px}
+.wrapup{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.wrapup h3{margin:0 0 8px;font-size:1.05rem}
+.wrapup ul{margin:0;padding-left:20px;color:var(--muted)}
+.wrapup li{margin-bottom:6px}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
+@media(max-width:560px){.wrap{padding:16px 12px 34px}.hero{padding:24px 20px}.panel{padding:18px}.choices{grid-template-columns:1fr}.topline{align-items:flex-start}}
+@media print{body{background:white}.hero{background:#245b83!important;print-color-adjust:exact}.panel{box-shadow:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">English Discussion Activity • B2 Level</div>
+  <h1>Marriage & Relationships: Myth or Fact?</h1>
+  <p>Explore changing trends in marriage, living together, and modern relationships around the world.</p>
+  <div class="meta">
+    <span class="pill">12 statements</span>
+    <span class="pill">True / False</span>
+    <span class="pill">Pair &amp; group discussion</span>
+  </div>
+</header>
+
+<section class="panel" id="intro">
+  <p class="instructions"><b>How to do this activity:</b></p>
+  <ol class="steps">
+    <li>Read each statement with your partner or group and decide if you think it is <b>True</b> or <b>False</b>.</li>
+    <li>Give reasons for your choice before clicking an answer.</li>
+    <li>Read the explanation and use the <b>Let's Discuss</b> question to talk about your own life and opinions.</li>
+  </ol>
+  <div class="actions"><button class="btn primary" id="start">Start discussion quiz</button></div>
+</section>
+
+<section class="panel" id="quiz" hidden aria-live="polite">
+  <div class="topline"><span id="counter">Statement 1 of 12</span><span id="scoreNow">Score: 0</span></div>
+  <div class="track"><div class="fill" id="progress"></div></div>
+  <div class="number" id="qnumber">STATEMENT 01</div>
+  <div class="statement" id="statement"></div>
+  <div class="choices">
+    <button class="choice" id="trueBtn">✓ &nbsp; True (Fact)</button>
+    <button class="choice" id="falseBtn">✕ &nbsp; False (Myth)</button>
+  </div>
+  <div class="feedback" id="feedback" role="status" aria-live="polite">
+    <strong id="verdict"></strong>
+    <p id="explanation"></p>
+    <div class="discuss-box">
+      <span>Let's Discuss</span>
+      <p id="discussion"></p>
+    </div>
+  </div>
+  <div class="actions"><button class="btn primary" id="next" disabled>Next statement →</button></div>
+</section>
+
+<section class="panel result" id="result" aria-live="polite">
+  <div class="number">ACTIVITY COMPLETE</div>
+  <h2>Your group score</h2>
+  <div class="score" id="finalScore">0 / 12</div>
+  <p class="scoreline" id="comment"></p>
+  <div class="actions">
+    <button class="btn primary" id="reviewBtn">Review all statements</button>
+    <button class="btn secondary" id="restart">Play again (new order)</button>
+  </div>
+  <div class="review" id="review" hidden></div>
+</section>
+
+<section class="panel vocab">
+  <h2>Useful Vocabulary for Your Discussion</h2>
+  <div class="vocab-grid">
+    <div class="vocab-item"><b>Cohabitation (noun)</b>Living together in a romantic relationship without being legally married.</div>
+    <div class="vocab-item"><b>Companionship (noun)</b>The warm feeling of friendship and closeness from spending time with someone you care about.</div>
+    <div class="vocab-item"><b>Spouse (noun)</b>A formal word for a person's husband or wife.</div>
+    <div class="vocab-item"><b>Engagement (noun)</b>A formal agreement to get married in the future.</div>
+    <div class="vocab-item"><b>Household chores (noun)</b>Everyday tasks needed to keep a home clean and running, such as cooking, washing dishes, and cleaning.</div>
+    <div class="vocab-item"><b>Generation (noun)</b>All the people born and living at about the same time, such as parents versus their children.</div>
+  </div>
+
+  <div class="wrapup">
+    <h3>Final Wrap-Up Questions</h3>
+    <ul>
+      <li>How has the role of marriage changed in modern society compared to 50 years ago?</li>
+      <li>Do you think social media and dating apps make it easier or harder to find a good partner?</li>
+      <li>What traditions connected to weddings or relationships in your culture do you find most interesting?</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Classroom Speaking Activity • Marriage & Relationships (CEFR B2)</footer>
+</main>
+
+<script>
+const items = [
+  {
+    "s": "Across many developed countries, people today get married about five to seven years later than their parents' generation did in the 1990s.",
+    "a": true,
+    "e": "True. In OECD countries, the average age at first marriage rose from around 25–28 in the early 1990s to about 32–34 in the 2020s. Education, careers, and housing costs are major reasons.",
+    "d": "In your country, what is the most common age for people to get married today, and has it changed from your parents' generation?"
+  },
+  {
+    "s": "In countries like the US, more young adults have lived with a romantic partner without being married than have ever been married.",
+    "a": true,
+    "e": "True. Surveys show that among adults aged 18–44, living together (cohabitation) is now more common than marriage, especially for people in their twenties.",
+    "d": "Do you think living together before marriage is a good idea? What are the advantages and disadvantages?"
+  },
+  {
+    "s": "Worldwide, the percentage of adults who are married has increased over the last 50 years.",
+    "a": false,
+    "e": "False. According to United Nations data, the global share of women who are married or in a formal union actually fell from about 69% in 1970 to 63% in 2024, as more people choose to stay single or marry later.",
+    "d": "Why do you think more people around the world are choosing to marry later or stay single?"
+  },
+  {
+    "s": "In modern surveys, most people say love and companionship are much more important reasons to marry than financial security.",
+    "a": true,
+    "e": "True. In many countries, over 80–90% of adults say love and lifelong companionship are the top reasons to get married, while financial stability is ranked much lower.",
+    "d": "What do you think are the three most important qualities for a successful, long-term relationship?"
+  },
+  {
+    "s": "Most couples who move in together before marriage only do so after they are already engaged.",
+    "a": false,
+    "e": "False. Research shows that many couples move in together as a step toward testing their relationship or saving money on rent, before deciding whether to get engaged.",
+    "d": "How do you think daily life changes when a couple moves into the same home for the first time?"
+  },
+  {
+    "s": "People in every country around the world agree that age 30 is the ideal age to get married.",
+    "a": false,
+    "e": "False. Opinions vary widely depending on culture and economy. In some countries, people say the early twenties is ideal, while in others, people prefer the late twenties or early thirties.",
+    "d": "Do you think there is an 'ideal age' to get married, or does it depend completely on the person?"
+  },
+  {
+    "s": "In countries like the US and UK, over 75% of all first marriages end in divorce.",
+    "a": false,
+    "e": "False. Even the popular claim that 'half of all marriages end in divorce' is an exaggeration—and 75% is far too high. In fact, divorce rates in many Western countries have been falling since the 1990s.",
+    "d": "Why do you think people often believe divorce rates are higher than they really are?"
+  },
+  {
+    "s": "Studies show that couples who share housework and childcare fairly report higher relationship satisfaction.",
+    "a": true,
+    "e": "True. Psychologists and sociologists consistently find that feeling a fair balance of chores and responsibilities reduces arguments and increases happiness for both partners.",
+    "d": "How should couples decide who does different household chores? Is a 50/50 split always possible?"
+  },
+  {
+    "s": "In 1999, no country legally recognized same-sex marriage, whereas today more than 35 countries do.",
+    "a": true,
+    "e": "True. The Netherlands became the first country to legalize same-sex marriage in 2001, and since then dozens of countries across Europe, the Americas, and beyond have changed their laws.",
+    "d": "How have attitudes toward marriage and family changed in your country over the last 20 years?"
+  },
+  {
+    "s": "Couples who spend a huge amount of money on a luxury wedding are much less likely to get divorced.",
+    "a": false,
+    "e": "False. Interestingly, some studies have found the opposite: couples who go into heavy debt for an expensive wedding often face more financial stress later on.",
+    "d": "If you were planning a wedding, would you prefer a big traditional celebration or a small, simple event? Why?"
+  },
+  {
+    "s": "Arranged marriages no longer exist anywhere in the modern world.",
+    "a": false,
+    "e": "False. Arranged marriages are still common in several parts of the world, especially in South Asia. Today, many are 'semi-arranged,' where families introduce two people, and the couple decides freely whether to marry.",
+    "d": "What do you think about families helping young people meet potential partners, compared to dating apps?"
+  },
+  {
+    "s": "Happily married couples never argue or disagree with each other.",
+    "a": false,
+    "e": "False. Researchers who study marriage say that every couple disagrees. What matters is not avoiding arguments, but treating each other with respect and listening calmly during disagreements.",
+    "d": "What is the best advice you have ever heard about solving disagreements with a partner, friend, or family member?"
+  }
+];
+
+let order = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function begin() {
+  order = shuffle(items.map((_, i) => i));
+  index = 0;
+  score = 0;
+  answers = [];
+  $("intro").hidden = true;
+  $("result").classList.remove("show");
+  $("result").style.display = "none";
+  $("quiz").hidden = false;
+  render();
+}
+
+function render() {
+  const q = items[order[index]];
+  $("counter").textContent = `Statement ${index + 1} of ${items.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${(index / items.length) * 100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index + 1).padStart(2, "0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === items.length - 1 ? "See final results →" : "Next statement →";
+  ["trueBtn", "falseBtn"].forEach(id => {
+    const b = $(id);
+    b.disabled = false;
+    b.className = "choice";
+  });
+}
+
+function answer(value) {
+  const q = items[order[index]];
+  const correct = value === q.a;
+  if (correct) score++;
+  answers.push({ id: order[index], value, correct });
+  $("scoreNow").textContent = `Score: ${score}`;
+  const chosen = value ? "trueBtn" : "falseBtn";
+  $(chosen).classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite!";
+  $("explanation").textContent = q.e;
+  $("discussion").textContent = q.d;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn", "falseBtn"].forEach(id => $(id).disabled = true);
+}
+
+function finish() {
+  $("quiz").hidden = true;
+  $("result").style.display = "block";
+  $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${items.length}`;
+  $("comment").textContent =
+    score >= 10 ? "Impressive! You spotted almost every myth and fact." :
+    score >= 7 ? "Great job! You have strong instincts, with a few surprises along the way." :
+    "Many of these myths fool almost everyone! Use the review below to continue your discussion.";
+  $("progress").style.width = "100%";
+}
+
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => {
+  index++;
+  if (index < items.length) render();
+  else finish();
+});
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none";
+  $("result").classList.remove("show");
+  $("review").hidden = true;
+  begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review");
+  r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Discussion &amp; Answer Review</h3>" + answers.map((x, i) => {
+      const q = items[x.id];
+      return `<details>
+        <summary>${i + 1}. ${x.correct ? "✓ Correct" : "✕ Incorrect"} — ${q.s}</summary>
+        <p><b>Answer: ${q.a ? "True (Fact)" : "False (Myth)"}.</b> ${q.e}</p>
+        <p><b>Discussion question:</b> ${q.d}</p>
+      </details>`;
+    }).join("");
+  }
+});
+</script>
+</body>
+</html>

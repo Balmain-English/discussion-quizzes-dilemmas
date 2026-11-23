@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popular Technology: Myth or Fact? (B2 Discussion)</title>
+<style>
+:root{--ink:#203044;--muted:#5a6b7c;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--amber:#8a5300;--amberbg:#fdf6e7;--line:#dce4eb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:840px;margin:0 auto;padding:28px 18px 50px}
+.hero{background:linear-gradient(125deg,#232b3d,#4d6a94);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.9}
+.hero h1{font-size:clamp(1.9rem,4.8vw,2.8rem);line-height:1.12;margin:9px 0 12px}
+.hero p{max-width:650px;margin:0;color:#eef5f9;font-size:1.05rem}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
+.instructions{color:var(--ink);margin:0 0 12px}
+.steps{margin:0;padding-left:20px;color:var(--muted)}
+.steps li{margin-bottom:6px}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}
+.fill{height:100%;width:0;background:var(--blue);transition:width .25s}
+.number{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.statement{font-size:clamp(1.2rem,2.8vw,1.55rem);line-height:1.4;font-weight:700;margin:10px 0 22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}
+.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}
+.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}
+.choice:disabled{cursor:default;opacity:1}
+.choice.selected{border-color:var(--blue);background:var(--blue2)}
+.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}
+.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{display:none;margin-top:18px;border-radius:12px;padding:16px 18px;background:#f0f4f7;border-left:4px solid var(--blue)}
+.feedback.show{display:block}
+.feedback strong{display:block;margin-bottom:4px;font-size:1.05rem}
+.feedback p{margin:0}
+.discuss-box{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--amberbg);border-left:4px solid #d98a1c;color:#4a3005}
+.discuss-box span{display:block;font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:3px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:700;font-size:.95rem;cursor:pointer}
+.primary{background:var(--blue);color:white}
+.secondary{background:#eaf0f4;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none}
+.result.show{display:block}
+.score{font-size:2.6rem;font-weight:800;color:var(--blue);line-height:1.1;margin:6px 0}
+.scoreline{color:var(--muted)}
+.review{margin-top:18px}
+.review details{border-top:1px solid var(--line);padding:12px 0}
+.review summary{font-weight:700;cursor:pointer}
+.review p{margin:8px 0 0;color:var(--muted)}
+.vocab h2{margin:0 0 10px;font-size:1.2rem}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:12px}
+.vocab-item{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.92rem}
+.vocab-item b{color:var(--blue);display:block;margin-bottom:2px}
+.wrapup{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.wrapup h3{margin:0 0 8px;font-size:1.05rem}
+.wrapup ul{margin:0;padding-left:20px;color:var(--muted)}
+.wrapup li{margin-bottom:6px}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
+@media(max-width:560px){.wrap{padding:16px 12px 34px}.hero{padding:24px 20px}.panel{padding:18px}.choices{grid-template-columns:1fr}.topline{align-items:flex-start}}
+@media print{body{background:white}.hero{background:#232b3d!important;print-color-adjust:exact}.panel{box-shadow:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">English Discussion Activity • B2 Level</div>
+  <h1>Popular Technology: Myth or Fact?</h1>
+  <p>Wi-Fi, phone batteries, private browsing, and the cloud: test your digital knowledge and share your habits.</p>
+  <div class="meta">
+    <span class="pill">12 statements</span>
+    <span class="pill">True / False</span>
+    <span class="pill">Pair &amp; group discussion</span>
+  </div>
+</header>
+
+<section class="panel" id="intro">
+  <p class="instructions"><b>How to do this activity:</b></p>
+  <ol class="steps">
+    <li>Read each statement with your partner or group and decide if you think it is <b>True</b> or <b>False</b>.</li>
+    <li>Give reasons for your choice before clicking an answer.</li>
+    <li>Read the explanation and use the <b>Let's Discuss</b> question to talk about your own life and opinions.</li>
+  </ol>
+  <div class="actions"><button class="btn primary" id="start">Start discussion quiz</button></div>
+</section>
+
+<section class="panel" id="quiz" hidden aria-live="polite">
+  <div class="topline"><span id="counter">Statement 1 of 12</span><span id="scoreNow">Score: 0</span></div>
+  <div class="track"><div class="fill" id="progress"></div></div>
+  <div class="number" id="qnumber">STATEMENT 01</div>
+  <div class="statement" id="statement"></div>
+  <div class="choices">
+    <button class="choice" id="trueBtn">✓ &nbsp; True (Fact)</button>
+    <button class="choice" id="falseBtn">✕ &nbsp; False (Myth)</button>
+  </div>
+  <div class="feedback" id="feedback" role="status" aria-live="polite">
+    <strong id="verdict"></strong>
+    <p id="explanation"></p>
+    <div class="discuss-box">
+      <span>Let's Discuss</span>
+      <p id="discussion"></p>
+    </div>
+  </div>
+  <div class="actions"><button class="btn primary" id="next" disabled>Next statement →</button></div>
+</section>
+
+<section class="panel result" id="result" aria-live="polite">
+  <div class="number">ACTIVITY COMPLETE</div>
+  <h2>Your group score</h2>
+  <div class="score" id="finalScore">0 / 12</div>
+  <p class="scoreline" id="comment"></p>
+  <div class="actions">
+    <button class="btn primary" id="reviewBtn">Review all statements</button>
+    <button class="btn secondary" id="restart">Play again (new order)</button>
+  </div>
+  <div class="review" id="review" hidden></div>
+</section>
+
+<section class="panel vocab">
+  <h2>Useful Vocabulary for Your Discussion</h2>
+  <div class="vocab-grid">
+    <div class="vocab-item"><b>Prototype (noun)</b>The first working model of a new invention, built to test how it works.</div>
+    <div class="vocab-item"><b>Data center (noun)</b>A large building filled with thousands of powerful computers that store and manage online information.</div>
+    <div class="vocab-item"><b>Wireless (adjective)</b>Sending signals or connecting devices without using physical cables or wires.</div>
+    <div class="vocab-item"><b>Browser (noun)</b>A computer program or app used to visit websites, such as Chrome, Safari, or Firefox.</div>
+    <div class="vocab-item"><b>Recover (verb)</b>To get back something that was lost, stolen, or accidentally deleted.</div>
+    <div class="vocab-item"><b>Catchy (adjective)</b>Easy to remember and pleasant to hear, often used for names, slogans, or songs.</div>
+  </div>
+
+  <div class="wrapup">
+    <h3>Final Wrap-Up Questions</h3>
+    <ul>
+      <li>Which new technology (such as artificial intelligence or virtual reality) do you think will change daily life the most in the next 10 years?</li>
+      <li>Do you think people today spend too much time looking at screens? How can we create a healthier balance?</li>
+      <li>If you could invent one app or gadget to solve an everyday problem, what would it do?</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Classroom Speaking Activity • Popular Technology (CEFR B2)</footer>
+</main>
+
+<script>
+const items = [
+  {
+    "s": "The very first SMS text message was sent in 1992 and simply said 'Merry Christmas'.",
+    "a": true,
+    "e": "True. An engineer in the UK sent it from a computer to a colleague's mobile phone in December 1992, because phones didn't even have full keyboards for texting yet!",
+    "d": "Do you prefer sending text messages, voice notes, or making phone calls? Why?"
+  },
+  {
+    "s": "The wireless technology 'Bluetooth' was named after a tenth-century Danish king.",
+    "a": true,
+    "e": "True. King Harald 'Bluetooth' Gormsson was famous for uniting different parts of Scandinavia—just like the technology was created to unite different electronic devices without cables.",
+    "d": "What is one piece of everyday technology you couldn't live without?"
+  },
+  {
+    "s": "The word 'Wi-Fi' is short for 'Wireless Fidelity'.",
+    "a": false,
+    "e": "False. A marketing company invented the name 'Wi-Fi' in 1999 simply because it sounded catchy and easy to remember. It doesn't actually stand for anything!",
+    "d": "How do you feel when you are somewhere with no Wi-Fi or mobile internet for a whole day?"
+  },
+  {
+    "s": "The very first computer mouse, built in the 1960s, was made out of wood.",
+    "a": true,
+    "e": "True. Inventor Douglas Engelbart carved the first prototype out of a small block of wood with two metal wheels underneath.",
+    "d": "Do you remember the first computer or mobile phone you ever used? What was it like?"
+  },
+  {
+    "s": "Using 'Incognito' or private browsing mode makes you completely invisible online.",
+    "a": false,
+    "e": "False. Private mode only stops your own browser from saving your search history on your device. Websites, your internet company, and your school or employer can still see your activity.",
+    "d": "How careful are you about your online privacy? Do you worry about how much data websites collect?"
+  },
+  {
+    "s": "'The cloud' is not in the sky—your files are stored on real computers inside huge buildings around the world.",
+    "a": true,
+    "e": "True. When you back up photos to 'the cloud,' they travel through cables to giant warehouses full of computers called data centers, which use huge amounts of electricity and cooling water.",
+    "d": "Do you prefer keeping photos and files saved on your own device, or storing everything in the cloud?"
+  },
+  {
+    "s": "Leaving your smartphone plugged in overnight will dangerously overcharge and ruin the battery.",
+    "a": false,
+    "e": "False. Modern smartphones automatically stop charging once the battery reaches 100%. However, keeping a phone very hot or always charging it to 100% can slowly reduce battery life over a few years.",
+    "d": "What are your daily habits with your phone—do you check it first thing in the morning and last thing at night?"
+  },
+  {
+    "s": "The internet and the World Wide Web are the exact same thing.",
+    "a": false,
+    "e": "False. The internet is the global network of cables and computers connecting devices. The World Wide Web is just one service that runs on it—alongside email, online games, and messaging apps.",
+    "d": "How has the internet changed the way people learn English compared to 20 years ago?"
+  },
+  {
+    "s": "The QWERTY keyboard layout was designed to slow down fast typists so they wouldn't break early typewriters.",
+    "a": false,
+    "e": "False. Early typewriters had metal arms that jammed if two neighboring keys were pressed too quickly. The layout separated common letter pairs so people could type faster without jamming the machine.",
+    "d": "Can you type quickly without looking at the keyboard, or do you mostly use your thumbs on a phone screen?"
+  },
+  {
+    "s": "Closing all the apps on your phone every few minutes saves a lot of battery.",
+    "a": false,
+    "e": "False. Apps in the background are usually frozen and use almost no power. Closing and reopening them constantly actually forces your phone to work harder and can use more battery.",
+    "d": "How many browser tabs or apps do you usually have open at the same time?"
+  },
+  {
+    "s": "Amazon started in 1994 as a small online bookstore run out of a garage.",
+    "a": true,
+    "e": "True. Founder Jeff Bezos chose books first because there were millions of titles available worldwide, making it easy to ship them by mail before expanding into everything else.",
+    "d": "Do you prefer shopping online or visiting physical stores? What are the pros and cons of each?"
+  },
+  {
+    "s": "When you delete a file and empty the trash bin, the data is immediately destroyed forever.",
+    "a": false,
+    "e": "False. Usually, your computer just removes the file's address so new data can write over that space later. That is why tech experts can sometimes recover accidentally deleted photos.",
+    "d": "Have you ever accidentally deleted an important file or lost your phone? How did you handle it?"
+  }
+];
+
+let order = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function begin() {
+  order = shuffle(items.map((_, i) => i));
+  index = 0;
+  score = 0;
+  answers = [];
+  $("intro").hidden = true;
+  $("result").classList.remove("show");
+  $("result").style.display = "none";
+  $("quiz").hidden = false;
+  render();
+}
+
+function render() {
+  const q = items[order[index]];
+  $("counter").textContent = `Statement ${index + 1} of ${items.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${(index / items.length) * 100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index + 1).padStart(2, "0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === items.length - 1 ? "See final results →" : "Next statement →";
+  ["trueBtn", "falseBtn"].forEach(id => {
+    const b = $(id);
+    b.disabled = false;
+    b.className = "choice";
+  });
+}
+
+function answer(value) {
+  const q = items[order[index]];
+  const correct = value === q.a;
+  if (correct) score++;
+  answers.push({ id: order[index], value, correct });
+  $("scoreNow").textContent = `Score: ${score}`;
+  const chosen = value ? "trueBtn" : "falseBtn";
+  $(chosen).classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite!";
+  $("explanation").textContent = q.e;
+  $("discussion").textContent = q.d;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn", "falseBtn"].forEach(id => $(id).disabled = true);
+}
+
+function finish() {
+  $("quiz").hidden = true;
+  $("result").style.display = "block";
+  $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${items.length}`;
+  $("comment").textContent =
+    score >= 10 ? "Impressive! You spotted almost every myth and fact." :
+    score >= 7 ? "Great job! You have strong instincts, with a few surprises along the way." :
+    "Many of these myths fool almost everyone! Use the review below to continue your discussion.";
+  $("progress").style.width = "100%";
+}
+
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => {
+  index++;
+  if (index < items.length) render();
+  else finish();
+});
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none";
+  $("result").classList.remove("show");
+  $("review").hidden = true;
+  begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review");
+  r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Discussion &amp; Answer Review</h3>" + answers.map((x, i) => {
+      const q = items[x.id];
+      return `<details>
+        <summary>${i + 1}. ${x.correct ? "✓ Correct" : "✕ Incorrect"} — ${q.s}</summary>
+        <p><b>Answer: ${q.a ? "True (Fact)" : "False (Myth)"}.</b> ${q.e}</p>
+        <p><b>Discussion question:</b> ${q.d}</p>
+      </details>`;
+    }).join("");
+  }
+});
+</script>
+</body>
+</html>

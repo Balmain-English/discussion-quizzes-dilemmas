@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sports & Performance Psychology: Myth or Fact? (B2 Discussion)</title>
+<style>
+:root{--ink:#203044;--muted:#5a6b7c;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--amber:#8a5300;--amberbg:#fdf6e7;--line:#dce4eb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:840px;margin:0 auto;padding:28px 18px 50px}
+.hero{background:linear-gradient(125deg,#1b4d2e,#4a9b5f);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.9}
+.hero h1{font-size:clamp(1.9rem,4.8vw,2.8rem);line-height:1.12;margin:9px 0 12px}
+.hero p{max-width:650px;margin:0;color:#eef5f9;font-size:1.05rem}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
+.instructions{color:var(--ink);margin:0 0 12px}
+.steps{margin:0;padding-left:20px;color:var(--muted)}
+.steps li{margin-bottom:6px}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}
+.fill{height:100%;width:0;background:var(--blue);transition:width .25s}
+.number{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.statement{font-size:clamp(1.2rem,2.8vw,1.55rem);line-height:1.4;font-weight:700;margin:10px 0 22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}
+.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}
+.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}
+.choice:disabled{cursor:default;opacity:1}
+.choice.selected{border-color:var(--blue);background:var(--blue2)}
+.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}
+.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{display:none;margin-top:18px;border-radius:12px;padding:16px 18px;background:#f0f4f7;border-left:4px solid var(--blue)}
+.feedback.show{display:block}
+.feedback strong{display:block;margin-bottom:4px;font-size:1.05rem}
+.feedback p{margin:0}
+.discuss-box{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--amberbg);border-left:4px solid #d98a1c;color:#4a3005}
+.discuss-box span{display:block;font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:3px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:700;font-size:.95rem;cursor:pointer}
+.primary{background:var(--blue);color:white}
+.secondary{background:#eaf0f4;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none}
+.result.show{display:block}
+.score{font-size:2.6rem;font-weight:800;color:var(--blue);line-height:1.1;margin:6px 0}
+.scoreline{color:var(--muted)}
+.review{margin-top:18px}
+.review details{border-top:1px solid var(--line);padding:12px 0}
+.review summary{font-weight:700;cursor:pointer}
+.review p{margin:8px 0 0;color:var(--muted)}
+.vocab h2{margin:0 0 10px;font-size:1.2rem}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:12px}
+.vocab-item{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.92rem}
+.vocab-item b{color:var(--blue);display:block;margin-bottom:2px}
+.wrapup{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.wrapup h3{margin:0 0 8px;font-size:1.05rem}
+.wrapup ul{margin:0;padding-left:20px;color:var(--muted)}
+.wrapup li{margin-bottom:6px}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
+@media(max-width:560px){.wrap{padding:16px 12px 34px}.hero{padding:24px 20px}.panel{padding:18px}.choices{grid-template-columns:1fr}.topline{align-items:flex-start}}
+@media print{body{background:white}.hero{background:#1b4d2e!important;print-color-adjust:exact}.panel{box-shadow:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">English Discussion Activity • B2 Level</div>
+  <h1>Sports & Performance Psychology: Myth or Fact?</h1>
+  <p>Pressure, confidence, routines, and focus: discover how the mind affects performance in sport and everyday life.</p>
+  <div class="meta">
+    <span class="pill">12 statements</span>
+    <span class="pill">True / False</span>
+    <span class="pill">Pair &amp; group discussion</span>
+  </div>
+</header>
+
+<section class="panel" id="intro">
+  <p class="instructions"><b>How to do this activity:</b></p>
+  <ol class="steps">
+    <li>Read each statement with your partner or group and decide if you think it is <b>True</b> or <b>False</b>.</li>
+    <li>Give reasons for your choice before clicking an answer.</li>
+    <li>Read the explanation and use the <b>Let's Discuss</b> question to talk about your own life and opinions.</li>
+  </ol>
+  <div class="actions"><button class="btn primary" id="start">Start discussion quiz</button></div>
+</section>
+
+<section class="panel" id="quiz" hidden aria-live="polite">
+  <div class="topline"><span id="counter">Statement 1 of 12</span><span id="scoreNow">Score: 0</span></div>
+  <div class="track"><div class="fill" id="progress"></div></div>
+  <div class="number" id="qnumber">STATEMENT 01</div>
+  <div class="statement" id="statement"></div>
+  <div class="choices">
+    <button class="choice" id="trueBtn">✓ &nbsp; True (Fact)</button>
+    <button class="choice" id="falseBtn">✕ &nbsp; False (Myth)</button>
+  </div>
+  <div class="feedback" id="feedback" role="status" aria-live="polite">
+    <strong id="verdict"></strong>
+    <p id="explanation"></p>
+    <div class="discuss-box">
+      <span>Let's Discuss</span>
+      <p id="discussion"></p>
+    </div>
+  </div>
+  <div class="actions"><button class="btn primary" id="next" disabled>Next statement →</button></div>
+</section>
+
+<section class="panel result" id="result" aria-live="polite">
+  <div class="number">ACTIVITY COMPLETE</div>
+  <h2>Your group score</h2>
+  <div class="score" id="finalScore">0 / 12</div>
+  <p class="scoreline" id="comment"></p>
+  <div class="actions">
+    <button class="btn primary" id="reviewBtn">Review all statements</button>
+    <button class="btn secondary" id="restart">Play again (new order)</button>
+  </div>
+  <div class="review" id="review" hidden></div>
+</section>
+
+<section class="panel vocab">
+  <h2>Useful Vocabulary for Your Discussion</h2>
+  <div class="vocab-grid">
+    <div class="vocab-item"><b>Choke (verb)</b>To fail to perform well under pressure when you would normally succeed.</div>
+    <div class="vocab-item"><b>Visualization (noun)</b>Creating a clear mental picture in your mind of something you want to happen.</div>
+    <div class="vocab-item"><b>Fatigue (noun)</b>Extreme physical or mental tiredness.</div>
+    <div class="vocab-item"><b>Routine (noun)</b>A regular sequence of actions that you follow in the same way every time.</div>
+    <div class="vocab-item"><b>Endurance (noun)</b>The ability to keep doing a difficult physical activity for a long time.</div>
+    <div class="vocab-item"><b>Podium (noun)</b>A small raised platform where the top three winners stand to receive their medals.</div>
+  </div>
+
+  <div class="wrapup">
+    <h3>Final Wrap-Up Questions</h3>
+    <ul>
+      <li>Do you think success in sport or work depends more on mental attitude or physical talent?</li>
+      <li>Have you ever learned an important lesson from losing a game or failing at something?</li>
+      <li>Do you prefer team sports where everyone works together, or individual activities where you rely only on yourself?</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Classroom Speaking Activity • Sports & Performance Psychology (CEFR B2)</footer>
+</main>
+
+<script>
+const items = [
+  {
+    "s": "Under high pressure, athletes often perform worse because they think too much about movements they normally do automatically.",
+    "a": true,
+    "e": "True. Psychologists call this 'choking.' When a football player or golfer overthinks every step of a simple kick or swing, smooth movements become stiff and awkward.",
+    "d": "Have you ever felt so nervous during an exam, presentation, or game that you forgot something you normally know well?"
+  },
+  {
+    "s": "Home advantage in sport is just a myth—teams win equally often at home and away.",
+    "a": false,
+    "e": "False. Across almost all team sports, home teams win significantly more games. Familiar surroundings, no travel fatigue, and cheering fans all give a real boost.",
+    "d": "Do you perform better when people are watching and cheering for you, or when you are working quietly on your own?"
+  },
+  {
+    "s": "Athletes can improve their physical skills by vividly imagining themselves performing a movement.",
+    "a": true,
+    "e": "True. Brain scans show that imagining a movement activates many of the same brain areas as actually doing it. Many Olympic athletes practice mental rehearsal every day.",
+    "d": "Do you ever imagine how a conversation, interview, or presentation will go before it happens? Does it help?"
+  },
+  {
+    "s": "Athletes always perform best when they are as excited and pumped up as possible.",
+    "a": false,
+    "e": "False. Extra excitement helps with strength and speed, like weightlifting, but too much nervous energy can ruin accuracy in sports like tennis, golf, or archery.",
+    "d": "How do you manage your energy before something important—do you try to pump yourself up or calm yourself down?"
+  },
+  {
+    "s": "Practising anything for exactly 10,000 hours guarantees that anyone will become a world-class expert.",
+    "a": false,
+    "e": "False. This popular idea simplified a famous study. The quality of practice, good coaching, and natural talent all matter—not just counting hours.",
+    "d": "What is a skill (in sport, music, cooking, or language) that you have spent a lot of time practising?"
+  },
+  {
+    "s": "Simple routines—like bouncing a ball three times before serving—help athletes stay calm and focused.",
+    "a": true,
+    "e": "True. A familiar routine gives the brain a sense of control and blocks out crowd noise and negative thoughts during high-pressure moments.",
+    "d": "Do you have any personal routines or 'lucky habits' before an exam, trip, or important event?"
+  },
+  {
+    "s": "In football penalty shoot-outs, goalkeepers would stop more shots by staying in the middle, yet they almost always dive.",
+    "a": true,
+    "e": "True. Statistics show that many penalties are kicked down the center, but goalkeepers dive left or right because standing still looks like they didn't even try if a goal is scored.",
+    "d": "Why do you think people often prefer taking action—even when waiting would be the smarter choice?"
+  },
+  {
+    "s": "When someone is completely focused on a challenging activity that matches their skill, time seems to fly by.",
+    "a": true,
+    "e": "True. Psychologists call this state 'flow,' and athletes call it 'being in the zone.' It happens when a task is neither too easy (boring) nor too hard (stressful).",
+    "d": "What activity makes you feel completely focused and lose track of time?"
+  },
+  {
+    "s": "Doing a difficult mental task before exercise makes your body feel tired much faster.",
+    "a": true,
+    "e": "True. In experiments, people who did hard brain puzzles before cycling gave up much sooner, even though their muscles were completely fresh. Mental fatigue changes how hard exercise feels.",
+    "d": "After a long day of studying or working at a desk, do you find it harder to motivate yourself to exercise?"
+  },
+  {
+    "s": "Top Olympic champions never feel nervous or anxious before a big competition.",
+    "a": false,
+    "e": "False. Even the greatest athletes feel butterflies in their stomach. The difference is that experienced competitors treat nervous energy as excitement rather than fear.",
+    "d": "What physical signs do you notice when you feel nervous, and what helps you turn nerves into confidence?"
+  },
+  {
+    "s": "At the Olympics, bronze medal winners often look happier on the podium than silver medal winners.",
+    "a": true,
+    "e": "True. Researchers found that silver medalists often focus on how close they came to winning gold, while bronze medalists feel grateful just to win a medal instead of finishing fourth!",
+    "d": "Why do we sometimes compare ourselves to people who have more instead of appreciating what we achieved?"
+  },
+  {
+    "s": "Listening to upbeat music can help you run or cycle longer without feeling as tired.",
+    "a": true,
+    "e": "True. Music distracts the brain from tiredness, improves mood, and helps your body keep a steady rhythm during workouts.",
+    "d": "Do you like listening to music while exercising, studying, or commuting? What kind of music puts you in a good mood?"
+  }
+];
+
+let order = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function begin() {
+  order = shuffle(items.map((_, i) => i));
+  index = 0;
+  score = 0;
+  answers = [];
+  $("intro").hidden = true;
+  $("result").classList.remove("show");
+  $("result").style.display = "none";
+  $("quiz").hidden = false;
+  render();
+}
+
+function render() {
+  const q = items[order[index]];
+  $("counter").textContent = `Statement ${index + 1} of ${items.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${(index / items.length) * 100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index + 1).padStart(2, "0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === items.length - 1 ? "See final results →" : "Next statement →";
+  ["trueBtn", "falseBtn"].forEach(id => {
+    const b = $(id);
+    b.disabled = false;
+    b.className = "choice";
+  });
+}
+
+function answer(value) {
+  const q = items[order[index]];
+  const correct = value === q.a;
+  if (correct) score++;
+  answers.push({ id: order[index], value, correct });
+  $("scoreNow").textContent = `Score: ${score}`;
+  const chosen = value ? "trueBtn" : "falseBtn";
+  $(chosen).classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite!";
+  $("explanation").textContent = q.e;
+  $("discussion").textContent = q.d;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn", "falseBtn"].forEach(id => $(id).disabled = true);
+}
+
+function finish() {
+  $("quiz").hidden = true;
+  $("result").style.display = "block";
+  $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${items.length}`;
+  $("comment").textContent =
+    score >= 10 ? "Impressive! You spotted almost every myth and fact." :
+    score >= 7 ? "Great job! You have strong instincts, with a few surprises along the way." :
+    "Many of these myths fool almost everyone! Use the review below to continue your discussion.";
+  $("progress").style.width = "100%";
+}
+
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => {
+  index++;
+  if (index < items.length) render();
+  else finish();
+});
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none";
+  $("result").classList.remove("show");
+  $("review").hidden = true;
+  begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review");
+  r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Discussion &amp; Answer Review</h3>" + answers.map((x, i) => {
+      const q = items[x.id];
+      return `<details>
+        <summary>${i + 1}. ${x.correct ? "✓ Correct" : "✕ Incorrect"} — ${q.s}</summary>
+        <p><b>Answer: ${q.a ? "True (Fact)" : "False (Myth)"}.</b> ${q.e}</p>
+        <p><b>Discussion question:</b> ${q.d}</p>
+      </details>`;
+    }).join("");
+  }
+});
+</script>
+</body>
+</html>

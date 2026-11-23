@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hypnotism: Myth or Fact? (B2 Discussion)</title>
+<style>
+:root{--ink:#203044;--muted:#5a6b7c;--paper:#f5f7fa;--card:#fff;--blue:#245b83;--blue2:#eaf2f8;--green:#176b4b;--greenbg:#e9f5ef;--red:#a33a35;--redbg:#fbefee;--amber:#8a5300;--amberbg:#fdf6e7;--line:#dce4eb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:840px;margin:0 auto;padding:28px 18px 50px}
+.hero{background:linear-gradient(125deg,#14405a,#2f8a9a);color:#fff;border-radius:18px;padding:30px 30px 26px}
+.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:700;opacity:.9}
+.hero h1{font-size:clamp(1.9rem,4.8vw,2.8rem);line-height:1.12;margin:9px 0 12px}
+.hero p{max-width:650px;margin:0;color:#eef5f9;font-size:1.05rem}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.pill{font-size:.82rem;border:1px solid #ffffff65;border-radius:99px;padding:5px 12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:18px;box-shadow:0 5px 18px #2030440a}
+.instructions{color:var(--ink);margin:0 0 12px}
+.steps{margin:0;padding-left:20px;color:var(--muted)}
+.steps li{margin-bottom:6px}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.track{height:8px;background:#e8edf2;border-radius:20px;overflow:hidden;margin-bottom:20px}
+.fill{height:100%;width:0;background:var(--blue);transition:width .25s}
+.number{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.statement{font-size:clamp(1.2rem,2.8vw,1.55rem);line-height:1.4;font-weight:700;margin:10px 0 22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.choice{border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s}
+.choice:hover:not(:disabled){border-color:var(--blue);background:var(--blue2)}
+.choice:focus-visible,button:focus-visible{outline:3px solid #78b6df;outline-offset:3px}
+.choice:disabled{cursor:default;opacity:1}
+.choice.selected{border-color:var(--blue);background:var(--blue2)}
+.choice.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}
+.choice.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{display:none;margin-top:18px;border-radius:12px;padding:16px 18px;background:#f0f4f7;border-left:4px solid var(--blue)}
+.feedback.show{display:block}
+.feedback strong{display:block;margin-bottom:4px;font-size:1.05rem}
+.feedback p{margin:0}
+.discuss-box{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--amberbg);border-left:4px solid #d98a1c;color:#4a3005}
+.discuss-box span{display:block;font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:3px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:700;font-size:.95rem;cursor:pointer}
+.primary{background:var(--blue);color:white}
+.secondary{background:#eaf0f4;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none}
+.result.show{display:block}
+.score{font-size:2.6rem;font-weight:800;color:var(--blue);line-height:1.1;margin:6px 0}
+.scoreline{color:var(--muted)}
+.review{margin-top:18px}
+.review details{border-top:1px solid var(--line);padding:12px 0}
+.review summary{font-weight:700;cursor:pointer}
+.review p{margin:8px 0 0;color:var(--muted)}
+.vocab h2{margin:0 0 10px;font-size:1.2rem}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:12px}
+.vocab-item{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.92rem}
+.vocab-item b{color:var(--blue);display:block;margin-bottom:2px}
+.wrapup{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.wrapup h3{margin:0 0 8px;font-size:1.05rem}
+.wrapup ul{margin:0;padding-left:20px;color:var(--muted)}
+.wrapup li{margin-bottom:6px}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}
+@media(max-width:560px){.wrap{padding:16px 12px 34px}.hero{padding:24px 20px}.panel{padding:18px}.choices{grid-template-columns:1fr}.topline{align-items:flex-start}}
+@media print{body{background:white}.hero{background:#14405a!important;print-color-adjust:exact}.panel{box-shadow:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">English Discussion Activity • B2 Level</div>
+  <h1>Hypnotism: Myth or Fact?</h1>
+  <p>Swinging watches, stage shows, and mind control: separate movie myths from reality and share your thoughts.</p>
+  <div class="meta">
+    <span class="pill">12 statements</span>
+    <span class="pill">True / False</span>
+    <span class="pill">Pair &amp; group discussion</span>
+  </div>
+</header>
+
+<section class="panel" id="intro">
+  <p class="instructions"><b>How to do this activity:</b></p>
+  <ol class="steps">
+    <li>Read each statement with your partner or group and decide if you think it is <b>True</b> or <b>False</b>.</li>
+    <li>Give reasons for your choice before clicking an answer.</li>
+    <li>Read the explanation and use the <b>Let's Discuss</b> question to talk about your own life and opinions.</li>
+  </ol>
+  <div class="actions"><button class="btn primary" id="start">Start discussion quiz</button></div>
+</section>
+
+<section class="panel" id="quiz" hidden aria-live="polite">
+  <div class="topline"><span id="counter">Statement 1 of 12</span><span id="scoreNow">Score: 0</span></div>
+  <div class="track"><div class="fill" id="progress"></div></div>
+  <div class="number" id="qnumber">STATEMENT 01</div>
+  <div class="statement" id="statement"></div>
+  <div class="choices">
+    <button class="choice" id="trueBtn">✓ &nbsp; True (Fact)</button>
+    <button class="choice" id="falseBtn">✕ &nbsp; False (Myth)</button>
+  </div>
+  <div class="feedback" id="feedback" role="status" aria-live="polite">
+    <strong id="verdict"></strong>
+    <p id="explanation"></p>
+    <div class="discuss-box">
+      <span>Let's Discuss</span>
+      <p id="discussion"></p>
+    </div>
+  </div>
+  <div class="actions"><button class="btn primary" id="next" disabled>Next statement →</button></div>
+</section>
+
+<section class="panel result" id="result" aria-live="polite">
+  <div class="number">ACTIVITY COMPLETE</div>
+  <h2>Your group score</h2>
+  <div class="score" id="finalScore">0 / 12</div>
+  <p class="scoreline" id="comment"></p>
+  <div class="actions">
+    <button class="btn primary" id="reviewBtn">Review all statements</button>
+    <button class="btn secondary" id="restart">Play again (new order)</button>
+  </div>
+  <div class="review" id="review" hidden></div>
+</section>
+
+<section class="panel vocab">
+  <h2>Useful Vocabulary for Your Discussion</h2>
+  <div class="vocab-grid">
+    <div class="vocab-item"><b>Hypnotize (verb)</b>To put someone into a state of deep focus and relaxation where they respond strongly to suggestions.</div>
+    <div class="vocab-item"><b>Trance (noun)</b>A half-awake mental state in which a person is deeply focused and less aware of their surroundings.</div>
+    <div class="vocab-item"><b>Suggestion (noun)</b>An idea or instruction given to someone to influence how they think, feel, or act.</div>
+    <div class="vocab-item"><b>Conscious (adjective)</b>Awake, aware of your surroundings, and able to think and make choices.</div>
+    <div class="vocab-item"><b>Gullible (adjective)</b>Too quick to believe everything other people say; easily fooled.</div>
+    <div class="vocab-item"><b>Cliché (noun)</b>An idea, phrase, or image that has been used so many times it is no longer original.</div>
+  </div>
+
+  <div class="wrapup">
+    <h3>Final Wrap-Up Questions</h3>
+    <ul>
+      <li>Which myth about hypnosis surprised you the most today?</li>
+      <li>Do you think the mind has the power to reduce physical pain, or does pain only depend on the body?</li>
+      <li>Where do you think we get most of our false beliefs—from movies, social media, or word of mouth?</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Classroom Speaking Activity • Hypnotism & The Mind (CEFR B2)</footer>
+</main>
+
+<script>
+const items = [
+  {
+    "s": "Hypnosis is a deep kind of sleep where you lose consciousness.",
+    "a": false,
+    "e": "False. Although the word 'hypnosis' comes from the Greek word for sleep, brain scans show that hypnotized people are completely awake. It is actually a state of very deep focus and relaxation.",
+    "d": "What image comes to your mind when you hear the word 'hypnosis'? Where does that image come from?"
+  },
+  {
+    "s": "A hypnotist can force you to do something against your will, like commit a crime.",
+    "a": false,
+    "e": "False. People under hypnosis stay in control of their choices and values. If a hypnotist suggests something you strongly disagree with, you can simply refuse or stop the session.",
+    "d": "Why do you think movies and TV shows often show hypnosis as a form of 'mind control'?"
+  },
+  {
+    "s": "You need a swinging pocket watch or a special shiny object to hypnotize someone.",
+    "a": false,
+    "e": "False. The swinging watch is mostly a cliché from old cartoons and films. In real life, hypnotists use calm speech and breathing exercises to help people focus their attention.",
+    "d": "Have you ever seen a hypnosis show on TV or live on stage? What happened, and did you believe it was real?"
+  },
+  {
+    "s": "During hypnosis, most people know what is happening around them and remember it afterwards.",
+    "a": true,
+    "e": "True. Hypnosis is not like being asleep or unconscious. Most people hear everything the hypnotist says and can remember the experience clearly when it ends.",
+    "d": "Have you ever been so focused on a book, movie, or daydream that you stopped noticing what was happening around you? How did it feel?"
+  },
+  {
+    "s": "A person can get 'stuck' in hypnosis and never wake up.",
+    "a": false,
+    "e": "False. Nobody has ever been trapped in hypnosis. Even if the hypnotist left the room, the person would either open their eyes on their own or simply fall into normal sleep and wake up later.",
+    "d": "Would you ever try hypnosis if a doctor or therapist recommended it? Why or why not?"
+  },
+  {
+    "s": "Only weak-minded or easily fooled people can be hypnotized.",
+    "a": false,
+    "e": "False. Being hypnotized has nothing to do with low intelligence or weakness. In fact, people with strong imaginations who can easily get lost in a good book or film are often the easiest to hypnotize.",
+    "d": "Do you think you have a strong imagination? Are you the kind of person who gets deeply absorbed in stories or movies?"
+  },
+  {
+    "s": "Some people respond very strongly to hypnosis, while others feel almost no effect at all.",
+    "a": true,
+    "e": "True. Just like some people learn languages or music more easily, people have different levels of hypnotic ability. About 10–15% of people respond very strongly, while others barely respond.",
+    "d": "Why do you think some people are more open to suggestions and new experiences than others?"
+  },
+  {
+    "s": "Some hospitals use hypnosis alongside medicine to help patients feel less pain and anxiety.",
+    "a": true,
+    "e": "True. Clinical hypnosis is sometimes used before dental work, medical tests, or surgery. Brain scans show that hypnotic suggestions can actually reduce how strongly the brain reacts to pain signals.",
+    "d": "What helps you stay calm and relaxed when you are nervous before a doctor's visit or an exam?"
+  },
+  {
+    "s": "Hypnosis works like a 'truth serum'—it is impossible to lie while you are hypnotized.",
+    "a": false,
+    "e": "False. People under hypnosis can still lie, keep secrets, or make mistakes. Hypnosis changes how deeply someone focuses, not their ability to choose what to say.",
+    "d": "Do you think people are generally good at telling when someone else is lying? What clues do you look for?"
+  },
+  {
+    "s": "Hypnosis is a reliable way to remember exact details from forgotten childhood events.",
+    "a": false,
+    "e": "False. Memories recalled under hypnosis often mix real facts with imagination. Because people can accidentally create false memories, most courts do not accept memories recovered through hypnosis.",
+    "d": "Do you trust your early childhood memories, or do you think some of them might come from family stories and old photos?"
+  },
+  {
+    "s": "Stage hypnotists can put any random person from the audience into a deep trance in two seconds.",
+    "a": false,
+    "e": "False. Before a show starts, stage hypnotists usually do quick tests to pick volunteers who respond strongly and love performing. Social pressure and wanting to entertain the crowd also play a big role.",
+    "d": "If you were at a live comedy show and the hypnotist asked for volunteers, would you go on stage? Why or why not?"
+  },
+  {
+    "s": "People can learn self-hypnosis to guide themselves into a deeply relaxed, focused state.",
+    "a": true,
+    "e": "True. Many experts say all hypnosis is really self-hypnosis, because the person's own mind does the work. Techniques like deep breathing and guided relaxation are common forms of it.",
+    "d": "What daily habits or relaxation techniques do you use to clear your mind when you feel stressed?"
+  }
+];
+
+let order = [], index = 0, score = 0, answers = [];
+const $ = id => document.getElementById(id);
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function begin() {
+  order = shuffle(items.map((_, i) => i));
+  index = 0;
+  score = 0;
+  answers = [];
+  $("intro").hidden = true;
+  $("result").classList.remove("show");
+  $("result").style.display = "none";
+  $("quiz").hidden = false;
+  render();
+}
+
+function render() {
+  const q = items[order[index]];
+  $("counter").textContent = `Statement ${index + 1} of ${items.length}`;
+  $("scoreNow").textContent = `Score: ${score}`;
+  $("progress").style.width = `${(index / items.length) * 100}%`;
+  $("qnumber").textContent = `STATEMENT ${String(index + 1).padStart(2, "0")}`;
+  $("statement").textContent = q.s;
+  $("feedback").classList.remove("show");
+  $("next").disabled = true;
+  $("next").textContent = index === items.length - 1 ? "See final results →" : "Next statement →";
+  ["trueBtn", "falseBtn"].forEach(id => {
+    const b = $(id);
+    b.disabled = false;
+    b.className = "choice";
+  });
+}
+
+function answer(value) {
+  const q = items[order[index]];
+  const correct = value === q.a;
+  if (correct) score++;
+  answers.push({ id: order[index], value, correct });
+  $("scoreNow").textContent = `Score: ${score}`;
+  const chosen = value ? "trueBtn" : "falseBtn";
+  $(chosen).classList.add("selected", correct ? "correct" : "wrong");
+  $(q.a ? "trueBtn" : "falseBtn").classList.add("correct");
+  $("verdict").textContent = correct ? "That's right!" : "Not quite!";
+  $("explanation").textContent = q.e;
+  $("discussion").textContent = q.d;
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  ["trueBtn", "falseBtn"].forEach(id => $(id).disabled = true);
+}
+
+function finish() {
+  $("quiz").hidden = true;
+  $("result").style.display = "block";
+  $("result").classList.add("show");
+  $("finalScore").textContent = `${score} / ${items.length}`;
+  $("comment").textContent =
+    score >= 10 ? "Impressive! You spotted almost every myth and fact." :
+    score >= 7 ? "Great job! You have strong instincts, with a few surprises along the way." :
+    "Many of these myths fool almost everyone! Use the review below to continue your discussion.";
+  $("progress").style.width = "100%";
+}
+
+$("start").addEventListener("click", begin);
+$("trueBtn").addEventListener("click", () => answer(true));
+$("falseBtn").addEventListener("click", () => answer(false));
+$("next").addEventListener("click", () => {
+  index++;
+  if (index < items.length) render();
+  else finish();
+});
+$("restart").addEventListener("click", () => {
+  $("result").style.display = "none";
+  $("result").classList.remove("show");
+  $("review").hidden = true;
+  begin();
+});
+$("reviewBtn").addEventListener("click", () => {
+  const r = $("review");
+  r.hidden = !r.hidden;
+  if (!r.hidden) {
+    r.innerHTML = "<h3>Discussion &amp; Answer Review</h3>" + answers.map((x, i) => {
+      const q = items[x.id];
+      return `<details>
+        <summary>${i + 1}. ${x.correct ? "✓ Correct" : "✕ Incorrect"} — ${q.s}</summary>
+        <p><b>Answer: ${q.a ? "True (Fact)" : "False (Myth)"}.</b> ${q.e}</p>
+        <p><b>Discussion question:</b> ${q.d}</p>
+      </details>`;
+    }).join("");
+  }
+});
+</script>
+</body>
+</html>
