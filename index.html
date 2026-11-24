@@ -4,116 +4,122 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Browse discussion quizzes, conversation starters, and dilemmas for English learners.">
+  <meta name="theme-color" content="#fff16a">
   <title>Discussion Quizzes &amp; Dilemmas</title>
   <style>
     :root {
       color-scheme: light;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #172033;
-      background: #f4f6fb;
+      color: #192342;
+      background: #fffbea;
+      font-size: 15px;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; }
-    header {
-      padding: 3.5rem 1.25rem 2.5rem;
-      color: white;
-      text-align: center;
-      background: linear-gradient(135deg, #344ec4, #7147a6);
-    }
-    header h1 { margin: 0 auto .75rem; max-width: 760px; font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.1; }
-    header p { margin: 0 auto; max-width: 620px; font-size: 1.1rem; line-height: 1.6; color: #f0edff; }
-    main { width: min(1050px, calc(100% - 2rem)); margin: 2rem auto 4rem; }
-    .toolbar { margin: 0 auto 1.5rem; max-width: 620px; }
-    label { display: block; margin-bottom: .45rem; font-weight: 650; }
-    input[type="search"] {
-      width: 100%; padding: .85rem 1rem; border: 1px solid #cbd2e2; border-radius: 12px;
-      font: inherit; background: white;
-    }
-    input[type="search"]:focus-visible, a:focus-visible { outline: 3px solid #f3b63f; outline-offset: 3px; }
-    .count { margin: 0 0 1rem; color: #526078; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr)); gap: 1rem; }
-    .card {
-      display: flex; min-height: 120px; flex-direction: column; justify-content: space-between;
-      padding: 1.15rem; color: inherit; text-decoration: none; background: white;
-      border: 1px solid #e0e5ef; border-radius: 14px; box-shadow: 0 3px 12px rgb(26 39 68 / 5%);
-      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-    }
-    .card:hover { transform: translateY(-2px); border-color: #9aa8e8; box-shadow: 0 8px 20px rgb(26 39 68 / 10%); }
-    .card h2 { margin: 0 0 .75rem; font-size: 1.08rem; line-height: 1.35; }
-    .tag { align-self: flex-start; padding: .22rem .6rem; color: #4a438f; background: #f0edff; border-radius: 999px; font-size: .78rem; font-weight: 650; }
-    #empty { display: none; padding: 2rem; text-align: center; color: #526078; background: white; border-radius: 14px; }
-    footer { padding: 1.5rem; text-align: center; color: #647087; font-size: .9rem; }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+    body { min-height: 100vh; margin: 0; background: radial-gradient(circle at 8% 12%, #ffe0ed 0 7rem, transparent 7.1rem), radial-gradient(circle at 95% 35%, #c9f5e8 0 9rem, transparent 9.1rem), #fffbea; }
+    header { padding: 1.65rem 1rem 1.45rem; color: #192342; text-align: center; background: linear-gradient(110deg, #fff16a, #ffd45e 58%, #ffad86); border-bottom: 4px solid #ef6d62; }
+    header h1 { margin: 0 auto .35rem; font-size: clamp(1.65rem, 4vw, 2.45rem); line-height: 1.12; letter-spacing: -.035em; }
+    header p { max-width: 590px; margin: 0 auto; color: #303650; font-size: .94rem; line-height: 1.45; }
+    main { width: min(990px, calc(100% - 2rem)); margin: 1.35rem auto 2.6rem; }
+    .toolbar { display: flex; align-items: end; justify-content: space-between; gap: .8rem 1rem; margin-bottom: .8rem; }
+    .search-wrap { flex: 1; max-width: 480px; }
+    label { display: block; margin-bottom: .28rem; font-size: .86rem; font-weight: 750; }
+    input[type="search"] { width: 100%; min-height: 40px; padding: .55rem .75rem; border: 2px solid #b8c5e0; border-radius: 10px; color: #192342; background: #fff; font: inherit; font-size: .9rem; }
+    input[type="search"]:focus-visible, a:focus-visible { outline: 3px solid #ef6d62; outline-offset: 3px; }
+    .count { margin: 0 0 .58rem; color: #46516d; font-size: .82rem; font-weight: 650; white-space: nowrap; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 205px), 1fr)); gap: .68rem; }
+    .card { position: relative; display: flex; min-height: 76px; flex-direction: column; justify-content: space-between; gap: .55rem; padding: .78rem .9rem; overflow-wrap: anywhere; color: #192342; text-decoration: none; background: #fff; border: 1px solid #dce2ed; border-left: 4px solid #6754d8; border-radius: 11px; box-shadow: 0 3px 9px rgb(34 43 73 / 7%); transition: transform .14s ease, box-shadow .14s ease; }
+    .card:nth-child(4n + 2) { border-left-color: #ef6d62; }
+    .card:nth-child(4n + 3) { border-left-color: #13a98b; }
+    .card:nth-child(4n) { border-left-color: #eea523; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgb(34 43 73 / 13%); }
+    .card h2 { margin: 0; font-size: .94rem; line-height: 1.28; }
+    .tag { align-self: flex-start; padding: .13rem .5rem; color: #4335a3; background: #eeeaff; border-radius: 999px; font-size: .69rem; font-weight: 750; }
+    #empty, #error { display: none; padding: 1rem; text-align: center; color: #46516d; background: #fff; border: 1px dashed #b8c5e0; border-radius: 10px; font-size: .9rem; }
+    footer { padding: 1rem; color: #58627a; font-size: .78rem; text-align: center; }
+    @media (max-width: 520px) { main { width: min(100% - 1.25rem, 990px); margin-top: 1rem; } .toolbar { align-items: stretch; flex-direction: column; gap: .35rem; } .search-wrap { max-width: none; } .count { margin-bottom: 0; } .grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 155px), 1fr)); gap: .55rem; } .card { min-height: 72px; padding: .68rem; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } .card:hover { transform: none; } }
   </style>
 </head>
 <body>
   <header>
     <h1>Discussion Quizzes &amp; Dilemmas</h1>
-    <p>Choose a quiz or conversation activity to spark discussion, practise English, and explore new ideas.</p>
+    <p>Pick a quick activity, practise your English, and get the conversation going!</p>
   </header>
   <main>
     <div class="toolbar">
-      <label for="activity-search">Find an activity</label>
-      <input id="activity-search" type="search" placeholder="Search topics, quizzes, or sports…" autocomplete="off">
+      <div class="search-wrap">
+        <label for="activity-search">Find an activity</label>
+        <input id="activity-search" type="search" placeholder="Search topics, quizzes, or sports…" autocomplete="off">
+      </div>
+      <p class="count" id="activity-count" aria-live="polite">Loading activities…</p>
     </div>
-    <p class="count" id="activity-count" aria-live="polite">35 activities</p>
-    <section class="grid" id="activities" aria-label="Activities">
-      <a class="card" href="australian-animals-1.html"><h2>Australian Animals</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="basketball-2.html"><h2>Basketball</h2><span class="tag">Sport</span></a>
-      <a class="card" href="cricket-2.html"><h2>Cricket</h2><span class="tag">Sport</span></a>
-      <a class="card" href="cultural-expectations-leadership-quiz-2.html"><h2>Cultural Expectations &amp; Leadership</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="cycling-2.html"><h2>Cycling</h2><span class="tag">Sport</span></a>
-      <a class="card" href="football-2.html"><h2>Football</h2><span class="tag">Sport</span></a>
-      <a class="card" href="hairdo-history-2.html"><h2>Hairdo History</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="handball-2.html"><h2>Handball</h2><span class="tag">Sport</span></a>
-      <a class="card" href="have-you-ever-2.html"><h2>Have You Ever?</h2><span class="tag">Conversation</span></a>
-      <a class="card" href="hypnotism-2.html"><h2>Hypnotism</h2><span class="tag">Discussion</span></a>
-      <a class="card" href="hypnotism-3.html"><h2>Hypnotism · Part 2</h2><span class="tag">Discussion</span></a>
-      <a class="card" href="judo-2.html"><h2>Judo</h2><span class="tag">Sport</span></a>
-      <a class="card" href="leading-across-cultures-2.html"><h2>Leading Across Cultures</h2><span class="tag">Discussion</span></a>
-      <a class="card" href="marriage-2.html"><h2>Marriage</h2><span class="tag">Discussion</span></a>
-      <a class="card" href="marriage-3.html"><h2>Marriage · Part 2</h2><span class="tag">Discussion</span></a>
-      <a class="card" href="memory-2.html"><h2>Memory</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="popular-psychology-2.html"><h2>Popular Psychology</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="popular-psychology-4.html"><h2>Popular Psychology · Part 2</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="popular-science-2.html"><h2>Popular Science</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="popular-technology-2.html"><h2>Popular Technology</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="popular-technology-3.html"><h2>Popular Technology · Part 2</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="rhyme-quiz-1.html"><h2>Rhyme Quiz</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="rhyme-quiz-2.html"><h2>Rhyme Quiz · Part 2</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="rugby-league-2.html"><h2>Rugby League</h2><span class="tag">Sport</span></a>
-      <a class="card" href="rugby-union-2.html"><h2>Rugby Union</h2><span class="tag">Sport</span></a>
-      <a class="card" href="sound-match-1.html"><h2>Sound Match</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="sound-match-3.html"><h2>Sound Match · Part 2</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="sports-psychology-2.html"><h2>Sports Psychology</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="sports-psychology-3.html"><h2>Sports Psychology · Part 2</h2><span class="tag">Quiz</span></a>
-      <a class="card" href="susans-bnb-3.html"><h2>Susan’s B&amp;B</h2><span class="tag">Activity</span></a>
-      <a class="card" href="swimming-2.html"><h2>Swimming</h2><span class="tag">Sport</span></a>
-      <a class="card" href="tennis-2.html"><h2>Tennis</h2><span class="tag">Sport</span></a>
-      <a class="card" href="track-and-field-2.html"><h2>Track &amp; Field</h2><span class="tag">Sport</span></a>
-      <a class="card" href="volleyball-2.html"><h2>Volleyball</h2><span class="tag">Sport</span></a>
-      <a class="card" href="yoga-3.html"><h2>Yoga</h2><span class="tag">Discussion</span></a>
-    </section>
+    <section class="grid" id="activities" aria-label="Activities" aria-live="polite" aria-busy="true"></section>
     <p id="empty">No activities match that search. Try another topic.</p>
+    <p id="error">Activities couldn’t load right now. Please try again in a moment.</p>
   </main>
   <footer>Discussion activities for curious minds and English learners.</footer>
   <script>
-    const search = document.getElementById('activity-search');
-    const cards = Array.from(document.querySelectorAll('.card'));
-    const count = document.getElementById('activity-count');
-    const empty = document.getElementById('empty');
+    (() => {
+      const owner = 'Balmain-English';
+      const repo = 'quizzes';
+      const branch = 'main';
+      const search = document.getElementById('activity-search');
+      const grid = document.getElementById('activities');
+      const count = document.getElementById('activity-count');
+      const empty = document.getElementById('empty');
+      const error = document.getElementById('error');
+      let activities = [];
 
-    search.addEventListener('input', () => {
-      const query = search.value.trim().toLocaleLowerCase();
-      let visible = 0;
-      for (const card of cards) {
-        const matches = card.textContent.toLocaleLowerCase().includes(query);
-        card.hidden = !matches;
-        if (matches) visible++;
+      const titleOf = path => path.split('/').pop()
+        .replace(/\.html?$/i, '')
+        .replace(/[-_]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/\b\w/g, character => character.toUpperCase());
+
+      const categoryOf = title => /\b(basketball|cricket|cycling|football|handball|judo|rugby|sport|swimming|tennis|track|volleyball)\b/i.test(title) ? 'Sport' : /\b(discussion|marriage|hypnotism|yoga|have you ever)\b/i.test(title) ? 'Conversation' : 'Quiz';
+
+      function render() {
+        const query = search.value.trim().toLocaleLowerCase();
+        const visible = activities.filter(activity => activity.title.toLocaleLowerCase().includes(query) || activity.path.toLocaleLowerCase().includes(query));
+        count.textContent = `${visible.length} ${visible.length === 1 ? 'activity' : 'activities'}`;
+        grid.replaceChildren();
+        empty.style.display = visible.length ? 'none' : 'block';
+        const fragment = document.createDocumentFragment();
+        visible.forEach(activity => {
+          const link = document.createElement('a');
+          link.className = 'card';
+          link.href = './' + activity.path.split('/').map(encodeURIComponent).join('/');
+          const title = document.createElement('h2');
+          title.textContent = activity.title;
+          const tag = document.createElement('span');
+          tag.className = 'tag';
+          tag.textContent = categoryOf(activity.title);
+          link.append(title, tag);
+          fragment.append(link);
+        });
+        grid.append(fragment);
       }
-      count.textContent = `${visible} ${visible === 1 ? 'activity' : 'activities'}`;
-      empty.style.display = visible ? 'none' : 'block';
-    });
+
+      fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`, { cache: 'no-store' })
+        .then(response => { if (!response.ok) throw new Error('Unable to load activities'); return response.json(); })
+        .then(data => {
+          if (data.truncated) throw new Error('Activity list was incomplete');
+          activities = (data.tree || [])
+            .filter(file => file.type === 'blob' && /\.html?$/i.test(file.path) && !/^index\.html?$/i.test(file.path.split('/').pop()))
+            .map(file => ({ path: file.path, title: titleOf(file.path) }))
+            .sort((a, b) => a.title.localeCompare(b.title));
+          grid.setAttribute('aria-busy', 'false');
+          render();
+        })
+        .catch(() => {
+          count.textContent = 'Activities unavailable';
+          grid.setAttribute('aria-busy', 'false');
+          error.style.display = 'block';
+        });
+
+      search.addEventListener('input', render);
+    })();
   </script>
 </body>
 </html>
