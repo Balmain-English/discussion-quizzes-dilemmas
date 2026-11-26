@@ -1,0 +1,2823 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English-Speaking Cultures Trivia Quiz (B1 Level)</title>
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --success-border: #86efac;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --error-border: #fca5a5;
+      --us-bg: #dbeafe;
+      --us-text: #1e40af;
+      --uk-bg: #fee2e2;
+      --uk-text: #991b1b;
+      --other-bg: #dcfce7;
+      --other-text: #166534;
+      --shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 50%, #ecfeff 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      line-height: 1.55;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 720px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .top-bar {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .level-pill {
+      background: rgba(59, 130, 246, 0.25);
+      color: #93c5fd;
+      border: 1px solid rgba(147, 197, 253, 0.35);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+
+    .download-mini-btn {
+      background: rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .download-mini-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .content {
+      padding: 32px 28px;
+    }
+
+    /* Start Screen */
+    .hero-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1.02rem;
+      margin-bottom: 24px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .info-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .info-card .num {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .info-card .label {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .culture-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .c-pill {
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 15px 24px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.1s ease, background 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.99);
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 13px 20px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    /* Quiz Screen */
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .score-badge {
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2563eb, #06b6d4);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .meta-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 999px;
+    }
+
+    .tag-us { background: var(--us-bg); color: var(--us-text); }
+    .tag-uk { background: var(--uk-bg); color: var(--uk-text); }
+    .tag-other { background: var(--other-bg); color: var(--other-text); }
+    .tag-type { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+
+    .question-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 22px;
+      line-height: 1.4;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .options-list.tf-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .option-btn {
+      text-align: left;
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 15px 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.08s ease;
+    }
+
+    .tf-grid .option-btn {
+      justify-content: center;
+      font-size: 1.1rem;
+      padding: 18px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .opt-key {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      color: #475569;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .option-btn.correct {
+      border-color: var(--success);
+      background: var(--success-bg);
+      color: #14532d;
+    }
+
+    .option-btn.correct .opt-key {
+      background: var(--success);
+      color: #ffffff;
+    }
+
+    .option-btn.wrong {
+      border-color: var(--error);
+      background: var(--error-bg);
+      color: #7f1d1d;
+    }
+
+    .option-btn.wrong .opt-key {
+      background: var(--error);
+      color: #ffffff;
+    }
+
+    .feedback-box {
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-box.correct {
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: #14532d;
+    }
+
+    .feedback-box.wrong {
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      color: #7f1d1d;
+    }
+
+    .feedback-title {
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .feedback-desc {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .next-wrap {
+      display: none;
+    }
+
+    .next-wrap.show {
+      display: block;
+    }
+
+    .kbd-hint {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    /* Results Screen */
+    .result-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .score-circle {
+      width: 118px;
+      height: 118px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      border: 4px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+
+    .score-circle .big {
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+
+    .score-circle .pct {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .rank-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .rank-msg {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .b-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+
+    .b-card .b-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .b-card .b-val {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .result-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .review-toggle {
+      width: 100%;
+      background: none;
+      border: 1px dashed #cbd5e1;
+      color: #334155;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      margin-bottom: 14px;
+    }
+
+    .review-toggle:hover {
+      background: #f8fafc;
+    }
+
+    .review-list {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 360px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .review-list.show {
+      display: flex;
+    }
+
+    .review-item {
+      border: 1px solid var(--border);
+      border-left-width: 5px;
+      border-radius: 10px;
+      padding: 12px 14px;
+      background: #ffffff;
+      font-size: 0.9rem;
+    }
+
+    .review-item.ok { border-left-color: var(--success); }
+    .review-item.no { border-left-color: var(--error); }
+
+    .review-q {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .review-ans {
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 560px) {
+      .content { padding: 24px 18px; }
+      .hero-title { font-size: 1.5rem; }
+      .question-text { font-size: 1.15rem; }
+      .options-list.tf-grid { grid-template-columns: 1fr; }
+      .result-actions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <div class="brand">
+        <span>🌍 English Culture Trivia</span>
+        <span class="level-pill">B1 Intermediate</span>
+      </div>
+      <button class="download-mini-btn" onclick="downloadStandaloneHTML()" title="Save a copy of this quiz to your device">
+        ⬇ Save HTML
+      </button>
+    </div>
+
+    <!-- START SCREEN -->
+    <div id="start-screen" class="content hidden">
+      <h1 class="hero-title">Culture Across the English-Speaking World</h1>
+      <p class="hero-sub">
+        Test your cultural knowledge with surprising trivia, everyday idioms, food, traditions, and fun facts written clearly for B1 English learners.
+      </p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="num">180</div>
+          <div class="label">Total Questions in Pool</div>
+        </div>
+        <div class="info-card">
+          <div class="num">20 / Round</div>
+          <div class="label">10 True/False + 10 Multiple Choice</div>
+        </div>
+        <div class="info-card">
+          <div class="num">Fisher-Yates</div>
+          <div class="label">True Random Shuffle Every Round</div>
+        </div>
+      </div>
+
+      <div class="culture-pills">
+        <span class="c-pill">🇺🇸 U.S. Culture</span>
+        <span class="c-pill">🇬🇧 British Culture</span>
+        <span class="c-pill">🇨🇦 Canada</span>
+        <span class="c-pill">🇦🇺 Australia</span>
+        <span class="c-pill">🇳🇿 New Zealand</span>
+        <span class="c-pill">🇮🇪 Ireland</span>
+        <span class="c-pill">🇿🇦 South Africa</span>
+        <span class="c-pill">🇮🇳 India</span>
+        <span class="c-pill">🇯🇲 Jamaica</span>
+        <span class="c-pill">🇸🇬 Singapore</span>
+      </div>
+
+      <button class="btn-primary" onclick="startNewRound()">Start 20-Question Round</button>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quiz-screen" class="content">
+      <div class="progress-header">
+        <span id="q-counter">Question 2 of 20</span>
+        <span class="score-badge" id="live-score">Score: 1</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width: 5%;"></div>
+      </div>
+
+      <div class="meta-tags">
+        <span id="region-badge" class="tag tag-uk">🇬🇧 British Culture</span>
+        <span id="type-badge" class="tag tag-type">True / False</span>
+      </div>
+
+      <div id="question-text" class="question-text">Many classic red telephone boxes in the UK are now used as tiny libraries, coffee stands, and defibrillator stations.</div>
+
+      <div id="options-container" class="options-list tf-grid"><button class="option-btn" data-value="True"><span class="opt-key">T</span><span>True</span></button><button class="option-btn" data-value="False"><span class="opt-key">F</span><span>False</span></button></div>
+
+      <div id="feedback-box" class="feedback-box">
+        <div id="feedback-title" class="feedback-title">✅ Correct!</div>
+        <div id="feedback-desc" class="feedback-desc">Even 'barbecue' becomes 'barbie' and 'mosquito' becomes 'mozzie'!</div>
+      </div>
+
+      <div id="next-wrap" class="next-wrap">
+        <button id="next-btn" class="btn-primary" onclick="nextQuestion()">Next Question →</button>
+      </div>
+      <div class="kbd-hint">Tip: Use keys 1–3 (or T / F) to answer and Enter for the next question.</div>
+    </div>
+
+    <!-- RESULTS SCREEN -->
+    <div id="result-screen" class="content hidden">
+      <div class="result-header">
+        <div class="score-circle">
+          <div class="big" id="final-score">0/20</div>
+          <div class="pct" id="final-pct">0%</div>
+        </div>
+        <div class="rank-title" id="rank-title">Great Job!</div>
+        <p class="rank-msg" id="rank-msg"></p>
+      </div>
+
+      <div class="breakdown-grid" id="breakdown-grid"></div>
+
+      <div class="result-actions">
+        <button class="btn-primary" onclick="startNewRound()">🔄 Play New Random Round</button>
+        <button class="btn-secondary" onclick="downloadStandaloneHTML()">⬇ Download Quiz (.html)</button>
+      </div>
+
+      <button class="review-toggle" onclick="toggleReview()">📋 Show / Hide Round Answers &amp; Explanations</button>
+      <div id="review-list" class="review-list"></div>
+    </div>
+  </div>
+
+  <script>
+    // Full Pool of 180 B1-Level Cultural Trivia Questions
+    const QUESTION_POOL = [
+  {
+    "id": 1,
+    "region": "US",
+    "type": "tf",
+    "question": "In the United States, Thanksgiving is always celebrated on the fourth Thursday of November.",
+    "answer": "True",
+    "feedback": "Thanksgiving became a national holiday in 1863 and has been celebrated on the fourth Thursday of November since 1941."
+  },
+  {
+    "id": 2,
+    "region": "US",
+    "type": "tf",
+    "question": "On Groundhog Day (February 2), if a groundhog sees its shadow, Americans traditionally say winter will end early.",
+    "answer": "False",
+    "feedback": "Actually, it is the opposite! Tradition says if Punxsutawney Phil sees his shadow, there will be six more weeks of winter."
+  },
+  {
+    "id": 3,
+    "region": "US",
+    "type": "tf",
+    "question": "The White House in Washington, D.C. was originally painted pink before it was painted white.",
+    "answer": "False",
+    "feedback": "It was built with grey sandstone and painted white in 1798 to protect the stone from freezing winter weather."
+  },
+  {
+    "id": 4,
+    "region": "US",
+    "type": "tf",
+    "question": "In U.S. sit-down restaurants, leaving a tip of 15% to 20% is expected because waiters usually earn a low base wage.",
+    "answer": "True",
+    "feedback": "In most U.S. states, restaurant servers rely heavily on customer tips as a major part of their income."
+  },
+  {
+    "id": 5,
+    "region": "US",
+    "type": "tf",
+    "question": "English is the official national language of the United States according to federal law.",
+    "answer": "False",
+    "feedback": "Surprising but true: the U.S. has no official language at the federal level, though English is the most widely spoken."
+  },
+  {
+    "id": 6,
+    "region": "US",
+    "type": "tf",
+    "question": "American school buses are painted a special shade of yellow so drivers can spot them easily in early morning light.",
+    "answer": "True",
+    "feedback": "Human eyes notice 'National School Bus Glossy Yellow' faster than almost any other color, even in dim light."
+  },
+  {
+    "id": 7,
+    "region": "US",
+    "type": "tf",
+    "question": "The Statue of Liberty in New York Harbor was a gift from the people of France to the United States.",
+    "answer": "True",
+    "feedback": "France gave the statue to the U.S. in 1886 to celebrate friendship and shared democratic ideals."
+  },
+  {
+    "id": 8,
+    "region": "US",
+    "type": "tf",
+    "question": "In most U.S. stores, the price written on the shelf tag already includes sales tax.",
+    "answer": "False",
+    "feedback": "In almost all U.S. states, sales tax is added at the cash register when you pay, which often surprises visitors!"
+  },
+  {
+    "id": 9,
+    "region": "US",
+    "type": "tf",
+    "question": "Super Bowl Sunday is the second-biggest day for food consumption in the U.S., right after Thanksgiving.",
+    "answer": "True",
+    "feedback": "Americans eat over 1.4 billion chicken wings during Super Bowl weekend alone!"
+  },
+  {
+    "id": 10,
+    "region": "US",
+    "type": "tf",
+    "question": "In some U.S. states, teenagers can get a learner's driving permit as young as 14 years old.",
+    "answer": "True",
+    "feedback": "In rural states like South Dakota and Iowa, teens can start learning to drive at age 14."
+  },
+  {
+    "id": 11,
+    "region": "US",
+    "type": "tf",
+    "question": "During a U.S. baseball game, fans traditionally stand up and sing 'Take Me Out to the Ball Game' in the seventh inning.",
+    "answer": "True",
+    "feedback": "This fun tradition is called the 'seventh-inning stretch' and dates back more than 100 years."
+  },
+  {
+    "id": 12,
+    "region": "US",
+    "type": "tf",
+    "question": "Fortune cookies were invented in ancient China and brought to America by emperors.",
+    "answer": "False",
+    "feedback": "They were actually invented in California in the early 1900s, inspired by a traditional Japanese cracker!"
+  },
+  {
+    "id": 13,
+    "region": "US",
+    "type": "tf",
+    "question": "Halloween is the second-biggest commercial holiday in the United States, right after Christmas.",
+    "answer": "True",
+    "feedback": "Americans spend billions of dollars every October on costumes, candy, and spooky decorations."
+  },
+  {
+    "id": 14,
+    "region": "US",
+    "type": "tf",
+    "question": "The famous Hollywood Sign in Los Angeles originally read 'HOLLYWOODLAND' to advertise a new housing neighborhood.",
+    "answer": "True",
+    "feedback": "Built in 1923, the last four letters ('LAND') were removed in 1949."
+  },
+  {
+    "id": 15,
+    "region": "US",
+    "type": "tf",
+    "question": "An American football is completely round, just like a European soccer ball.",
+    "answer": "False",
+    "feedback": "An American football has an oval shape with pointed ends, making it easier to throw long spiral passes."
+  },
+  {
+    "id": 16,
+    "region": "US",
+    "type": "tf",
+    "question": "Yellowstone, established in 1872, was the world's very first national park.",
+    "answer": "True",
+    "feedback": "Located mostly in Wyoming, Yellowstone is famous for its geysers like Old Faithful and wild bison."
+  },
+  {
+    "id": 17,
+    "region": "US",
+    "type": "tf",
+    "question": "In the United States, the date 04/07/2026 means July 4th, 2026.",
+    "answer": "False",
+    "feedback": "Americans write the month first, so 04/07 means April 7th! July 4th is written 07/04."
+  },
+  {
+    "id": 18,
+    "region": "US",
+    "type": "tf",
+    "question": "Historic Route 66 originally connected Chicago, Illinois to Santa Monica, California.",
+    "answer": "True",
+    "feedback": "Known as 'The Main Street of America,' Route 66 stretched nearly 4,000 kilometers across eight states."
+  },
+  {
+    "id": 19,
+    "region": "US",
+    "type": "tf",
+    "question": "'Black Friday' gets its name because it is the day after Halloween when people wear black clothes.",
+    "answer": "False",
+    "feedback": "Black Friday is the day after Thanksgiving, when huge shopping sales help stores go from losing money ('in the red') to making profit ('in the black')."
+  },
+  {
+    "id": 20,
+    "region": "US",
+    "type": "tf",
+    "question": "Coca-Cola was originally bright green before caramel coloring made it dark brown.",
+    "answer": "False",
+    "feedback": "That is a popular myth! Coca-Cola has always been dark brown since it was invented in Atlanta in 1886."
+  },
+  {
+    "id": 21,
+    "region": "US",
+    "type": "tf",
+    "question": "The New York City Subway runs 24 hours a day, 7 days a week.",
+    "answer": "True",
+    "feedback": "Unlike many metro systems that close at night, the NYC Subway operates nonstop every day of the year."
+  },
+  {
+    "id": 22,
+    "region": "US",
+    "type": "tf",
+    "question": "Red plastic cups ('Solo cups') are a classic symbol of American college and backyard parties.",
+    "answer": "True",
+    "feedback": "They are so iconic in U.S. pop culture that country singer Toby Keith even wrote a hit song called 'Red Solo Cup'!"
+  },
+  {
+    "id": 23,
+    "region": "US",
+    "type": "tf",
+    "question": "Washington, D.C., the capital of the United States, is one of the 50 U.S. states.",
+    "answer": "False",
+    "feedback": "Washington, D.C. is a federal district, not a state, and it is not located inside any state."
+  },
+  {
+    "id": 24,
+    "region": "US",
+    "type": "tf",
+    "question": "The idiom 'as American as apple pie' comes from the fact that sweet apples are native to North America.",
+    "answer": "False",
+    "feedback": "Only sour crabapples are native to North America; European settlers brought sweet apples and pie recipes over."
+  },
+  {
+    "id": 25,
+    "region": "US",
+    "type": "tf",
+    "question": "New York's Central Park is larger than the entire country of Monaco.",
+    "answer": "True",
+    "feedback": "Central Park covers 3.41 square kilometers, while the Principality of Monaco is only about 2 square kilometers!"
+  },
+  {
+    "id": 26,
+    "region": "US",
+    "type": "tf",
+    "question": "Every November, the U.S. President officially 'pardons' a live turkey so it will not be eaten for Thanksgiving.",
+    "answer": "True",
+    "feedback": "The pardoned turkeys go to live comfortably on a farm or university campus."
+  },
+  {
+    "id": 27,
+    "region": "US",
+    "type": "tf",
+    "question": "Mount Rushmore features the carved faces of four U.S. presidents: Washington, Jefferson, Roosevelt, and Lincoln.",
+    "answer": "True",
+    "feedback": "It took 14 years (1927–1941) to carve the 18-meter-tall faces into the granite mountain in South Dakota."
+  },
+  {
+    "id": 28,
+    "region": "US",
+    "type": "tf",
+    "question": "'Prom' is a formal dance held for American high school students near the end of the school year.",
+    "answer": "True",
+    "feedback": "Short for 'promenade,' Prom is famous for fancy dresses, tuxedos, photos, and crowning a Prom King and Queen."
+  },
+  {
+    "id": 29,
+    "region": "US",
+    "type": "tf",
+    "question": "The United States bought Alaska from Canada in 1867.",
+    "answer": "False",
+    "feedback": "The U.S. bought Alaska from Russia in 1867 for $7.2 million—about two cents per acre!"
+  },
+  {
+    "id": 30,
+    "region": "US",
+    "type": "tf",
+    "question": "Jazz music originated in African American communities in New Orleans in the late 19th and early 20th centuries.",
+    "answer": "True",
+    "feedback": "New Orleans is widely celebrated as the birthplace of jazz, blending blues, ragtime, and brass band rhythms."
+  },
+  {
+    "id": 31,
+    "region": "US",
+    "type": "mc",
+    "question": "What historical event does the United States celebrate on the Fourth of July?",
+    "options": [
+      "The Declaration of Independence (1776)",
+      "The end of the Civil War (1865)",
+      "The first Moon landing (1969)"
+    ],
+    "answer": "The Declaration of Independence (1776)",
+    "feedback": "On July 4, 1776, the American colonies declared independence from Great Britain, celebrated today with fireworks and barbecues."
+  },
+  {
+    "id": 32,
+    "region": "US",
+    "type": "mc",
+    "question": "Which U.S. state is famously nicknamed 'The Sunshine State'?",
+    "options": [
+      "Florida",
+      "California",
+      "Texas"
+    ],
+    "answer": "Florida",
+    "feedback": "Florida is 'The Sunshine State,' while California is 'The Golden State' and Texas is 'The Lone Star State.'"
+  },
+  {
+    "id": 33,
+    "region": "US",
+    "type": "mc",
+    "question": "What is a classic American diner combo of crispy fried chicken served on top of a breakfast waffle?",
+    "options": [
+      "Chicken and waffles",
+      "Biscuits and gravy",
+      "Surf and turf"
+    ],
+    "answer": "Chicken and waffles",
+    "feedback": "Chicken and waffles is a beloved soul food dish, usually served with butter and sweet maple syrup!"
+  },
+  {
+    "id": 34,
+    "region": "US",
+    "type": "mc",
+    "question": "What does 'tailgating' mean outside an American sports stadium?",
+    "options": [
+      "Having a party with food and drinks in the parking lot before a game",
+      "Running onto the field after a touchdown",
+      "Selling tickets outside the gate"
+    ],
+    "answer": "Having a party with food and drinks in the parking lot before a game",
+    "feedback": "Fans open the back door ('tailgate') of their trucks or SUVs to grill burgers and hang out hours before kickoff."
+  },
+  {
+    "id": 35,
+    "region": "US",
+    "type": "mc",
+    "question": "If an American says an English test was 'a piece of cake,' what do they mean?",
+    "options": [
+      "It was very easy",
+      "It was very sweet",
+      "It was unfair"
+    ],
+    "answer": "It was very easy",
+    "feedback": "'A piece of cake' is a common idiom meaning something required very little effort."
+  },
+  {
+    "id": 36,
+    "region": "US",
+    "type": "mc",
+    "question": "In which New York City borough is the famous Broadway theater district located?",
+    "options": [
+      "Manhattan",
+      "Brooklyn",
+      "Queens"
+    ],
+    "answer": "Manhattan",
+    "feedback": "Broadway runs right through the heart of Manhattan, especially around Times Square."
+  },
+  {
+    "id": 37,
+    "region": "US",
+    "type": "mc",
+    "question": "Which U.S. president appears on the $1 bill?",
+    "options": [
+      "George Washington",
+      "Abraham Lincoln",
+      "Thomas Jefferson"
+    ],
+    "answer": "George Washington",
+    "feedback": "George Washington is on the $1 bill, while Abraham Lincoln is on the $5 bill and the 1-cent penny."
+  },
+  {
+    "id": 38,
+    "region": "US",
+    "type": "mc",
+    "question": "What color is the famous Golden Gate Bridge in San Francisco?",
+    "options": [
+      "International Orange (reddish-orange)",
+      "Shiny Metallic Gold",
+      "Royal Blue"
+    ],
+    "answer": "International Orange (reddish-orange)",
+    "feedback": "It is named after the Golden Gate Strait below it, not its color—it is painted International Orange so ships can see it in the fog!"
+  },
+  {
+    "id": 39,
+    "region": "US",
+    "type": "mc",
+    "question": "What is a traditional American campfire snack made of roasted marshmallows and chocolate between two graham crackers?",
+    "options": [
+      "S'mores",
+      "Twinkies",
+      "Brownies"
+    ],
+    "answer": "S'mores",
+    "feedback": "The name 's'more' is short for 'some more' because one is never enough!"
+  },
+  {
+    "id": 40,
+    "region": "US",
+    "type": "mc",
+    "question": "What is the 'Ivy League' in the United States?",
+    "options": [
+      "A group of eight prestigious, historic universities in the Northeast",
+      "A national baseball championship",
+      "A chain of luxury hotels"
+    ],
+    "answer": "A group of eight prestigious, historic universities in the Northeast",
+    "feedback": "The Ivy League includes Harvard, Yale, and Princeton, named for the ivy plants growing on their old brick walls."
+  },
+  {
+    "id": 41,
+    "region": "US",
+    "type": "mc",
+    "question": "Which massive animal is the official national mammal of the United States?",
+    "options": [
+      "The American bison",
+      "The grizzly bear",
+      "The bald eagle"
+    ],
+    "answer": "The American bison",
+    "feedback": "The bald eagle is the national bird, while the American bison became the official national mammal in 2016!"
+  },
+  {
+    "id": 42,
+    "region": "US",
+    "type": "mc",
+    "question": "In the U.S., how long is a 'footlong' sandwich?",
+    "options": [
+      "12 inches (about 30 cm)",
+      "6 inches (about 15 cm)",
+      "24 inches (about 60 cm)"
+    ],
+    "answer": "12 inches (about 30 cm)",
+    "feedback": "In the U.S. measurement system, 1 foot equals 12 inches, which is roughly 30.5 centimeters."
+  },
+  {
+    "id": 43,
+    "region": "US",
+    "type": "mc",
+    "question": "Which U.S. city is most famous for its huge Mardi Gras parades and jazz music?",
+    "options": [
+      "New Orleans",
+      "Nashville",
+      "Miami"
+    ],
+    "answer": "New Orleans",
+    "feedback": "New Orleans celebrates Mardi Gras ('Fat Tuesday') with colorful parades, beads, and king cakes."
+  },
+  {
+    "id": 44,
+    "region": "US",
+    "type": "mc",
+    "question": "If you are invited to a 'potluck' dinner in the U.S., what should you do?",
+    "options": [
+      "Bring a dish to share with everyone",
+      "Wear a green hat for good luck",
+      "Pay the host at the door"
+    ],
+    "answer": "Bring a dish to share with everyone",
+    "feedback": "At a potluck, every guest brings a dish, creating a big buffet of different homemade or store-bought foods."
+  },
+  {
+    "id": 45,
+    "region": "US",
+    "type": "mc",
+    "question": "Which U.S. city is home to NASA's Mission Control, inspiring the movie quote 'Houston, we have a problem'?",
+    "options": [
+      "Houston, Texas",
+      "Orlando, Florida",
+      "Seattle, Washington"
+    ],
+    "answer": "Houston, Texas",
+    "feedback": "NASA's Johnson Space Center is in Houston, while rockets usually launch from Cape Canaveral in Florida."
+  },
+  {
+    "id": 46,
+    "region": "US",
+    "type": "mc",
+    "question": "What do Americans call the back storage compartment of a car?",
+    "options": [
+      "The trunk",
+      "The boot",
+      "The bonnet"
+    ],
+    "answer": "The trunk",
+    "feedback": "Americans say 'trunk' and 'hood,' while British speakers say 'boot' and 'bonnet.'"
+  },
+  {
+    "id": 47,
+    "region": "US",
+    "type": "mc",
+    "question": "Which American city is famous as the birthplace of Starbucks and grunge rock bands like Nirvana?",
+    "options": [
+      "Seattle",
+      "Boston",
+      "Denver"
+    ],
+    "answer": "Seattle",
+    "feedback": "The very first Starbucks opened at Seattle's Pike Place Market in 1971."
+  },
+  {
+    "id": 48,
+    "region": "US",
+    "type": "mc",
+    "question": "Which famous New York department store hosts a huge Thanksgiving Day Parade with giant character balloons?",
+    "options": [
+      "Macy's",
+      "Walmart",
+      "Target"
+    ],
+    "answer": "Macy's",
+    "feedback": "The Macy's Thanksgiving Day Parade has marched through Manhattan every Thanksgiving since 1924."
+  },
+  {
+    "id": 49,
+    "region": "US",
+    "type": "mc",
+    "question": "Which U.S. city is known as 'Music City' and is the capital of country music?",
+    "options": [
+      "Nashville, Tennessee",
+      "Austin, Texas",
+      "Chicago, Illinois"
+    ],
+    "answer": "Nashville, Tennessee",
+    "feedback": "Nashville is home to the Grand Ole Opry and hundreds of live country music venues."
+  },
+  {
+    "id": 50,
+    "region": "US",
+    "type": "mc",
+    "question": "How many points is a 'touchdown' worth in American football before the extra kick?",
+    "options": [
+      "6 points",
+      "3 points",
+      "1 point"
+    ],
+    "answer": "6 points",
+    "feedback": "A touchdown scores 6 points, and the team can then kick for 1 extra point or try a play for 2 points."
+  },
+  {
+    "id": 51,
+    "region": "US",
+    "type": "mc",
+    "question": "In the 1950s, what made 'drive-in theaters' so popular in America?",
+    "options": [
+      "People could watch movies on a giant outdoor screen from inside their cars",
+      "People could ride roller coasters during the film",
+      "Tickets were always completely free"
+    ],
+    "answer": "People could watch movies on a giant outdoor screen from inside their cars",
+    "feedback": "Drive-in theaters became iconic hangout spots for families and teenagers during the rise of American car culture."
+  },
+  {
+    "id": 52,
+    "region": "US",
+    "type": "mc",
+    "question": "Before pumpkins were used in America, what vegetable did Irish immigrants originally carve into Halloween lanterns?",
+    "options": [
+      "Turnips",
+      "Watermelons",
+      "Carrots"
+    ],
+    "answer": "Turnips",
+    "feedback": "When Irish immigrants arrived in America, they found pumpkins were much bigger and easier to carve than turnips!"
+  },
+  {
+    "id": 53,
+    "region": "US",
+    "type": "mc",
+    "question": "Through which U.S. state does most of the Grand Canyon run?",
+    "options": [
+      "Arizona",
+      "Nevada",
+      "Utah"
+    ],
+    "answer": "Arizona",
+    "feedback": "Carved by the Colorado River over millions of years, the Grand Canyon is in northern Arizona."
+  },
+  {
+    "id": 54,
+    "region": "US",
+    "type": "mc",
+    "question": "What is a 'bottomless cup of coffee' at an American diner?",
+    "options": [
+      "You pay once and the server refills your coffee for free",
+      "A giant mug that holds two liters",
+      "Coffee served without a cup"
+    ],
+    "answer": "You pay once and the server refills your coffee for free",
+    "feedback": "Free refills on drip coffee and fountain sodas are a classic feature of American diners."
+  },
+  {
+    "id": 55,
+    "region": "US",
+    "type": "mc",
+    "question": "Which snack is famously mentioned in the lyrics of 'Take Me Out to the Ball Game'?",
+    "options": [
+      "Peanuts and Cracker Jack",
+      "Popcorn and nachos",
+      "Hot dogs and pretzels"
+    ],
+    "answer": "Peanuts and Cracker Jack",
+    "feedback": "'Buy me some peanuts and Cracker Jack!' Cracker Jack is sweet caramel-coated popcorn with peanuts."
+  },
+  {
+    "id": 56,
+    "region": "US",
+    "type": "mc",
+    "question": "How many standard time zones cover the 50 U.S. states?",
+    "options": [
+      "Six",
+      "Four",
+      "Three"
+    ],
+    "answer": "Six",
+    "feedback": "The mainland U.S. has four (Eastern, Central, Mountain, Pacific), plus Alaska Time and Hawaii-Aleutian Time make six!"
+  },
+  {
+    "id": 57,
+    "region": "US",
+    "type": "mc",
+    "question": "About what percentage of American households keep a jar of peanut butter in their kitchen?",
+    "options": [
+      "Around 90%",
+      "Around 25%",
+      "Around 50%"
+    ],
+    "answer": "Around 90%",
+    "feedback": "Peanut butter and jelly (PB&J) sandwiches are a classic lunch for millions of American kids and adults."
+  },
+  {
+    "id": 58,
+    "region": "US",
+    "type": "mc",
+    "question": "Which U.S. president's birthday in February inspired the holiday now called Presidents' Day?",
+    "options": [
+      "George Washington",
+      "John F. Kennedy",
+      "Franklin D. Roosevelt"
+    ],
+    "answer": "George Washington",
+    "feedback": "The federal holiday is still officially named 'Washington's Birthday,' though it honors all U.S. presidents."
+  },
+  {
+    "id": 59,
+    "region": "US",
+    "type": "mc",
+    "question": "In which desert is the entertainment city of Las Vegas located?",
+    "options": [
+      "The Mojave Desert",
+      "The Sahara Desert",
+      "The Atacama Desert"
+    ],
+    "answer": "The Mojave Desert",
+    "feedback": "Las Vegas sits in the Mojave Desert in southern Nevada."
+  },
+  {
+    "id": 60,
+    "region": "US",
+    "type": "mc",
+    "question": "If someone asks you to 'take a rain check,' what are they doing?",
+    "options": [
+      "Politely declining an invitation now, hoping to do it another time",
+      "Checking the weather forecast on their phone",
+      "Asking to borrow an umbrella"
+    ],
+    "answer": "Politely declining an invitation now, hoping to do it another time",
+    "feedback": "The phrase comes from 19th-century baseball: if rain stopped a game, fans got a 'rain check' ticket for a future match!"
+  },
+  {
+    "id": 61,
+    "region": "UK",
+    "type": "tf",
+    "question": "British people drink around 100 million cups of tea every single day.",
+    "answer": "True",
+    "feedback": "Tea is deeply woven into British daily life, usually brewed strong and served with milk in a mug."
+  },
+  {
+    "id": 62,
+    "region": "UK",
+    "type": "tf",
+    "question": "'Big Ben' is the official name of the entire clock tower at the Houses of Parliament in London.",
+    "answer": "False",
+    "feedback": "Big Ben is actually the nickname of the giant bell inside! The tower itself is officially called Elizabeth Tower."
+  },
+  {
+    "id": 63,
+    "region": "UK",
+    "type": "tf",
+    "question": "In the United Kingdom, cars drive on the left side of the road.",
+    "answer": "True",
+    "feedback": "This tradition dates back to medieval times when riders kept left so their right sword hand faced oncoming travelers!"
+  },
+  {
+    "id": 64,
+    "region": "UK",
+    "type": "tf",
+    "question": "Forming an orderly line ('queuing') and waiting your turn is considered a sacred social rule in Britain.",
+    "answer": "True",
+    "feedback": "'Jumping the queue' (cutting in line) is one of the fastest ways to earn silent glares in the UK."
+  },
+  {
+    "id": 65,
+    "region": "UK",
+    "type": "tf",
+    "question": "King Charles III does not need a British passport to travel internationally.",
+    "answer": "True",
+    "feedback": "Because British passports are issued in the monarch's name, the King does not need one himself!"
+  },
+  {
+    "id": 66,
+    "region": "UK",
+    "type": "tf",
+    "question": "The London Underground, opened in 1863, is the oldest underground railway system in the world.",
+    "answer": "True",
+    "feedback": "Locals call it 'the Tube' because of its round deep-level tunnels."
+  },
+  {
+    "id": 67,
+    "region": "UK",
+    "type": "tf",
+    "question": "A traditional British 'Sunday Roast' includes Yorkshire pudding, which is a sweet chocolate cake served for dessert.",
+    "answer": "False",
+    "feedback": "Despite its name, Yorkshire pudding is savory, not sweet—it is a crispy baked batter served with roast meat and gravy!"
+  },
+  {
+    "id": 68,
+    "region": "UK",
+    "type": "tf",
+    "question": "The word 'pub' in Britain is short for 'public house.'",
+    "answer": "True",
+    "feedback": "Historically, pubs were private homes that opened their doors to the public to sell ale and host the community."
+  },
+  {
+    "id": 69,
+    "region": "UK",
+    "type": "tf",
+    "question": "To become a licensed London 'Black Cab' driver, applicants must memorize 25,000 streets in a test called 'The Knowledge.'",
+    "answer": "True",
+    "feedback": "Studying for 'The Knowledge' usually takes 3 to 4 years riding around London on a moped with a map!"
+  },
+  {
+    "id": 70,
+    "region": "UK",
+    "type": "tf",
+    "question": "Legend says that if the ravens ever leave the Tower of London, the British monarchy and kingdom will fall.",
+    "answer": "True",
+    "feedback": "That is why a full-time 'Ravenmaster' cares for at least six ravens at the Tower every day!"
+  },
+  {
+    "id": 71,
+    "region": "UK",
+    "type": "tf",
+    "question": "If a British person compliments your 'pants,' they are talking about your jeans or trousers.",
+    "answer": "False",
+    "feedback": "In the UK, 'pants' means underwear! Outer legwear is called 'trousers.'"
+  },
+  {
+    "id": 72,
+    "region": "UK",
+    "type": "tf",
+    "question": "In Britain, a 'pantomime' (or 'panto') is a silent mime show where actors never speak.",
+    "answer": "False",
+    "feedback": "British pantomime is a loud, funny musical comedy show at Christmas where the audience shouts lines like 'He's behind you!'"
+  },
+  {
+    "id": 73,
+    "region": "UK",
+    "type": "tf",
+    "question": "Boxing Day (December 26) gets its name from traditional boxing matches held after Christmas.",
+    "answer": "False",
+    "feedback": "It comes from the Victorian custom of giving Christmas 'boxes' of money and gifts to workers and the poor."
+  },
+  {
+    "id": 74,
+    "region": "UK",
+    "type": "tf",
+    "question": "Every year in Gloucestershire, England, people chase a rolling wheel of cheese down a very steep hill.",
+    "answer": "True",
+    "feedback": "The Cooper's Hill Cheese-Rolling race is over 200 years old, and the winner gets to keep the 3-kilogram cheese!"
+  },
+  {
+    "id": 75,
+    "region": "UK",
+    "type": "tf",
+    "question": "Great Britain and the United Kingdom mean the exact same geographical area.",
+    "answer": "False",
+    "feedback": "Great Britain includes England, Scotland, and Wales, while the United Kingdom also includes Northern Ireland."
+  },
+  {
+    "id": 76,
+    "region": "UK",
+    "type": "tf",
+    "question": "Fish and chips was so important to British morale during World War II that the government never rationed it.",
+    "answer": "True",
+    "feedback": "Prime Minister Winston Churchill famously called fish and chips 'the good companions.'"
+  },
+  {
+    "id": 77,
+    "region": "UK",
+    "type": "tf",
+    "question": "Many classic red telephone boxes in the UK are now used as tiny libraries, coffee stands, and defibrillator stations.",
+    "answer": "True",
+    "feedback": "Because mobile phones replaced payphones, local communities adopted thousands of red boxes for creative new uses."
+  },
+  {
+    "id": 78,
+    "region": "UK",
+    "type": "tf",
+    "question": "On November 5th (Bonfire Night), British people remember a failed 1605 plot to blow up the Houses of Parliament.",
+    "answer": "True",
+    "feedback": "People light bonfires, watch fireworks, and recite: 'Remember, remember, the fifth of November.'"
+  },
+  {
+    "id": 79,
+    "region": "UK",
+    "type": "tf",
+    "question": "Spectators at the Wimbledon tennis tournament eat over 20,000 kilograms of strawberries with cream every year.",
+    "answer": "True",
+    "feedback": "Strawberries and cream have been served at Wimbledon since the very first tournament in 1877."
+  },
+  {
+    "id": 80,
+    "region": "UK",
+    "type": "tf",
+    "question": "Traditional Scottish kilts are worn only by women in Scotland.",
+    "answer": "False",
+    "feedback": "Kilts are traditional knee-length tartan garments worn mainly by men at weddings, Ceilidh dances, and Highland Games."
+  },
+  {
+    "id": 81,
+    "region": "UK",
+    "type": "tf",
+    "question": "In the UK, 'elevenses' is a short mid-morning break around 11 AM for tea or coffee and a snack.",
+    "answer": "True",
+    "feedback": "Paddington Bear is famously a huge fan of elevenses!"
+  },
+  {
+    "id": 82,
+    "region": "UK",
+    "type": "tf",
+    "question": "The national flag of Wales features a bright red dragon on a green and white background.",
+    "answer": "True",
+    "feedback": "The Red Dragon ('Y Ddraig Goch') has been a proud symbol of Wales for over a thousand years."
+  },
+  {
+    "id": 83,
+    "region": "UK",
+    "type": "tf",
+    "question": "The United Kingdom uses the Pound Sterling (£) as its currency, not the Euro.",
+    "answer": "True",
+    "feedback": "There are 100 pence in 1 pound, and informal British slang for one pound is a 'quid.'"
+  },
+  {
+    "id": 84,
+    "region": "UK",
+    "type": "tf",
+    "question": "Chatting about the weather is a classic British way to break the ice and be polite with strangers.",
+    "answer": "True",
+    "feedback": "Surveys show over 90% of British people admit to talking about the weather in the past six hours!"
+  },
+  {
+    "id": 85,
+    "region": "UK",
+    "type": "tf",
+    "question": "In British English, crunchy sweet snacks like digestive biscuits and Hobnobs are called 'biscuits,' not 'cookies.'",
+    "answer": "True",
+    "feedback": "In the UK, 'cookie' usually refers only to soft, chewy American-style chocolate chip cookies."
+  },
+  {
+    "id": 86,
+    "region": "UK",
+    "type": "tf",
+    "question": "Loch Ness in Scotland contains more fresh water than all the lakes in England and Wales combined.",
+    "answer": "True",
+    "feedback": "Famous for the mythical monster 'Nessie,' Loch Ness is over 230 meters deep!"
+  },
+  {
+    "id": 87,
+    "region": "UK",
+    "type": "tf",
+    "question": "The tall black hats worn by the King's Guard outside Buckingham Palace are made of shiny black plastic.",
+    "answer": "False",
+    "feedback": "They are traditionally made from real Canadian black bear fur and stand about 45 centimeters tall."
+  },
+  {
+    "id": 88,
+    "region": "UK",
+    "type": "tf",
+    "question": "In the UK, public holidays are called 'Bank Holidays' because banks originally closed on those days.",
+    "answer": "True",
+    "feedback": "The Bank Holidays Act of 1871 created official days off for workers across Britain."
+  },
+  {
+    "id": 89,
+    "region": "UK",
+    "type": "tf",
+    "question": "William Shakespeare invented hundreds of common English words and phrases still used today, such as 'break the ice' and 'lonely.'",
+    "answer": "True",
+    "feedback": "Shakespeare is credited with introducing over 1,700 words into the English language!"
+  },
+  {
+    "id": 90,
+    "region": "UK",
+    "type": "tf",
+    "question": "In Britain, if you live on the 'first floor' of an apartment building, you are at street level.",
+    "answer": "False",
+    "feedback": "In the UK, street level is the 'ground floor,' and the 'first floor' is one level up!"
+  },
+  {
+    "id": 91,
+    "region": "UK",
+    "type": "mc",
+    "question": "If a British friend says they are 'knackered,' how do they feel?",
+    "options": [
+      "Extremely tired",
+      "Very angry",
+      "Super hungry"
+    ],
+    "answer": "Extremely tired",
+    "feedback": "'I'm completely knackered' is everyday British slang for being exhausted after a long day."
+  },
+  {
+    "id": 92,
+    "region": "UK",
+    "type": "mc",
+    "question": "In England, Devon and Cornwall famously argue about how to prepare a cream tea scone. What is the 'Devon method'?",
+    "options": [
+      "Clotted cream first, then jam on top",
+      "Jam first, then clotted cream on top",
+      "Mix cream and jam in a bowl"
+    ],
+    "answer": "Clotted cream first, then jam on top",
+    "feedback": "Devon puts cream first (like butter), while neighboring Cornwall puts jam first!"
+  },
+  {
+    "id": 93,
+    "region": "UK",
+    "type": "mc",
+    "question": "What is 'haggis,' Scotland's famous national dish?",
+    "options": [
+      "A savory pudding made with minced sheep's organs, oats, and spices",
+      "A sweet pastry filled with raspberry jam",
+      "A creamy smoked salmon soup"
+    ],
+    "answer": "A savory pudding made with minced sheep's organs, oats, and spices",
+    "feedback": "Haggis is traditionally served with 'neeps and tatties' (turnips and potatoes) on Burns Night."
+  },
+  {
+    "id": 94,
+    "region": "UK",
+    "type": "mc",
+    "question": "What famous three-word warning is painted on platform edges and announced on the London Underground?",
+    "options": [
+      "Mind the gap",
+      "Watch your step",
+      "Hold the rail"
+    ],
+    "answer": "Mind the gap",
+    "feedback": "'Mind the gap' warns passengers about the space between the curved train doors and the station platform."
+  },
+  {
+    "id": 95,
+    "region": "UK",
+    "type": "mc",
+    "question": "What do British people call the small, battery-powered flashlight you use in the dark?",
+    "options": [
+      "A torch",
+      "A lantern",
+      "A candle"
+    ],
+    "answer": "A torch",
+    "feedback": "In British English, a handheld electric flashlight is called a 'torch'!"
+  },
+  {
+    "id": 96,
+    "region": "UK",
+    "type": "mc",
+    "question": "Which of these is a traditional ingredient in a 'Full English Breakfast'?",
+    "options": [
+      "Baked beans in tomato sauce",
+      "Pancakes with maple syrup",
+      "Croissants with chocolate"
+    ],
+    "answer": "Baked beans in tomato sauce",
+    "feedback": "A Full English ('fry-up') usually includes eggs, bacon, sausages, baked beans, grilled tomatoes, mushrooms, and toast."
+  },
+  {
+    "id": 97,
+    "region": "UK",
+    "type": "mc",
+    "question": "What annual sporting event takes place on the River Thames between Oxford and Cambridge universities?",
+    "options": [
+      "The Boat Race (rowing)",
+      "A swimming marathon",
+      "A dragon boat festival"
+    ],
+    "answer": "The Boat Race (rowing)",
+    "feedback": "First held in 1829, the Oxford-Cambridge Boat Race draws hundreds of thousands of spectators along the Thames."
+  },
+  {
+    "id": 98,
+    "region": "UK",
+    "type": "mc",
+    "question": "If a British person says 'That's quite interesting' in a flat tone during a meeting, what do they often mean?",
+    "options": [
+      "They don't like the idea or disagree",
+      "They are thrilled and amazed",
+      "They want to hear much more"
+    ],
+    "answer": "They don't like the idea or disagree",
+    "feedback": "British understatement is famous! 'Not bad' can mean 'great,' while 'quite interesting' often means 'I disagree.'"
+  },
+  {
+    "id": 99,
+    "region": "UK",
+    "type": "mc",
+    "question": "At what famous fictional London address does Sherlock Holmes live?",
+    "options": [
+      "221B Baker Street",
+      "10 Downing Street",
+      "4 Privet Drive"
+    ],
+    "answer": "221B Baker Street",
+    "feedback": "221B Baker Street is Sherlock's home, while 10 Downing Street is where the UK Prime Minister lives!"
+  },
+  {
+    "id": 100,
+    "region": "UK",
+    "type": "mc",
+    "question": "In which British sport can a single international match last up to five days and still end in a draw?",
+    "options": [
+      "Test Cricket",
+      "Rugby Union",
+      "Snooker"
+    ],
+    "answer": "Test Cricket",
+    "feedback": "Test cricket matches run for five days with scheduled breaks for lunch and afternoon tea!"
+  },
+  {
+    "id": 101,
+    "region": "UK",
+    "type": "mc",
+    "question": "If someone says 'It's raining cats and dogs,' what is happening outside?",
+    "options": [
+      "It is raining very heavily",
+      "Animal shelters are having an adoption day",
+      "It is a sunny day with light clouds"
+    ],
+    "answer": "It is raining very heavily",
+    "feedback": "This colorful idiom dates back to 17th-century England and describes a heavy downpour."
+  },
+  {
+    "id": 102,
+    "region": "UK",
+    "type": "mc",
+    "question": "What is the tallest mountain in the United Kingdom?",
+    "options": [
+      "Ben Nevis (in Scotland)",
+      "Snowdon (in Wales)",
+      "Scafell Pike (in England)"
+    ],
+    "answer": "Ben Nevis (in Scotland)",
+    "feedback": "Located in the Scottish Highlands, Ben Nevis stands at 1,345 meters (4,413 feet) tall."
+  },
+  {
+    "id": 103,
+    "region": "UK",
+    "type": "mc",
+    "question": "Which iconic British sci-fi TV series features a time-traveling alien whose ship looks like a blue 1960s police box?",
+    "options": [
+      "Doctor Who",
+      "Sherlock",
+      "Black Mirror"
+    ],
+    "answer": "Doctor Who",
+    "feedback": "Running since 1963, Doctor Who features the TARDIS, which is famously 'bigger on the inside!'"
+  },
+  {
+    "id": 104,
+    "region": "UK",
+    "type": "mc",
+    "question": "What is the Welsh-language name for Wales?",
+    "options": [
+      "Cymru",
+      "Alba",
+      "Éire"
+    ],
+    "answer": "Cymru",
+    "feedback": "'Cymru' (pronounced 'KUM-ree') is Wales, 'Alba' is Scotland, and 'Éire' is Ireland!"
+  },
+  {
+    "id": 105,
+    "region": "UK",
+    "type": "mc",
+    "question": "What do British people call a long-distance bus that travels between cities?",
+    "options": [
+      "A coach",
+      "A lorry",
+      "A tram"
+    ],
+    "answer": "A coach",
+    "feedback": "A city bus is a 'bus,' an intercity bus is a 'coach,' and a big freight truck is a 'lorry.'"
+  },
+  {
+    "id": 106,
+    "region": "UK",
+    "type": "mc",
+    "question": "What did Guy Fawkes try to blow up in London in 1605?",
+    "options": [
+      "The Houses of Parliament",
+      "Buckingham Palace",
+      "London Bridge"
+    ],
+    "answer": "The Houses of Parliament",
+    "feedback": "Guy Fawkes was caught guarding 36 barrels of gunpowder beneath the House of Lords."
+  },
+  {
+    "id": 107,
+    "region": "UK",
+    "type": "mc",
+    "question": "Which British comedy group created 'The Ministry of Silly Walks' and 'Monty Python and the Holy Grail'?",
+    "options": [
+      "Monty Python",
+      "Mr. Bean",
+      "The Beatles"
+    ],
+    "answer": "Monty Python",
+    "feedback": "Monty Python's surreal humor changed comedy forever in the 1970s."
+  },
+  {
+    "id": 108,
+    "region": "UK",
+    "type": "mc",
+    "question": "Every August, which UK city hosts the 'Fringe,' the world's largest arts and comedy festival?",
+    "options": [
+      "Edinburgh",
+      "Manchester",
+      "Belfast"
+    ],
+    "answer": "Edinburgh",
+    "feedback": "Edinburgh's population doubles in August as thousands of performers stage shows in theaters, pubs, and streets."
+  },
+  {
+    "id": 109,
+    "region": "UK",
+    "type": "mc",
+    "question": "If someone calls you 'mate' in the UK, how do they view you?",
+    "options": [
+      "As a friend or buddy",
+      "As a boss or teacher",
+      "As a rival"
+    ],
+    "answer": "As a friend or buddy",
+    "feedback": "'Cheers, mate!' is one of the friendliest everyday expressions in Britain (and Australia)."
+  },
+  {
+    "id": 110,
+    "region": "UK",
+    "type": "mc",
+    "question": "Who is credited with inventing the British tradition of 'Afternoon Tea' in the 1840s?",
+    "options": [
+      "Anna, the Duchess of Bedford",
+      "Queen Victoria",
+      "William Shakespeare"
+    ],
+    "answer": "Anna, the Duchess of Bedford",
+    "feedback": "She got hungry around 4 PM between lunch and a late dinner, so she started inviting friends for tea and cakes!"
+  },
+  {
+    "id": 111,
+    "region": "UK",
+    "type": "mc",
+    "question": "What does the British word 'jumper' mean in American English?",
+    "options": [
+      "A sweater",
+      "A kangaroo",
+      "Sneakers"
+    ],
+    "answer": "A sweater",
+    "feedback": "In the UK, a knitted top is a 'jumper,' while sneakers are called 'trainers.'"
+  },
+  {
+    "id": 112,
+    "region": "UK",
+    "type": "mc",
+    "question": "Why did Roman Emperor Hadrian build a massive stone wall across northern England in 122 AD?",
+    "options": [
+      "To mark the northern border of the Roman Empire",
+      "To keep sheep out of London",
+      "To build a raised road for chariots"
+    ],
+    "answer": "To mark the northern border of the Roman Empire",
+    "feedback": "Hadrian's Wall stretched 117 kilometers from coast to coast, and large sections are still standing today."
+  },
+  {
+    "id": 113,
+    "region": "UK",
+    "type": "mc",
+    "question": "What is 'Eton Mess,' a classic English summer dessert?",
+    "options": [
+      "Crushed meringue, strawberries, and whipped cream mixed together",
+      "Chocolate cake with warm custard",
+      "Fried apples in sweet batter"
+    ],
+    "answer": "Crushed meringue, strawberries, and whipped cream mixed together",
+    "feedback": "Legend says it was invented when a dog sat on a strawberry meringue picnic basket at Eton College!"
+  },
+  {
+    "id": 114,
+    "region": "UK",
+    "type": "mc",
+    "question": "If a British person says 'Bob's your uncle!', what does it mean?",
+    "options": [
+      "And there you have it—it's as simple as that!",
+      "My uncle Robert is arriving soon",
+      "You made a big mistake"
+    ],
+    "answer": "And there you have it—it's as simple as that!",
+    "feedback": "Example: 'Put the tea bag in, pour hot water, add milk, and Bob's your uncle!'"
+  },
+  {
+    "id": 115,
+    "region": "UK",
+    "type": "mc",
+    "question": "Twice a year, thousands of people gather at Stonehenge to watch the sunrise align with the stones. When does this happen?",
+    "options": [
+      "The Summer and Winter Solstices",
+      "New Year's Day and Easter",
+      "Halloween and Bonfire Night"
+    ],
+    "answer": "The Summer and Winter Solstices",
+    "feedback": "Stonehenge was carefully aligned with the movements of the sun over 4,500 years ago."
+  },
+  {
+    "id": 116,
+    "region": "UK",
+    "type": "mc",
+    "question": "What color are the leather benches in the British House of Commons?",
+    "options": [
+      "Green",
+      "Red",
+      "Blue"
+    ],
+    "answer": "Green",
+    "feedback": "The House of Commons has green benches, while the House of Lords has red benches!"
+  },
+  {
+    "id": 117,
+    "region": "UK",
+    "type": "mc",
+    "question": "What is 'Toad in the Hole,' a traditional British comfort food?",
+    "options": [
+      "Sausages baked inside Yorkshire pudding batter",
+      "Frog legs in puff pastry",
+      "Eggs fried inside a slice of toast"
+    ],
+    "answer": "Sausages baked inside Yorkshire pudding batter",
+    "feedback": "No real toads involved! The sausages poking out of the golden batter look like little heads peeking out of holes."
+  },
+  {
+    "id": 118,
+    "region": "UK",
+    "type": "mc",
+    "question": "Which English port city is the hometown of The Beatles?",
+    "options": [
+      "Liverpool",
+      "Bristol",
+      "Brighton"
+    ],
+    "answer": "Liverpool",
+    "feedback": "Liverpool celebrates its musical heritage everywhere, from Penny Lane to the Cavern Club."
+  },
+  {
+    "id": 119,
+    "region": "UK",
+    "type": "mc",
+    "question": "If you are looking for the 'loo' in Britain, what are you trying to find?",
+    "options": [
+      "The toilet / bathroom",
+      "The train ticket office",
+      "The post office"
+    ],
+    "answer": "The toilet / bathroom",
+    "feedback": "'The loo' is the most common informal British word for the toilet."
+  },
+  {
+    "id": 120,
+    "region": "UK",
+    "type": "mc",
+    "question": "How many birthdays does the British monarch officially celebrate each year?",
+    "options": [
+      "Two (their actual birthday and an official summer birthday in June)",
+      "Only one",
+      "Four (one each season)"
+    ],
+    "answer": "Two (their actual birthday and an official summer birthday in June)",
+    "feedback": "King George II started the tradition in 1748 because his real birthday was in November—too cold for an outdoor parade!"
+  },
+  {
+    "id": 121,
+    "region": "Other",
+    "type": "tf",
+    "question": "In Australia, there are more kangaroos than there are human people.",
+    "answer": "True",
+    "feedback": "Australia has around 27 million people and roughly 40 to 50 million kangaroos!"
+  },
+  {
+    "id": 122,
+    "region": "Other",
+    "type": "tf",
+    "question": "Canada produces more than 70% of the world's maple syrup, mostly in the province of Quebec.",
+    "answer": "True",
+    "feedback": "Quebec even has a Strategic Maple Syrup Reserve to keep global supplies steady!"
+  },
+  {
+    "id": 123,
+    "region": "Other",
+    "type": "tf",
+    "question": "In New Zealand, the word 'Kiwi' can refer to a flightless bird, a green fruit, or a person from New Zealand.",
+    "answer": "True",
+    "feedback": "New Zealanders proudly call themselves 'Kiwis' after their national bird."
+  },
+  {
+    "id": 124,
+    "region": "Other",
+    "type": "tf",
+    "question": "Scientists say wild snakes have never lived in Ireland since the last Ice Age, matching the legend of Saint Patrick.",
+    "answer": "True",
+    "feedback": "Ireland's surrounding icy ocean waters prevented snakes from ever reaching the island naturally."
+  },
+  {
+    "id": 125,
+    "region": "Other",
+    "type": "tf",
+    "question": "South Africa is the only country in the world with three official capital cities.",
+    "answer": "True",
+    "feedback": "Pretoria is the executive capital, Cape Town is the legislative capital, and Bloemfontein is the judicial capital!"
+  },
+  {
+    "id": 126,
+    "region": "Other",
+    "type": "tf",
+    "question": "In Australia and New Zealand, Christmas Day falls in the middle of summer, so many families celebrate with a beach barbecue.",
+    "answer": "True",
+    "feedback": "Because they are in the Southern Hemisphere, December to February is summer!"
+  },
+  {
+    "id": 127,
+    "region": "Other",
+    "type": "tf",
+    "question": "Canadians nickname their one-dollar coin a 'loonie' because it has a picture of a common loon (a water bird) on it.",
+    "answer": "True",
+    "feedback": "And when Canada introduced a two-dollar coin in 1996, people naturally nicknamed it the 'toonie'!"
+  },
+  {
+    "id": 128,
+    "region": "Other",
+    "type": "tf",
+    "question": "In New Zealand, sheep outnumber human residents by roughly five to one.",
+    "answer": "True",
+    "feedback": "With about 5 million people and 25 million sheep, sheep easily outnumber humans in New Zealand!"
+  },
+  {
+    "id": 129,
+    "region": "Other",
+    "type": "tf",
+    "question": "The color originally associated with Saint Patrick in Ireland was blue, not green.",
+    "answer": "True",
+    "feedback": "'St. Patrick's Blue' was used on ancient Irish flags before green became popular in the 18th century."
+  },
+  {
+    "id": 130,
+    "region": "Other",
+    "type": "tf",
+    "question": "Australian wombats are the only known animals in the world that produce cube-shaped poop.",
+    "answer": "True",
+    "feedback": "The flat sides keep the cubes from rolling away so wombats can mark their territory!"
+  },
+  {
+    "id": 131,
+    "region": "Other",
+    "type": "tf",
+    "question": "In Singapore, local English ('Singlish') often adds short words like 'lah' or 'leh' at the end of sentences for warmth or emphasis.",
+    "answer": "True",
+    "feedback": "For example, 'Don't worry, lah!' sounds friendly and reassuring in Singapore."
+  },
+  {
+    "id": 132,
+    "region": "Other",
+    "type": "tf",
+    "question": "Canada celebrates Thanksgiving on the exact same day in November as the United States.",
+    "answer": "False",
+    "feedback": "Canadian Thanksgiving is celebrated much earlier, on the second Monday of October!"
+  },
+  {
+    "id": 133,
+    "region": "Other",
+    "type": "tf",
+    "question": "Jamaica, a warm tropical Caribbean island, famously sent a bobsled team to the 1988 Winter Olympics.",
+    "answer": "True",
+    "feedback": "Their inspiring story became the hit 1993 comedy movie 'Cool Runnings.'"
+  },
+  {
+    "id": 134,
+    "region": "Other",
+    "type": "tf",
+    "question": "Australians love shortening words and adding '-o' or '-ie,' turning 'afternoon' into 'arvo' and 'sunglasses' into 'sunnies.'",
+    "answer": "True",
+    "feedback": "Even 'barbecue' becomes 'barbie' and 'mosquito' becomes 'mozzie'!"
+  },
+  {
+    "id": 135,
+    "region": "Other",
+    "type": "tf",
+    "question": "The 'Haka' performed by New Zealand's All Blacks rugby team is a traditional Māori ceremonial dance.",
+    "answer": "True",
+    "feedback": "Originally used to welcome guests or prepare warriors, the Haka is now a powerful symbol of New Zealand pride."
+  },
+  {
+    "id": 136,
+    "region": "Other",
+    "type": "tf",
+    "question": "South Africa has 12 official languages, including English, Zulu, Xhosa, Afrikaans, and South African Sign Language.",
+    "answer": "True",
+    "feedback": "That diversity is why South Africa is famously called the 'Rainbow Nation.'"
+  },
+  {
+    "id": 137,
+    "region": "Other",
+    "type": "tf",
+    "question": "India has one of the largest English-speaking populations in the world, second only to the United States.",
+    "answer": "True",
+    "feedback": "English is widely used alongside Hindi across Indian business, universities, law, and media."
+  },
+  {
+    "id": 138,
+    "region": "Other",
+    "type": "tf",
+    "question": "In eastern provinces of Canada like Ontario and Quebec, milk is commonly sold in plastic bags inside a pitcher rather than cartons.",
+    "answer": "True",
+    "feedback": "Canadians snip the corner of the milk bag with scissors to pour it!"
+  },
+  {
+    "id": 139,
+    "region": "Other",
+    "type": "tf",
+    "question": "Halloween has its ancient roots in 'Samhain,' a Celtic harvest festival celebrated in Ireland over 2,000 years ago.",
+    "answer": "True",
+    "feedback": "People lit bonfires and wore costumes to ward off roaming spirits at the end of summer."
+  },
+  {
+    "id": 140,
+    "region": "Other",
+    "type": "tf",
+    "question": "The Sydney Opera House roof was inspired by the shape of peeling orange slices.",
+    "answer": "True",
+    "feedback": "Danish architect Jørn Utzon came up with the famous sail-like shells while peeling an orange!"
+  },
+  {
+    "id": 141,
+    "region": "Other",
+    "type": "tf",
+    "question": "All three 'Lord of the Rings' movies were filmed in New Zealand.",
+    "answer": "True",
+    "feedback": "New Zealand's dramatic mountains and green hills became 'Middle-earth,' and you can still visit the Hobbiton set!"
+  },
+  {
+    "id": 142,
+    "region": "Other",
+    "type": "tf",
+    "question": "In Churchill, Canada ('Polar Bear Capital of the World'), residents sometimes leave car doors unlocked so people can escape a bear.",
+    "answer": "True",
+    "feedback": "Polar bears pass through Churchill every autumn while waiting for Hudson Bay to freeze."
+  },
+  {
+    "id": 143,
+    "region": "Other",
+    "type": "tf",
+    "question": "Vegemite, Australia's famous dark brown sandwich spread, is made from sweet chocolate and hazelnuts.",
+    "answer": "False",
+    "feedback": "Vegemite is salty and savory—it is made from leftover brewers' yeast extract and is best spread thinly on buttered toast!"
+  },
+  {
+    "id": 144,
+    "region": "Other",
+    "type": "tf",
+    "question": "Reggae music was born in Jamaica in the late 1960s and was added to UNESCO's list of global cultural treasures.",
+    "answer": "True",
+    "feedback": "Artists like Bob Marley helped share reggae's message of peace and rhythm around the world."
+  },
+  {
+    "id": 145,
+    "region": "Other",
+    "type": "tf",
+    "question": "According to Irish tradition, kissing the Blarney Stone at Blarney Castle gives you 'the gift of the gab' (great charm and eloquence).",
+    "answer": "True",
+    "feedback": "To kiss it, visitors have to lean backward upside-down while holding onto iron bars!"
+  },
+  {
+    "id": 146,
+    "region": "Other",
+    "type": "tf",
+    "question": "Selling or importing regular chewing gum has been restricted in Singapore since 1992 to keep public spaces spotless.",
+    "answer": "True",
+    "feedback": "Only therapeutic dental or nicotine gum is allowed with a medical prescription."
+  },
+  {
+    "id": 147,
+    "region": "Other",
+    "type": "tf",
+    "question": "South Africa's Kruger National Park is roughly the same size as the entire country of Wales or Israel.",
+    "answer": "True",
+    "feedback": "Covering nearly 20,000 square kilometers, it is home to the 'Big Five' safari animals."
+  },
+  {
+    "id": 148,
+    "region": "Other",
+    "type": "tf",
+    "question": "Canadians say 'sorry' so often that Ontario passed an 'Apology Act' stating that saying 'sorry' is not a legal admission of guilt.",
+    "answer": "True",
+    "feedback": "Passed in 2009, the Apology Act protects polite Canadians in court!"
+  },
+  {
+    "id": 149,
+    "region": "Other",
+    "type": "tf",
+    "question": "The Great Barrier Reef off the coast of Australia is the largest living structure on Earth and can be seen from space.",
+    "answer": "True",
+    "feedback": "It stretches over 2,300 kilometers along the coast of Queensland."
+  },
+  {
+    "id": 150,
+    "region": "Other",
+    "type": "tf",
+    "question": "In 1893, New Zealand became the very first self-governing country in the world to give all women the right to vote.",
+    "answer": "True",
+    "feedback": "Suffragist Kate Sheppard led the campaign and is featured on New Zealand's $10 banknote."
+  },
+  {
+    "id": 151,
+    "region": "Other",
+    "type": "mc",
+    "question": "If an Australian says 'No worries, mate!', what do they mean?",
+    "options": [
+      "You're welcome / It's not a problem at all",
+      "Be careful, danger is coming",
+      "I am very stressed out"
+    ],
+    "answer": "You're welcome / It's not a problem at all",
+    "feedback": "'No worries' is Australia's relaxed, friendly all-purpose phrase for 'don't mention it.'"
+  },
+  {
+    "id": 152,
+    "region": "Other",
+    "type": "mc",
+    "question": "What is 'poutine,' Canada's famous comfort dish from Quebec?",
+    "options": [
+      "French fries topped with cheese curds and hot brown gravy",
+      "Pancakes stuffed with smoked salmon",
+      "Sweet fried dough with maple sugar"
+    ],
+    "answer": "French fries topped with cheese curds and hot brown gravy",
+    "feedback": "Real poutine uses fresh cheese curds that make a fun 'squeak' sound when you bite them!"
+  },
+  {
+    "id": 153,
+    "region": "Other",
+    "type": "mc",
+    "question": "Which musical instrument is the official national symbol of Ireland (and appears on Irish Euro coins)?",
+    "options": [
+      "The Celtic harp",
+      "The bagpipes",
+      "The acoustic guitar"
+    ],
+    "answer": "The Celtic harp",
+    "feedback": "Ireland is the only country in the world with a musical instrument as its national emblem!"
+  },
+  {
+    "id": 154,
+    "region": "Other",
+    "type": "mc",
+    "question": "What do Australians call rubber flip-flop sandals worn at the beach?",
+    "options": [
+      "Thongs",
+      "Jandals",
+      "Sliders"
+    ],
+    "answer": "Thongs",
+    "feedback": "In Australia they're 'thongs,' in New Zealand they're 'jandals' (Japanese sandals), and in the US/UK they're 'flip-flops'!"
+  },
+  {
+    "id": 155,
+    "region": "Other",
+    "type": "mc",
+    "question": "What is the South African word for a social outdoor barbecue?",
+    "options": [
+      "A braai",
+      "A barbie",
+      "A hangi"
+    ],
+    "answer": "A braai",
+    "feedback": "A 'braai' is more than cooking meat over wood coals—it is South Africa's favorite social gathering!"
+  },
+  {
+    "id": 156,
+    "region": "Other",
+    "type": "mc",
+    "question": "Which famous Canadian coffee and doughnut chain is practically a national institution in Canada?",
+    "options": [
+      "Tim Hortons",
+      "Dunkin'",
+      "Costa Coffee"
+    ],
+    "answer": "Tim Hortons",
+    "feedback": "Founded by hockey player Tim Horton in 1964, ordering a 'double-double' (two creams, two sugars) there is pure Canadian culture."
+  },
+  {
+    "id": 157,
+    "region": "Other",
+    "type": "mc",
+    "question": "What is the 'hongi,' a traditional Māori greeting in New Zealand?",
+    "options": [
+      "Pressing noses and foreheads gently together",
+      "Bowing deeply from the waist",
+      "Clapping three times before shaking hands"
+    ],
+    "answer": "Pressing noses and foreheads gently together",
+    "feedback": "During a hongi, two people share the 'breath of life' ('ha'), symbolizing unity."
+  },
+  {
+    "id": 158,
+    "region": "Other",
+    "type": "mc",
+    "question": "Which unique Australian mammal lays eggs instead of giving birth to live young and has a duck-like bill?",
+    "options": [
+      "The platypus",
+      "The koala",
+      "The wombat"
+    ],
+    "answer": "The platypus",
+    "feedback": "When British scientists first saw a platypus in 1799, they thought someone had sewn a duck's beak onto a beaver!"
+  },
+  {
+    "id": 159,
+    "region": "Other",
+    "type": "mc",
+    "question": "Every June 16th ('Bloomsday'), fans in Dublin dress in Edwardian clothes to celebrate which famous novel by James Joyce?",
+    "options": [
+      "Ulysses",
+      "Dracula",
+      "Gulliver's Travels"
+    ],
+    "answer": "Ulysses",
+    "feedback": "All the events in 'Ulysses' take place in Dublin on a single day: June 16, 1904."
+  },
+  {
+    "id": 160,
+    "region": "Other",
+    "type": "mc",
+    "question": "In Indian English, if someone says 'Please do the needful,' what are they asking you to do?",
+    "options": [
+      "Please take whatever action is necessary to solve the matter",
+      "Please donate money to charity",
+      "Please cook dinner tonight"
+    ],
+    "answer": "Please take whatever action is necessary to solve the matter",
+    "feedback": "'Do the needful' is a polite, classic phrase widely used in Indian business and everyday communication."
+  },
+  {
+    "id": 161,
+    "region": "Other",
+    "type": "mc",
+    "question": "Which sport is Canada's official winter sport, played on ice with sticks and a rubber puck?",
+    "options": [
+      "Ice hockey",
+      "Curling",
+      "Lacrosse"
+    ],
+    "answer": "Ice hockey",
+    "feedback": "Ice hockey is Canada's official winter sport, while lacrosse is its official summer sport!"
+  },
+  {
+    "id": 162,
+    "region": "Other",
+    "type": "mc",
+    "question": "What is Singapore's famous open-air food court culture—recognized by UNESCO—where stalls sell affordable local dishes?",
+    "options": [
+      "Hawker centers",
+      "Food trucks",
+      "Night bazaars"
+    ],
+    "answer": "Hawker centers",
+    "feedback": "Singapore's hawker centers serve iconic dishes like Hainanese chicken rice and laksa, and some stalls even have Michelin stars!"
+  },
+  {
+    "id": 163,
+    "region": "Other",
+    "type": "mc",
+    "question": "What is the massive, sacred red sandstone rock formation in the center of Australia known as?",
+    "options": [
+      "Uluru",
+      "Mount Cook",
+      "Table Mountain"
+    ],
+    "answer": "Uluru",
+    "feedback": "Uluru (also known as Ayers Rock) glows bright red at sunrise and sunset and is sacred to the local Anangu people."
+  },
+  {
+    "id": 164,
+    "region": "Other",
+    "type": "mc",
+    "question": "Which Jamaican sprinter, nicknamed 'Lightning Bolt,' holds the world records for the 100m and 200m races?",
+    "options": [
+      "Usain Bolt",
+      "Bob Marley",
+      "Asafa Powell"
+    ],
+    "answer": "Usain Bolt",
+    "feedback": "Usain Bolt won eight Olympic gold medals and became famous for his 'To Di World' lightning pose."
+  },
+  {
+    "id": 165,
+    "region": "Other",
+    "type": "mc",
+    "question": "Which famous flat-topped mountain overlooks the city of Cape Town in South Africa?",
+    "options": [
+      "Table Mountain",
+      "Mount Kilimanjaro",
+      "Ben Nevis"
+    ],
+    "answer": "Table Mountain",
+    "feedback": "Clouds often roll over the flat summit like a white tablecloth—locals call it 'the tablecloth'!"
+  },
+  {
+    "id": 166,
+    "region": "Other",
+    "type": "mc",
+    "question": "What leaf appears in the center of the Canadian national flag?",
+    "options": [
+      "A red maple leaf",
+      "A green oak leaf",
+      "A yellow birch leaf"
+    ],
+    "answer": "A red maple leaf",
+    "feedback": "Canada adopted its iconic red-and-white Maple Leaf flag in 1965."
+  },
+  {
+    "id": 167,
+    "region": "Other",
+    "type": "mc",
+    "question": "If an Australian says they are going to the 'servo,' where are they driving?",
+    "options": [
+      "A gas / petrol station",
+      "A surfing competition",
+      "A police station"
+    ],
+    "answer": "A gas / petrol station",
+    "feedback": "'Servo' is short for 'service station,' where Australians fill up their cars and grab snacks."
+  },
+  {
+    "id": 168,
+    "region": "Other",
+    "type": "mc",
+    "question": "In New Zealand, what do locals call a portable insulated cooler box used for keeping drinks cold at the beach?",
+    "options": [
+      "A chilly bin",
+      "An esky",
+      "A cold box"
+    ],
+    "answer": "A chilly bin",
+    "feedback": "New Zealanders call it a 'chilly bin,' Australians call it an 'esky,' and Americans call it a 'cooler'!"
+  },
+  {
+    "id": 169,
+    "region": "Other",
+    "type": "mc",
+    "question": "In Ireland, if someone asks 'What's the craic?' (pronounced 'crack'), what are they asking?",
+    "options": [
+      "What's the news / fun / gossip?",
+      "Where is the broken window?",
+      "What time does the pub close?"
+    ],
+    "answer": "What's the news / fun / gossip?",
+    "feedback": "'Craic' means fun, good times, and lively conversation in Ireland!"
+  },
+  {
+    "id": 170,
+    "region": "Other",
+    "type": "mc",
+    "question": "Which famous Indian festival is known as the 'Festival of Lights,' celebrated with oil lamps, candles, and fireworks?",
+    "options": [
+      "Diwali",
+      "Holi",
+      "Eid"
+    ],
+    "answer": "Diwali",
+    "feedback": "Diwali celebrates the victory of light over darkness, while Holi is the spring 'Festival of Colors.'"
+  },
+  {
+    "id": 171,
+    "region": "Other",
+    "type": "mc",
+    "question": "How many hours a day do Australian koalas typically sleep in eucalyptus trees?",
+    "options": [
+      "18 to 22 hours",
+      "6 to 8 hours",
+      "10 to 12 hours"
+    ],
+    "answer": "18 to 22 hours",
+    "feedback": "Eucalyptus leaves are tough to digest and low in energy, so koalas sleep most of the day to save energy!"
+  },
+  {
+    "id": 172,
+    "region": "Other",
+    "type": "mc",
+    "question": "Which large rodent with a flat tail and big front teeth is an official national animal symbol of Canada?",
+    "options": [
+      "The beaver",
+      "The raccoon",
+      "The squirrel"
+    ],
+    "answer": "The beaver",
+    "feedback": "The beaver appears on Canada's 5-cent coin (the nickel) and played a major role in Canadian history."
+  },
+  {
+    "id": 173,
+    "region": "Other",
+    "type": "mc",
+    "question": "Why did New Zealand evolve so many unique flightless birds, like the kiwi and the kākāpō?",
+    "options": [
+      "Because there were no native land mammals to hunt them for millions of years",
+      "Because the wind was too strong to fly",
+      "Because the trees were too short"
+    ],
+    "answer": "Because there were no native land mammals to hunt them for millions of years",
+    "feedback": "Without land predators like foxes or cats, many New Zealand birds never needed wings to escape!"
+  },
+  {
+    "id": 174,
+    "region": "Other",
+    "type": "mc",
+    "question": "In South Africa, if someone says 'I'll do it just now,' when will they probably do it?",
+    "options": [
+      "In a little while (not immediately, maybe in 20 minutes or an hour)",
+      "At this exact second",
+      "Next year"
+    ],
+    "answer": "In a little while (not immediately, maybe in 20 minutes or an hour)",
+    "feedback": "In South African English, 'now-now' is soon, 'just now' is a bit later, and 'right now' means immediately!"
+  },
+  {
+    "id": 175,
+    "region": "Other",
+    "type": "mc",
+    "question": "What is 'jerk chicken,' Jamaica's world-famous dish?",
+    "options": [
+      "Chicken marinated in hot Scotch bonnet peppers and allspice, then slow-grilled",
+      "Chicken boiled in coconut milk",
+      "Sweet fried chicken with honey"
+    ],
+    "answer": "Chicken marinated in hot Scotch bonnet peppers and allspice, then slow-grilled",
+    "feedback": "Traditionally smoked over pimento wood, Jamaican jerk is smoky, spicy, and full of flavor."
+  },
+  {
+    "id": 176,
+    "region": "Other",
+    "type": "mc",
+    "question": "What is the capital city of Australia?",
+    "options": [
+      "Canberra",
+      "Sydney",
+      "Melbourne"
+    ],
+    "answer": "Canberra",
+    "feedback": "Sydney and Melbourne couldn't agree on which should be the capital, so Australia built Canberra right between them!"
+  },
+  {
+    "id": 177,
+    "region": "Other",
+    "type": "mc",
+    "question": "What is a 'toque' (pronounced 'tooke') in Canadian English?",
+    "options": [
+      "A warm knitted winter beanie hat",
+      "A maple-flavored candy",
+      "A pair of ice skates"
+    ],
+    "answer": "A warm knitted winter beanie hat",
+    "feedback": "No Canadian survives winter without a cozy toque on their head!"
+  },
+  {
+    "id": 178,
+    "region": "Other",
+    "type": "mc",
+    "question": "According to Irish history, why was Irish Coffee (hot coffee, Irish whiskey, sugar, and cream) originally invented in the 1940s?",
+    "options": [
+      "To warm up cold, wet airplane passengers at Foynes airport",
+      "To help farmers wake up at 4 AM",
+      "To celebrate a rugby victory"
+    ],
+    "answer": "To warm up cold, wet airplane passengers at Foynes airport",
+    "feedback": "Chef Joe Sheridan made it in 1943 when a transatlantic flight turned back due to winter weather!"
+  },
+  {
+    "id": 179,
+    "region": "Other",
+    "type": "mc",
+    "question": "What is the 'Merlion,' Singapore's famous half-fish, half-lion mascot?",
+    "options": [
+      "A mythical creature with a lion's head and a fish's body",
+      "A rare tiger found in Singapore's zoo",
+      "A traditional wooden fishing boat"
+    ],
+    "answer": "A mythical creature with a lion's head and a fish's body",
+    "feedback": "The fish body honors Singapore's origins as a fishing village ('Temasek'), and the lion head honors 'Singapura' ('Lion City')."
+  },
+  {
+    "id": 180,
+    "region": "Other",
+    "type": "mc",
+    "question": "If a New Zealander says 'Sweet as!', what does it mean?",
+    "options": [
+      "Awesome / Great / Cool!",
+      "This dessert has too much sugar",
+      "You are very kind"
+    ],
+    "answer": "Awesome / Great / Cool!",
+    "feedback": "Kiwis often end phrases with 'as' ('sweet as,' 'easy as,' 'keen as') to mean 'very'!"
+  }
+];
+
+    // Unbiased Fisher-Yates (Knuth) Shuffle Algorithm
+    function fisherYatesShuffle(array) {
+      const copy = array.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = copy[i];
+        copy[i] = copy[j];
+        copy[j] = temp;
+      }
+      return copy;
+    }
+
+    let currentRound = [];
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+    let roundHistory = [];
+
+    function selectBalancedRound() {
+      // Split pool into the 6 region x format buckets (30 questions each = 180 total)
+      const usTF = fisherYatesShuffle(QUESTION_POOL.filter(q => q.region === "US" && q.type === "tf"));
+      const usMC = fisherYatesShuffle(QUESTION_POOL.filter(q => q.region === "US" && q.type === "mc"));
+      const ukTF = fisherYatesShuffle(QUESTION_POOL.filter(q => q.region === "UK" && q.type === "tf"));
+      const ukMC = fisherYatesShuffle(QUESTION_POOL.filter(q => q.region === "UK" && q.type === "mc"));
+      const otherTF = fisherYatesShuffle(QUESTION_POOL.filter(q => q.region === "Other" && q.type === "tf"));
+      const otherMC = fisherYatesShuffle(QUESTION_POOL.filter(q => q.region === "Other" && q.type === "mc"));
+
+      // Randomize whether US gets (4 TF + 3 MC) and UK gets (3 TF + 4 MC), or vice versa
+      // Total per round: 10 True/False + 10 Multiple Choice = 20 questions
+      // Region totals per round: 7 US + 7 UK + 6 Other = 20 questions
+      const swap = Math.random() < 0.5;
+      const selected = [
+        ...usTF.slice(0, swap ? 3 : 4),
+        ...usMC.slice(0, swap ? 4 : 3),
+        ...ukTF.slice(0, swap ? 4 : 3),
+        ...ukMC.slice(0, swap ? 3 : 4),
+        ...otherTF.slice(0, 3),
+        ...otherMC.slice(0, 3)
+      ];
+
+      // Shuffle the 20 selected questions AND shuffle options for each MC question using Fisher-Yates
+      return fisherYatesShuffle(selected).map(q => {
+        if (q.type === "mc") {
+          return {
+            ...q,
+            shuffledOptions: fisherYatesShuffle(q.options)
+          };
+        }
+        return {
+          ...q,
+          shuffledOptions: ["True", "False"]
+        };
+      });
+    }
+
+    function startNewRound() {
+      currentRound = selectBalancedRound();
+      currentIndex = 0;
+      score = 0;
+      answered = false;
+      roundHistory = [];
+
+      document.getElementById("start-screen").classList.add("hidden");
+      document.getElementById("result-screen").classList.add("hidden");
+      document.getElementById("quiz-screen").classList.remove("hidden");
+      document.getElementById("review-list").classList.remove("show");
+
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      answered = false;
+      const q = currentRound[currentIndex];
+
+      document.getElementById("q-counter").textContent = `Question ${currentIndex + 1} of ${currentRound.length}`;
+      document.getElementById("live-score").textContent = `Score: ${score}`;
+      document.getElementById("progress-fill").style.width = `${((currentIndex) / currentRound.length) * 100}%`;
+
+      const regionBadge = document.getElementById("region-badge");
+      if (q.region === "US") {
+        regionBadge.textContent = "🇺🇸 U.S. Culture";
+        regionBadge.className = "tag tag-us";
+      } else if (q.region === "UK") {
+        regionBadge.textContent = "🇬🇧 British Culture";
+        regionBadge.className = "tag tag-uk";
+      } else {
+        regionBadge.textContent = "🌏 Global English Culture";
+        regionBadge.className = "tag tag-other";
+      }
+
+      document.getElementById("type-badge").textContent = q.type === "tf" ? "True / False" : "Multiple Choice";
+      document.getElementById("question-text").textContent = q.question;
+
+      const optionsContainer = document.getElementById("options-container");
+      optionsContainer.innerHTML = "";
+      optionsContainer.className = q.type === "tf" ? "options-list tf-grid" : "options-list";
+
+      q.shuffledOptions.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.dataset.value = optText;
+
+        const keyBadge = document.createElement("span");
+        keyBadge.className = "opt-key";
+        keyBadge.textContent = q.type === "tf" ? (optText === "True" ? "T" : "F") : String(idx + 1);
+
+        const labelSpan = document.createElement("span");
+        labelSpan.textContent = optText;
+
+        btn.appendChild(keyBadge);
+        btn.appendChild(labelSpan);
+        btn.onclick = () => handleAnswer(optText, btn);
+        optionsContainer.appendChild(btn);
+      });
+
+      const fb = document.getElementById("feedback-box");
+      fb.className = "feedback-box";
+      document.getElementById("next-wrap").className = "next-wrap";
+      document.getElementById("next-btn").textContent =
+        currentIndex === currentRound.length - 1 ? "See Final Results 🎉" : "Next Question →";
+    }
+
+    function handleAnswer(chosenValue, clickedBtn) {
+      if (answered) return;
+      answered = true;
+
+      const q = currentRound[currentIndex];
+      const isCorrect = chosenValue === q.answer;
+      if (isCorrect) score++;
+
+      document.getElementById("live-score").textContent = `Score: ${score}`;
+      document.getElementById("progress-fill").style.width = `${((currentIndex + 1) / currentRound.length) * 100}%`;
+
+      const buttons = document.querySelectorAll("#options-container .option-btn");
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        if (btn.dataset.value === q.answer) {
+          btn.classList.add("correct");
+        } else if (btn === clickedBtn && !isCorrect) {
+          btn.classList.add("wrong");
+        }
+      });
+
+      const fb = document.getElementById("feedback-box");
+      const fbTitle = document.getElementById("feedback-title");
+      const fbDesc = document.getElementById("feedback-desc");
+
+      fb.className = `feedback-box show ${isCorrect ? "correct" : "wrong"}`;
+      fbTitle.textContent = isCorrect ? "✅ Correct!" : `❌ Not quite — Answer: ${q.answer}`;
+      fbDesc.textContent = q.feedback;
+
+      document.getElementById("next-wrap").className = "next-wrap show";
+
+      roundHistory.push({
+        question: q.question,
+        region: q.region,
+        type: q.type,
+        chosen: chosenValue,
+        answer: q.answer,
+        isCorrect: isCorrect,
+        feedback: q.feedback
+      });
+    }
+
+    function nextQuestion() {
+      if (currentIndex < currentRound.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById("quiz-screen").classList.add("hidden");
+      document.getElementById("result-screen").classList.remove("hidden");
+
+      const total = currentRound.length;
+      const pct = Math.round((score / total) * 100);
+      document.getElementById("final-score").textContent = `${score}/${total}`;
+      document.getElementById("final-pct").textContent = `${pct}%`;
+
+      let rankTitle = "";
+      let rankMsg = "";
+      if (score >= 18) {
+        rankTitle = "🏆 Cultural Superstar!";
+        rankMsg = "Amazing work! You know your way around the English-speaking world like a true local.";
+      } else if (score >= 14) {
+        rankTitle = "🌟 Global Explorer!";
+        rankMsg = "Great score! You have a strong grasp of idioms, traditions, and cultural facts.";
+      } else if (score >= 10) {
+        rankTitle = "👏 Solid Effort!";
+        rankMsg = "Nice job! You already know plenty—play another round to discover even more surprises.";
+      } else {
+        rankTitle = "🧭 Curious Traveler!";
+        rankMsg = "Every round teaches you 20 new cultural facts and expressions. Try another round!";
+      }
+      document.getElementById("rank-title").textContent = rankTitle;
+      document.getElementById("rank-msg").textContent = rankMsg;
+
+      // Breakdown stats
+      const usItems = roundHistory.filter(i => i.region === "US");
+      const ukItems = roundHistory.filter(i => i.region === "UK");
+      const otherItems = roundHistory.filter(i => i.region === "Other");
+      const tfItems = roundHistory.filter(i => i.type === "tf");
+      const mcItems = roundHistory.filter(i => i.type === "mc");
+
+      const stats = [
+        { title: "🇺🇸 U.S. Culture", val: `${usItems.filter(i => i.isCorrect).length}/${usItems.length}` },
+        { title: "🇬🇧 British Culture", val: `${ukItems.filter(i => i.isCorrect).length}/${ukItems.length}` },
+        { title: "🌏 Global English", val: `${otherItems.filter(i => i.isCorrect).length}/${otherItems.length}` },
+        { title: "True / False", val: `${tfItems.filter(i => i.isCorrect).length}/${tfItems.length}` },
+        { title: "Multiple Choice", val: `${mcItems.filter(i => i.isCorrect).length}/${mcItems.length}` }
+      ];
+
+      const grid = document.getElementById("breakdown-grid");
+      grid.innerHTML = stats.map(s => `
+        <div class="b-card">
+          <div class="b-title">${s.title}</div>
+          <div class="b-val">${s.val}</div>
+        </div>
+      `).join("");
+
+      const reviewList = document.getElementById("review-list");
+      reviewList.innerHTML = roundHistory.map((item, idx) => `
+        <div class="review-item ${item.isCorrect ? "ok" : "no"}">
+          <div class="review-q">${idx + 1}. ${item.question}</div>
+          <div class="review-ans">
+            ${item.isCorrect ? "✅ Your answer:" : "❌ Your answer:"} <strong>${item.chosen}</strong>
+            ${!item.isCorrect ? ` | Correct: <strong>${item.answer}</strong>` : ""}<br/>
+            <em>${item.feedback}</em>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function toggleReview() {
+      document.getElementById("review-list").classList.toggle("show");
+    }
+
+    // Download self-contained HTML file
+    function downloadStandaloneHTML() {
+      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "english_culture_trivia_quiz_b1.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Keyboard accessibility
+    document.addEventListener("keydown", (e) => {
+      const quizVisible = !document.getElementById("quiz-screen").classList.contains("hidden");
+      if (!quizVisible) return;
+
+      const buttons = Array.from(document.querySelectorAll("#options-container .option-btn"));
+      if (!answered) {
+        const q = currentRound[currentIndex];
+        if (q.type === "tf") {
+          if (e.key.toLowerCase() === "t" || e.key === "1") buttons[0]?.click();
+          if (e.key.toLowerCase() === "f" || e.key === "2") buttons[1]?.click();
+        } else {
+          if (e.key === "1") buttons[0]?.click();
+          if (e.key === "2") buttons[1]?.click();
+          if (e.key === "3") buttons[2]?.click();
+        }
+      } else if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        nextQuestion();
+      }
+    });
+  </script>
+
+
+</body></html>
